@@ -2,19 +2,88 @@
 	import { sizeX } from '$lib/stores.js';
 </script>
 
-<a href="/simulation/play"><button>Start Simulation</button></a>
-<input bind:value={$sizeX} />
-<div class="tooltip">
-	Hover over me
-	<span class="tooltiptext">Tooltip text</span>
+<body>
+    <div class="flexCenter">
+	<a href="/simulation/play"><button >Start Simulation</button></a>
 </div>
+	<div id="grid">
+		<section>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex;
+        vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Sets the horizontal size of the simulation</span>
+				</div>
+				<p>SizeX:</p>
+				<input bind:value={$sizeX} />
+			</div>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex;
+        vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Sets the vertical size of the simulation</span>
+				</div>
+				<p>SizeY:</p>
+				<input bind:value={$sizeX} />
+			</div>
+            
+		</section>
+		<section>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex;
+        vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Tooltip text</span>
+				</div>
+				<p>SizeX:</p>
+				<input bind:value={$sizeX} />
+			</div>
+		</section>
+	</div>
+</body>
 
 <style>
+	body {
+		height: 100%;
+	}
+    .flexCenter{
+        display: flex;
+        padding-top: 2em;
+        justify-content: center;
+    }
+	#grid {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.gridItem p {
+		display: inline;
+	}
+	.gridItem {
+		padding: 1em;
+	}
 	/* Tooltip container */
 	.tooltip {
 		position: relative;
 		display: inline-block;
-		border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 	}
 
 	/* Tooltip text */
@@ -30,6 +99,10 @@
 		/* Position the tooltip text - see examples below! */
 		position: absolute;
 		z-index: 1;
+		width: 120px;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -60px;
 	}
 
 	/* Show the tooltip text when you mouse over the tooltip container */
