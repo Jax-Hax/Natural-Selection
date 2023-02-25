@@ -8,7 +8,7 @@ export const createScene = (canvas) => {
   const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 0, -20), scene);
   camera.setTarget(BABYLON.Vector3.Zero());
   camera.attachControl(canvas, true);
-
+  
   const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, -15), scene);
   light.intensity = 0.7;
 
