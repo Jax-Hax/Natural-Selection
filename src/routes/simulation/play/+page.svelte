@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
-	import { createScene } from './scene.js';
+	import { startGame } from './scene.js';
 	/**
 	 * @type {HTMLCanvasElement}
 	 */
 	let el;
 	onMount(() => {
-		createScene(el);
+		startGame(el);
 	});
 </script>
 

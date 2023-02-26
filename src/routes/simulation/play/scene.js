@@ -1,6 +1,7 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
+import { sizeX, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 
-export const createScene = (canvas) => {
+export const startGame = (canvas) => {
   const engine = new BABYLON.Engine(canvas, true);
   const scene = new BABYLON.Scene(engine);
   scene.clearColor = new BABYLON.Color4(0.9, 0.3, 0.3, 1);

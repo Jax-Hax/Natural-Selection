@@ -1,5 +1,5 @@
 <script>
-	import { sizeX } from '$lib/stores.js';
+	import { sizeX, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 	let current = 'mouse';
 </script>
 
@@ -19,10 +19,10 @@
 						help
 					</span>
 
-					<span class="tooltiptext">Number of generations</span>
+					<span class="tooltiptext">The simulation will stop as soon as a child that is this generation is born.</span>
 				</div>
 				<p>Generations:</p>
-				<input bind:value={$sizeX} />
+				<input bind:value={$generations} />
 			</div>
 			<div class="gridItem">
 				<div class="tooltip">
@@ -35,8 +35,8 @@
 
 					<span class="tooltiptext">Amount of mice at the first generation</span>
 				</div>
-				<p>AmMice</p>
-				<input bind:value={$sizeX} />
+				<p>AmMice:</p>
+				<input bind:value={$amMice} />
 			</div>
 			<div class="gridItem">
 				<div class="tooltip">
@@ -49,8 +49,8 @@
 
 					<span class="tooltiptext">Amount of snakes at the first generation</span>
 				</div>
-				<p>AmSnakes</p>
-				<input bind:value={$sizeX} />
+				<p>AmSnakes:</p>
+				<input bind:value={$amSnakes} />
 			</div>
 			<div class="gridItem">
 				<div class="tooltip">
@@ -63,8 +63,8 @@
 
 					<span class="tooltiptext">Amount of cats at the first generation</span>
 				</div>
-				<p>AmCats</p>
-				<input bind:value={$sizeX} />
+				<p>AmCats:</p>
+				<input bind:value={$amCats} />
 			</div>
 		</section>
 		<section>
