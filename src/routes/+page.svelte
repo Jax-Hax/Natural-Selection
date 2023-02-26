@@ -27,6 +27,16 @@ body { min-height: 100%; overflow:hidden}
 		font-size: 3.5rem;
 		color: white;
 	}
+	button:hover {
+		background-color: white; /* Green */
+		box-shadow: 0 4px;
+		color: #0077b6;
+		transform: translateY(-0.25em);
+		transition: transform 0.25s;
+		border: -2px solid #0077b6; /* Green */
+		border-width: 1px;
+		border-style: solid;
+	}
 	#attentioncatcher p {
 		color: white;
 		font-size: 1.5rem;
