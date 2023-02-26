@@ -1,18 +1,78 @@
 <script>
 	import { sizeX } from '$lib/stores.js';
+	let current = 'mouse';
 </script>
 
 <body>
-    <div class="flexCenter">
-	<a href="/simulation/play"><button >Start Simulation</button></a>
-</div>
+	<div class="flexCenter">
+		<a href="/simulation/play"><button>Start Simulation</button></a>
+	</div>
 	<div id="grid">
 		<section>
+			<h1>Basic</h1>
 			<div class="gridItem">
 				<div class="tooltip">
 					<span
-						style="display: inline-flex;
-        vertical-align: top; font-size: 15px !important;"
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Number of generations</span>
+				</div>
+				<p>Generations:</p>
+				<input bind:value={$sizeX} />
+			</div>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Amount of mice at the first generation</span>
+				</div>
+				<p>AmMice</p>
+				<input bind:value={$sizeX} />
+			</div>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Amount of snakes at the first generation</span>
+				</div>
+				<p>AmSnakes</p>
+				<input bind:value={$sizeX} />
+			</div>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+						class="material-symbols-outlined"
+					>
+						help
+					</span>
+
+					<span class="tooltiptext">Amount of cats at the first generation</span>
+				</div>
+				<p>AmCats</p>
+				<input bind:value={$sizeX} />
+			</div>
+		</section>
+		<section>
+			<h1>Advanced</h1>
+			<div class="gridItem">
+				<div class="tooltip">
+					<span
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
 						class="material-symbols-outlined"
 					>
 						help
@@ -26,8 +86,7 @@
 			<div class="gridItem">
 				<div class="tooltip">
 					<span
-						style="display: inline-flex;
-        vertical-align: top; font-size: 15px !important;"
+						style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
 						class="material-symbols-outlined"
 					>
 						help
@@ -38,24 +97,162 @@
 				<p>SizeY:</p>
 				<input bind:value={$sizeX} />
 			</div>
-            
-		</section>
-		<section>
-			<div class="gridItem">
-				<div class="tooltip">
-					<span
-						style="display: inline-flex;
-        vertical-align: top; font-size: 15px !important;"
-						class="material-symbols-outlined"
-					>
-						help
-					</span>
+			<h3 style="padding-bottom: 0.2em">Genes</h3>
+			<button
+				class:tab={current != 'mouse'}
+				class:selected={current === 'mouse'}
+				on:click={() => (current = 'mouse')}>Mouse</button
+			>
+			<button
+				class:tab={current != 'snake'}
+				class:selected={current === 'snake'}
+				on:click={() => (current = 'snake')}>Snake</button
+			>
+			<button
+				class:tab={current != 'cat'}
+				class:selected={current === 'cat'}
+				on:click={() => (current = 'cat')}>Cat</button
+			>
+			{#if current === 'mouse'}
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
 
-					<span class="tooltiptext">Tooltip text</span>
+						<span class="tooltiptext">Sets the speed at which the mouse moves</span>
+					</div>
+					<p>speed:</p>
+					<input bind:value={$sizeX} />
 				</div>
-				<p>SizeX:</p>
-				<input bind:value={$sizeX} />
-			</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the speed at which the mouse loses hunger.</span>
+					</div>
+					<p>fatigue:</p>
+					<input bind:value={$sizeX} />
+				</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">The starting hunger of each new mouse.</span>
+					</div>
+					<p>maxHunger</p>
+					<input bind:value={$sizeX} />
+				</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>sna:</p>
+					<input bind:value={$sizeX} />
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top;"
+							class="material-symbols-outlined"
+						>
+							sync
+						</span>
+
+						<span class="tooltiptext">Sets the same gene configuration on the other two animals</span>
+					</div>
+				</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>sna:</p>
+					<input bind:value={$sizeX} />
+				</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>sna:</p>
+					<input bind:value={$sizeX} />
+				</div>
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>sna:</p>
+					<input bind:value={$sizeX} />
+				</div>
+			{:else if current === 'snake'}
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>sna:</p>
+					<input bind:value={$sizeX} />
+				</div>
+			{:else}
+				<div class="gridItem">
+					<div class="tooltip">
+						<span
+							style="display: inline-flex; vertical-align: top; font-size: 15px !important;"
+							class="material-symbols-outlined"
+						>
+							help
+						</span>
+
+						<span class="tooltiptext">Sets the vertical size of the simulation</span>
+					</div>
+					<p>ca</p>
+					<input bind:value={$sizeX} />
+				</div>
+			{/if}
 		</section>
 	</div>
 </body>
@@ -64,15 +261,44 @@
 	body {
 		height: 100%;
 	}
-    .flexCenter{
-        display: flex;
-        padding-top: 2em;
-        justify-content: center;
-    }
+	.selected {
+		background-color: #fb8500;
+		border: none;
+		color: white;
+		padding: 0.25em 1em;
+		border-radius: 7px 7px 0 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 0.7rem;
+		border: 1px solid #fb8500;
+	}
+	.tab {
+		background-color: #0077b6;
+		border: none;
+		color: white;
+		padding: 0.25em 1em;
+		border-radius: 7px 7px 0 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 0.7rem;
+		border: 1px solid #0077b6; /* Green */
+	}
+	.tab:hover {
+		background-color: white; /* Green */
+		color: #0077b6;
+		border: 1px solid #0077b6; /* Green */
+	}
+	.flexCenter {
+		display: flex;
+		padding-top: 2em;
+		justify-content: center;
+	}
 	#grid {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-around;
 	}
 	.gridItem p {
 		display: inline;
@@ -93,16 +319,14 @@
 		background-color: black;
 		color: #fff;
 		text-align: center;
-		padding: 5px 0;
+		padding: 5px 1em;
 		border-radius: 6px;
 
 		/* Position the tooltip text - see examples below! */
 		position: absolute;
 		z-index: 1;
-		width: 120px;
-		bottom: 100%;
-		left: 50%;
-		margin-left: -60px;
+		top: -5px;
+		right: 105%;
 	}
 
 	/* Show the tooltip text when you mouse over the tooltip container */
