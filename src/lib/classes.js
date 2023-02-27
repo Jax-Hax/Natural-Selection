@@ -1,7 +1,7 @@
 class Mouse {
-    public let posX;
-    public let posY;
-    public let generation;
+    let posX;
+    let posY;
+    let generation;
     constructor(posX, posY, generation) {
       this.posX = posX;
       this.posY = posY;
