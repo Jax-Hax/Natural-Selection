@@ -2,30 +2,47 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import { sizeX, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 
 export const startGame = (canvas) => {
-  const engine = new BABYLON.Engine(canvas, true);
-  const scene = new BABYLON.Scene(engine);
-  scene.clearColor = new BABYLON.Color4(0.9, 0.3, 0.3, 1);
-  scene.debugLayer.show({handleResize: true, overlay: true});
-  const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 0, -20), scene);
-  camera.setTarget(BABYLON.Vector3.Zero());
-  camera.attachControl(canvas, true);
-  
-  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, -15), scene);
-  light.intensity = 0.7;
+	var engine = new BABYLON.Engine(canvas);
+	var scene = new BABYLON.Scene(engine);
+	scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+	var camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene);
+	var light = new BABYLON.PointLight('light', new BABYLON.Vector3(10, 10, 0), scene);
 
-  const material = new BABYLON.StandardMaterial("material", scene);
-  material.emissiveColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+	var box = BABYLON.Mesh.CreateBox('box', 2, scene);
+	box.rotation.x = -0.2;
+	box.rotation.y = -0.4;
 
-  const cube = BABYLON.MeshBuilder.CreateBox("cube", { height: 5, width: 5, depth: 5 }, scene);
-  cube.material = material;
+	var boxMaterial = new BABYLON.StandardMaterial('material', scene);
+	boxMaterial.emissiveColor = new BABYLON.Color3(0, 0.58, 0.86);
+	box.material = boxMaterial;
 
-  engine.runRenderLoop(() => {
-    scene.render();
-  });
+	var torus = BABYLON.Mesh.CreateTorus('torus', 2, 0.5, 15, scene);
+	torus.position.x = -5;
+	torus.rotation.x = 1.5;
 
-  window.addEventListener('resize', () => {
-    engine.resize();
-  });
+	var torusMaterial = new BABYLON.StandardMaterial('material', scene);
+	torusMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+	torus.material = torusMaterial;
 
-  return scene;
-}
+	var cylinder = BABYLON.Mesh.CreateCylinder('cylinder', 2, 2, 2, 12, 1, scene);
+	cylinder.position.x = 5;
+	cylinder.rotation.x = -0.2;
+
+	var cylinderMaterial = new BABYLON.StandardMaterial('material', scene);
+	cylinderMaterial.emissiveColor = new BABYLON.Color3(1, 0.58, 0);
+	cylinder.material = cylinderMaterial;
+
+	var t = 0;
+	var renderLoop = function () {
+		scene.render();
+		t -= 0.01;
+		box.rotation.y = t * 2;
+		torus.scaling.z = Math.abs(Math.sin(t * 2)) + 0.5;
+		cylinder.position.y = Math.sin(t * 3);
+	};
+  var initScene = function () {
+    
+  };
+	engine.runRenderLoop(renderLoop);
+	return scene;
+};
