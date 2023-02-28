@@ -1,3 +1,4 @@
+in real life, the animals movement would be slightly different, as they would stop moving and sleep and other things. This is shown with the mice stopping, but not with others, because it is easier to see what mice are currently in the rest phase if they only stop during it.
 <style>
     button:hover {
 		background-color: white; /* Green */
