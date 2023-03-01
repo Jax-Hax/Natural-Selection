@@ -1,13 +1,25 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
-import { sizeX, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
-
-export const startGame = (canvas) => {
-	var engine = new BABYLON.Engine(canvas);
-	var scene = new BABYLON.Scene(engine);
+import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
+var engine,scene,camera,light,ground;
+function createScene(canvas){
+    engine = new BABYLON.Engine(canvas);
+	scene = new BABYLON.Scene(engine);
 	scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8);
-	var camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene);
-	var light = new BABYLON.PointLight('light', new BABYLON.Vector3(10, 10, 0), scene);
+	camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 0, -20), scene);
+	camera.setTarget(BABYLON.Vector3.Zero());
+  	camera.attachControl(canvas, true);
+	light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, -15), scene);
+  	light.intensity = 0.7;
+  	ground = BABYLON.MeshBuilder.CreateGround("ground", {height: sizeX, width: sizeY, subdivisions: 1});
+}
+function initFirstGen(){
+	for (let i = 0; i < amMice.length; i++) {
 
+	}
+}
+function gameLoop(canvas){
+	createScene(canvas);
+  	initFirstGen();
 	var box = BABYLON.Mesh.CreateBox('box', 2, scene);
 	box.rotation.x = -0.2;
 	box.rotation.y = -0.4;
@@ -45,4 +57,8 @@ export const startGame = (canvas) => {
   };
 	engine.runRenderLoop(renderLoop);
 	return scene;
+}
+const startGame = (canvas) => {
+	gameLoop(canvas);
 };
+export {startGame};
