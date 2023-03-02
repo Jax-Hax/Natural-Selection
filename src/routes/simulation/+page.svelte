@@ -1,5 +1,5 @@
 <script>
-	import { sizeX, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
+	import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 	let current = 'mouse';
 </script>
 
@@ -7,6 +7,7 @@
 	<div class="flexCenter">
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
+	controls: wasd or arrows to move, or both to go double times as fast, click to pan, scroll to zoom
 	<div id="grid">
 		<section>
 			<h1>Basic</h1>
@@ -95,7 +96,7 @@
 					<span class="tooltiptext">Sets the vertical size of the simulation</span>
 				</div>
 				<p>SizeY:</p>
-				<input bind:value={$sizeX} />
+				<input bind:value={$sizeY} />
 			</div>
 			<h3 style="padding-bottom: 0.2em">Genes</h3>
 			<button
