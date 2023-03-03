@@ -8,6 +8,7 @@
 	onMount(() => {
 		startGame(el);
 	});
+	
 </script>
 
 <body>
