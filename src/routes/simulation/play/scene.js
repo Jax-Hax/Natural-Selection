@@ -5,12 +5,11 @@ const mice = [];
 const cats = [];
 const snakes = [];
 function createScene(canvas){
-	console.log(sizeX);
     engine = new BABYLON.Engine(canvas);
 	scene = new BABYLON.Scene(engine);
 	scene.debugLayer.show();
 	scene.clearColor = new BABYLON.Color3(0, 50, 25);
-	camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 1, -sizeY), scene);
+	camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 1, -100/*sizeY*/), scene);
     camera.attachControl(canvas, true);
     camera.checkCollisions = true;
     camera.speed = 1;
@@ -21,10 +20,11 @@ camera.keysRight.push(68); // “d”
     camera.inputs.addMouseWheel();
 	light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, -15), scene);
   	light.intensity = 0.5;
-  	ground = BABYLON.MeshBuilder.CreateGround("ground", {height: 100/*sizeX*/, width: 400/*sizeY*/, subdivisions: 1});
+  	ground = BABYLON.MeshBuilder.CreateGround("ground", {height: 100/*$sizeX*/, width: 400/*sizeY*/, subdivisions: 1});
 	var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
 	groundMaterial.backFaceCulling = false;
 	ground.material = groundMaterial;
+	
 }
 function initFirstGen(){
 	for (let i = 0; i < 5/*amMice.length*/; i++) {
