@@ -15,7 +15,7 @@
 		scene = new BABYLON.Scene(engine);
 		scene.debugLayer.show();
 		scene.clearColor = new BABYLON.Color3(0, 50, 25);
-		$:camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 1, $sizeY), scene);
+		camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 1, $sizeY), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
 		camera.speed = 1;
@@ -36,8 +36,8 @@
 		ground.material = groundMaterial;
 	}
 	function initFirstGen() {
-		for (let i = 0; i < 5 /*amMice.length*/; i++) {
-			let mouse = new Mouse(10, 10, 1);
+		for (let i = 0; i < $amMice.length; i++) {
+			let mouse = new Mouse(Math.random() * $sizeX, Math.random() * $sizeY, 1);
 		}
 	}
 	function gameLoop(canvas) {
