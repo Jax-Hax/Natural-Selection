@@ -8,7 +8,7 @@
 import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 var engine, scene, camera, light, ground, mouse, cat, snake;
 const mice = [];
-const cats = [];//test
+const cats = [];
 const snakes = [];
 function createScene(canvas) {
 	engine = new BABYLON.Engine(canvas);
