@@ -15,7 +15,11 @@
 		minMiceCamouflage,
 		maxMiceCamouflage,
 		minMiceSpeed,
-		maxMiceSpeed
+		maxMiceSpeed,
+		minSnakeCamouflage,
+		maxSnakeCamouflage,
+		minSnakeSpeed,
+		maxSnakeSpeed
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine, scene, camera, light, ground, mouse, cat, snake;
@@ -49,6 +53,61 @@
 		ground.material = groundColor;
 	}
 	function makeFirstGeneration() {
+		//mice
+		for (let i = 0; i < $amMice; i++) {
+			let mouse = new Mouse(
+				randBtwNums(-$sizeX / 2, $sizeX / 2),
+				randBtwNums(-$sizeY / 2, $sizeY / 2),
+				randBtwNums($minMiceSpeed, $maxMiceSpeed),
+				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
+			);
+			const mouseShape = BABYLON.MeshBuilder.CreateBox('box', { width: 1, height: 0.75, depth: 2 });
+			mouseShape.position.x = mouse.posX;
+			mouseShape.position.y = 0.38;
+			mouseShape.position.z = mouse.posY;
+			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			if (Math.random() >= 0.5) {
+				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
+			} else {
+				var camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
+			}
+			const mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
+			mouseColor.diffuseColor = new BABYLON.Color3(
+				camouflageColor[0],
+				camouflageColor[1],
+				camouflageColor[2]
+			);
+			mouseShape.material = mouseColor;
+			mice.push(mouse);
+		}
+		//snakes
+		for (let i = 0; i < $amMice; i++) {
+			let snake = new Snake(
+				randBtwNums(-$sizeX / 2, $sizeX / 2),
+				randBtwNums(-$sizeY / 2, $sizeY / 2),
+				randBtwNums($minSnakeSpeed, $maxSnakeSpeed),
+				randBtwNums($minSnakeCamouflage, $maxSnakeCamouflage)
+			);
+			const snakeShape = BABYLON.MeshBuilder.CreateBox('box', { width: 2, height: 1.5, depth: 7 });
+			snakeShape.position.x = snake.posX;
+			snakeShape.position.y = 0.76;
+			snakeShape.position.z = snake.posY;
+			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			if (Math.random() >= 0.5) {
+				var camouflageColor = hsv2rgb(121.29 - snake.camouflage * 2, 1, 0.73);
+			} else {
+				var camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
+			}
+			const snakeColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
+			snakeColor.diffuseColor = new BABYLON.Color3(
+				camouflageColor[0],
+				camouflageColor[1],
+				camouflageColor[2]
+			);
+			snakeShape.material = snakeColor;
+			snakes.push(snake);
+		}
+		//cats
 		for (let i = 0; i < $amMice; i++) {
 			let mouse = new Mouse(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
@@ -94,6 +153,26 @@
 		gameLoop(canvas);
 	};
 	class Mouse {
+		constructor(posX, posY, speed, camouflage) {
+			this.posX = posX;
+			this.posY = posY;
+			this.speed = speed;
+			this.camouflage = camouflage;
+			this.preyListValue = this.speed - this.camouflage;
+			this.reproductiveListValue = 0;
+		}
+	}
+	class Snake {
+		constructor(posX, posY, speed, camouflage) {
+			this.posX = posX;
+			this.posY = posY;
+			this.speed = speed;
+			this.camouflage = camouflage;
+			this.preyListValue = this.speed - this.camouflage;
+			this.reproductiveListValue = 0;
+		}
+	}
+	class Cat {
 		constructor(posX, posY, speed, camouflage) {
 			this.posX = posX;
 			this.posY = posY;
