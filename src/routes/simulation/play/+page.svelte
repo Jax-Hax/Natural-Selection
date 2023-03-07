@@ -8,9 +8,9 @@
 import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
 //const sizeX = 100, sizeY = 100, amMice = 5;
 var engine, scene, camera, light, ground, mouse, cat, snake;
-const micePreyList = [];
-const snakePreyList = [];
-const catPreyList = [];
+const mice = [];
+const snakes = [];
+const cats = [];
 function createScene(canvas) {
 	engine = new BABYLON.Engine(canvas);
 	scene = new BABYLON.Scene(engine);
@@ -40,10 +40,10 @@ function createScene(canvas) {
 	ground.material = groundMaterial;
 }
 function makeFirstGeneration(){
-	for (let i = 0; i < amMice.length; i++) {
-		let mouse = new Mouse(10, 10);
-		const mouse2 = BABYLON.MeshBuilder.CreateBox("box", {width: 2, height: 1.5, depth: 3})
-		micePreyList.push(mouse.preyListValue());
+	for (let i = 0; i < amMice; i++) {
+		let mouse = new Mouse(10, 10,10,10);
+		var mouse2 = BABYLON.MeshBuilder.CreateBox("box", 100, scene)
+		mice.push(mouse);
 	}
 }
 function gameLoop(canvas) {
@@ -68,13 +68,8 @@ class Mouse {
     this.posY = posY;
 		this.speed = speed;
 		this.camouflage = camouflage;
-  }
-  preyListValue() {
-    return this.speed - this.camouflage;
-  }
-  reproductiveListValue() {
-    let date = new Date();
-    return date.getFullYear() - this.year;
+		this.preyListValue = this.speed - this.camouflage;
+		this.reproductiveListValue = 0;
   }
 }
 </script>
