@@ -5,10 +5,20 @@
 		startGame(el);
 	});
 	import * as BABYLON from '@babylonjs/core/Legacy/legacy';
-	import { sizeX, sizeY, generations, amMice, amSnakes, amCats, minMiceCamouflage, maxMiceCamouflage} from '$lib/stores.js';
+	import {
+		sizeX,
+		sizeY,
+		generations,
+		amMice,
+		amSnakes,
+		amCats,
+		minMiceCamouflage,
+		maxMiceCamouflage,
+		minMiceSpeed,
+		maxMiceSpeed
+	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
-	var engine, scene, camera, light, ground, mouse, cat, snake;
-	var mouseColor;
+	var engine, scene, camera, light, ground, mouse, cat, snake, mouseColor, groundColor;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -32,11 +42,11 @@
 			width: $sizeY,
 			subdivisions: 1
 		});
-		var groundMaterial = new BABYLON.StandardMaterial('groundMaterial', scene);
-		groundMaterial.diffuseColor = new BABYLON.Color3(0, 0.737, 0.016);
+		groundColor = new BABYLON.StandardMaterial('groundColor', scene);
+		groundColor.diffuseColor = new BABYLON.Color3(0, 0.737, 0.016);
 
-		groundMaterial.backFaceCulling = false;
-		ground.material = groundMaterial;
+		groundColor.backFaceCulling = false;
+		ground.material = groundColor;
 		mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
 		mouseColor.diffuseColor = new BABYLON.Color3(1, 0, 1);
 	}
@@ -45,22 +55,30 @@
 			let mouse = new Mouse(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
-				randBtwNums,
-				10
+				randBtwNums($minMiceSpeed, $maxMiceSpeed),
+				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
+				
 			);
-			const box = BABYLON.MeshBuilder.CreateBox('box', { width: 2, height: 1.5, depth: 3 });
-			box.position.x = mouse.posX;
-			box.position.y = 0.76;
-			box.position.z = mouse.posY;
-			box.material = mouseColor;
+			const mouseShape = BABYLON.MeshBuilder.CreateBox('box', { width: 2, height: 1.5, depth: 3 });
+			mouseShape.position.x = mouse.posX;
+			mouseShape.position.y = 0.76;
+			mouseShape.position.z = mouse.posY;
+			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			if(Math.random() >= 0.5){
+				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage*2,1,0.73);
+				console.log(121.29 - mouse.camouflage*2);
+			}
+			else{
+				var camouflageColor = hsv2rgb(121.29 + mouse.camouflage*2,1,0.73);
+				console.log(121.29 + mouse.camouflage*2 + ",     1");
+			}
+			
+			mouseColor.diffuseColor = new BABYLON.Color3(camouflageColor[0],camouflageColor[1],camouflageColor[2]);
+			mouseShape.material = mouseColor;
 			mice.push(mouse);
 		}
 	}
-	function randBtwNums(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min) + min);
-	}
+
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
@@ -86,6 +104,17 @@
 			this.preyListValue = this.speed - this.camouflage;
 			this.reproductiveListValue = 0;
 		}
+	}
+
+	//Functions for things that are used often, but not a part of game function
+	function hsv2rgb(h, s, v) {
+		let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
+		return [f(5), f(3), f(1)];
+	}
+	function randBtwNums(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min) + min);
 	}
 </script>
 
