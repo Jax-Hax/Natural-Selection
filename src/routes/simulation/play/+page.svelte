@@ -43,7 +43,11 @@ function makeFirstGeneration(){
 	for (let i = 0; i < amMice.length; i++) {
 		let mouse = new Mouse(10, 10, 1);
 		const mouse2 = BABYLON.MeshBuilder.CreateBox("box", {width: 2, height: 1.5, depth: 3})
+		addMouseToIntervalList();
 	}
+}
+function addMouseToIntervalList(Mouse mouse){
+
 }
 function gameLoop(canvas) {
 	createScene(canvas);
