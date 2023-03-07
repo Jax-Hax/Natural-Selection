@@ -38,12 +38,15 @@ function createScene(canvas) {
 	var groundMaterial = new BABYLON.StandardMaterial('groundMaterial', scene);
 	groundMaterial.backFaceCulling = false;
 	ground.material = groundMaterial;
+	//mouseMaterial.diffuseColor = new BABYLON.Color3(1, 0, 1);
 }
 function makeFirstGeneration(){
 	for (let i = 0; i < amMice; i++) {
-		let mouse = new Mouse(10, 10,10,10);
-		var mouse2 = BABYLON.MeshBuilder.CreateBox("box", 100, scene)
-		mice.push(mouse);
+		//let mouse = new Mouse(10, 10,10,10);
+		var mouse2 = BABYLON.MeshBuilder.CreateBox("box", 100, scene);
+		var mouseMaterial = new BABYLON.StandardMaterial("mouseMaterial", scene);
+		mouse2.material = mouseMaterial;
+		//mice.push(mouse);
 	}
 }
 function gameLoop(canvas) {
