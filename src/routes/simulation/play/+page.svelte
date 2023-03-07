@@ -18,7 +18,7 @@
 		maxMiceSpeed
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
-	var engine, scene, camera, light, ground, mouse, cat, snake, mouseColor, groundColor;
+	var engine, scene, camera, light, ground, mouse, cat, snake;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -42,13 +42,11 @@
 			width: $sizeY,
 			subdivisions: 1
 		});
-		groundColor = new BABYLON.StandardMaterial('groundColor', scene);
+		const groundColor = new BABYLON.StandardMaterial('groundColor', scene);
 		groundColor.diffuseColor = new BABYLON.Color3(0, 0.737, 0.016);
 
 		groundColor.backFaceCulling = false;
 		ground.material = groundColor;
-		mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
-		mouseColor.diffuseColor = new BABYLON.Color3(1, 0, 1);
 	}
 	function makeFirstGeneration() {
 		for (let i = 0; i < $amMice; i++) {
@@ -57,23 +55,23 @@
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
 				randBtwNums($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
-				
 			);
 			const mouseShape = BABYLON.MeshBuilder.CreateBox('box', { width: 2, height: 1.5, depth: 3 });
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.76;
 			mouseShape.position.z = mouse.posY;
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
-			if(Math.random() >= 0.5){
-				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage*2,1,0.73);
-				console.log(121.29 - mouse.camouflage*2);
+			if (Math.random() >= 0.5) {
+				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
+			} else {
+				var camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			else{
-				var camouflageColor = hsv2rgb(121.29 + mouse.camouflage*2,1,0.73);
-				console.log(121.29 + mouse.camouflage*2 + ",     1");
-			}
-			
-			mouseColor.diffuseColor = new BABYLON.Color3(camouflageColor[0],camouflageColor[1],camouflageColor[2]);
+			const mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
+			mouseColor.diffuseColor = new BABYLON.Color3(
+				camouflageColor[0],
+				camouflageColor[1],
+				camouflageColor[2]
+			);
 			mouseShape.material = mouseColor;
 			mice.push(mouse);
 		}
