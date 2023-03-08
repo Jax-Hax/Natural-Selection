@@ -81,6 +81,7 @@
 				camouflageColor[2]
 			);
 			mouseShape.material = mouseColor;
+			mouse.model = catShape;
 			mice.push(mouse);
 		}
 		//snakes
@@ -109,6 +110,7 @@
 				camouflageColor[2]
 			);
 			snakeShape.material = snakeColor;
+			snake.model = catShape;
 			snakes.push(snake);
 		}
 		//cats
@@ -126,11 +128,14 @@
 			const catColor = new BABYLON.StandardMaterial('catMaterial', scene);
 			catColor.diffuseColor = new BABYLON.Color3(0.557,0.557,0.557);
 			catShape.material = catColor;
+			cat.model = catShape;
 			cats.push(cat);
 		}
 	}
 	function checkEachMouse(){
-
+		for (let i = 0; i < mice.length; i++) {
+			mice[i].model.position.x = 100;
+		}
 	}
 	function gameLoop(canvas) {
 		createScene(canvas);
