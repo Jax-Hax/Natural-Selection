@@ -163,6 +163,9 @@
 			this.preyListValue = this.speed - this.camouflage;
 			this.reproductiveListValue = 0;
 		}
+		set model(model) {
+    this.model = model;
+  }
 	}
 	class Snake {
 		constructor(posX, posY, speed, camouflage) {
