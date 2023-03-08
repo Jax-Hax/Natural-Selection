@@ -67,16 +67,17 @@
 				randBtwNums($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
 			);
-			const mouseShape = mouseMainModel.createInstance("mouse" + index);
+			const mouseShape = mouseMainModel.createInstance("mouse" + i);
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
 			mouseShape.rotation.y = randBtwDecimals(-3.14,3.14);
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			var camouflageColor;
 			if (Math.random() >= 0.5) {
-				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
+				camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
 			} else {
-				var camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
+				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
 			const mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
 			mouseColor.diffuseColor = new BABYLON.Color4(
@@ -103,10 +104,11 @@
 			snakeShape.position.z = snake.posY;
 			snakeShape.rotation.y = randBtwDecimals(-3.14,3.14);
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			var camouflageColor;
 			if (Math.random() >= 0.5) {
-				var camouflageColor = hsv2rgb(121.29 - snake.camouflage * 2, 1, 0.73);
+				camouflageColor = hsv2rgb(121.29 - snake.camouflage * 2, 1, 0.73);
 			} else {
-				var camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
+				camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
 			}
 			const snakeColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
 			snakeColor.diffuseColor = new BABYLON.Color3(
