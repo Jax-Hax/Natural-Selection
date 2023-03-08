@@ -143,7 +143,7 @@
 				camouflageColor[2],
 				1
 			);
-			//snake.model = snakeShape;
+			snake.model = snakeShape;
 			snakes.push(snake);
 		}
 		//cats
@@ -158,7 +158,7 @@
 			catShape.position.y = 0.76;
 			catShape.position.z = cat.posY;
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
-			//cat.model = catShape;
+			cat.model = catShape;
 			cats.push(cat);
 		}
 	}
@@ -197,6 +197,7 @@
 	}
 	class Snake {
 		constructor(posX, posY, speed, camouflage) {
+			this.model;
 			this.posX = posX;
 			this.posY = posY;
 			this.speed = speed;
@@ -207,6 +208,7 @@
 	}
 	class Cat {
 		constructor(posX, posY, speed) {
+			this.model;
 			this.posX = posX;
 			this.posY = posY;
 			this.speed = speed;
