@@ -67,6 +67,7 @@
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
+			mouseShape.rotation.y = randBtwDecimals(-3.14,3.14);
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
 			if (Math.random() >= 0.5) {
 				var camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
@@ -94,6 +95,7 @@
 			snakeShape.position.x = snake.posX;
 			snakeShape.position.y = 0.76;
 			snakeShape.position.z = snake.posY;
+			snakeShape.rotation.y = randBtwDecimals(-3.14,3.14);
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
 			if (Math.random() >= 0.5) {
 				var camouflageColor = hsv2rgb(121.29 - snake.camouflage * 2, 1, 0.73);
@@ -120,17 +122,21 @@
 			catShape.position.x = cat.posX;
 			catShape.position.y = 0.76;
 			catShape.position.z = cat.posY;
+			catShape.rotation.y = randBtwDecimals(-3.14,3.14);
 			const catColor = new BABYLON.StandardMaterial('catMaterial', scene);
 			catColor.diffuseColor = new BABYLON.Color3(0.557,0.557,0.557);
 			catShape.material = catColor;
 			cats.push(cat);
 		}
 	}
+	function checkEachMouse(){
 
+	}
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
 		var renderLoop = function () {
+			checkEachMouse();
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
@@ -181,6 +187,9 @@
 		min = Math.ceil(min);
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min) + min);
+	}
+	function randBtwDecimals(min, max) {
+		return Math.random() * (max - min) + min;
 	}
 </script>
 
