@@ -55,6 +55,7 @@
 		ground.material = groundColor;
 		mouseMainModel = BABYLON.MeshBuilder.CreateBox('box', { width: 1, height: 0.75, depth: 2 });
 		mouseMainModel.registerInstancedBuffer("color", 4);
+		box.instancedBuffers.color = new BABYLON.Color4(Math.random(), Math.random(), Math.random(), 1);
 		mouseMainModel.setEnabled(false);
 	}
 	function makeFirstGeneration() {
@@ -66,7 +67,7 @@
 				randBtwNums($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
 			);
-			const mouseShape = new BABYLON.InstancedMesh("mouse-" + i, mouseMainModel);
+			const mouseShape = mouseMainModel.createInstance("mouse" + index);
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
@@ -85,7 +86,7 @@
 				1
 			);
 			mouseShape.instancedBuffers.color = mouseColor;
-			mouse.model = mouseShape;
+			//mouse.model = mouseShape;
 			mice.push(mouse);
 		}
 		//snakes
@@ -138,7 +139,7 @@
 	}
 	function checkEachMouse(){
 		for (let i = 0; i < mice.length; i++) {
-			mice[i].model.position.x = 100;
+			//mice[i].model.position.x = 100;
 		}
 	}
 	function gameLoop(canvas) {
