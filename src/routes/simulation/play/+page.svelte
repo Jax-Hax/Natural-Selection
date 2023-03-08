@@ -53,9 +53,9 @@
 
 		groundColor.backFaceCulling = false;
 		ground.material = groundColor;
-		mouseMainModel = BABYLON.MeshBuilder.CreateBox('box', { width: 1, height: 0.75, depth: 2 });
+		mouseMainModel = BABYLON.MeshBuilder.CreateBox('mouseModel', { width: 1, height: 0.75, depth: 2 });
 		mouseMainModel.registerInstancedBuffer("color", 4);
-		box.instancedBuffers.color = new BABYLON.Color4(Math.random(), Math.random(), Math.random(), 1);
+		mouseMainModel.instancedBuffers.color = new BABYLON.Color4(Math.random(), Math.random(), Math.random(), 1);
 		mouseMainModel.setEnabled(false);
 	}
 	function makeFirstGeneration() {
@@ -79,14 +79,12 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			const mouseColor = new BABYLON.StandardMaterial('mouseMaterial', scene);
-			mouseColor.diffuseColor = new BABYLON.Color4(
+			mouseShape.instancedBuffers.color = new BABYLON.Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
 				1
-			);
-			mouseShape.instancedBuffers.color = mouseColor;
+			);;
 			//mouse.model = mouseShape;
 			mice.push(mouse);
 		}
@@ -117,7 +115,7 @@
 				camouflageColor[2]
 			);
 			snakeShape.material = snakeColor;
-			snake.model = snakeShape;
+			//snake.model = snakeShape;
 			snakes.push(snake);
 		}
 		//cats
@@ -135,7 +133,7 @@
 			const catColor = new BABYLON.StandardMaterial('catMaterial', scene);
 			catColor.diffuseColor = new BABYLON.Color3(0.557,0.557,0.557);
 			catShape.material = catColor;
-			cat.model = catShape;
+			//cat.model = catShape;
 			cats.push(cat);
 		}
 	}
