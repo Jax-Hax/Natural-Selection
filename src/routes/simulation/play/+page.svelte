@@ -164,7 +164,7 @@
 	}
 	function checkEachMouse() {
 		for (let i = 0; i < mice.length; i++) {
-			//mice[i].model.position.x = 100;
+			mice[i].model.position.x = 100;
 		}
 	}
 	function gameLoop(canvas) {
