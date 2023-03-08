@@ -14,6 +14,8 @@
 		amCats,
 		minMiceCamouflage,
 		maxMiceCamouflage,
+		minMiceVision,
+		maxMiceVision,
 		minMiceSpeed,
 		maxMiceSpeed,
 		minSnakeCamouflage,
@@ -83,8 +85,8 @@
 			depth: 3
 		});
 		const catColor = new BABYLON.StandardMaterial('catMaterial', scene);
-			catColor.diffuseColor = new BABYLON.Color3(0.557, 0.557, 0.557);
-			catMainModel.material = catColor;
+		catColor.diffuseColor = new BABYLON.Color3(0.557, 0.557, 0.557);
+		catMainModel.material = catColor;
 		catMainModel.setEnabled(false);
 	}
 	function makeFirstGeneration() {
@@ -94,7 +96,8 @@
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
 				randBtwNums($minMiceSpeed, $maxMiceSpeed),
-				randBtwNums($minMiceCamouflage, $maxMiceCamouflage)
+				randBtwNums($minMiceCamouflage, $maxMiceCamouflage),
+				randBtwNums($minMiceVision, $maxMiceVision)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -163,8 +166,16 @@
 		}
 	}
 	function checkEachMouse() {
+		var distanceBtwPoints;
 		for (let i = 0; i < mice.length; i++) {
-			mice[i].model.position.x = 100;
+			mouse = mice[i];
+			if(!mouse.isResting){
+				distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
+				if(mouse.isBeingChased && mouse.visionDistance >= distanceBtwPoints){
+					
+				}
+			}
+			mouse.model.position.x = 100;
 		}
 	}
 	function gameLoop(canvas) {
@@ -185,8 +196,12 @@
 		gameLoop(canvas);
 	};
 	class Mouse {
-		constructor(posX, posY, speed, camouflage) {
+		constructor(posX, posY, speed, camouflage, visionDistance) {
 			this.model;
+			this.predator;
+			this.isResting = false;
+			this.isBeingChased = false;
+			this.visionDistance = visionDistance;
 			this.posX = posX;
 			this.posY = posY;
 			this.speed = speed;
