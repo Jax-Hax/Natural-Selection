@@ -17,3 +17,5 @@ export let minSnakeCamouflage = writable(2);
 export let maxSnakeCamouflage = writable(50);
 export let minSnakeSpeed = writable(3);
 export let maxSnakeSpeed = writable(5);
+export let minCatSpeed = writable(3);
+export let maxCatSpeed = writable(5);
