@@ -25,6 +25,7 @@
 		minCatSpeed,
 		maxCatSpeed
 	} from '$lib/stores.js';
+	import { FluidRenderingObjectCustomParticles } from '@babylonjs/core/Legacy/legacy';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
 		scene,
@@ -176,9 +177,25 @@
 						//run away
 					}
 				}
-				else{
-					
+				else if(mouse.lookingForMate){
+					if(mouse.hasMate){
+						if(mouse.mate.position == mouse.model.position){
+							//have child if female
+							mouse.hasMate = false;
+							//set cooldown timer based on gene
+						}
+						else{
+							//run towards mate
+						}
+					}
+					else{
+						//findMate
+					}
 				}
+				else{
+					//char movement
+				}
+				if(mouse.)
 			}
 			else{
 				//resting countdown
@@ -204,10 +221,14 @@
 		gameLoop(canvas);
 	};
 	class Mouse {
-		constructor(posX, posY, speed, camouflage, visionDistance) {
+		constructor(posX, posY, speed, camouflage, visionDistance, hunger, gender) {
 			this.model = undefined;
+			this.hungerLevel = 
 			this.predator = undefined;
+			this.mate = undefined;
 			this.isResting = false;
+			this.lookingForMate = false;
+			this.hasMate = false;
 			this.isBeingChased = false;
 			this.visionDistance = visionDistance;
 			this.posX = posX;
