@@ -36,7 +36,8 @@
 		snake,
 		mouseMainModel,
 		snakeMainModel,
-		catMainModel;
+		catMainModel,
+		distanceBtwPoints;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -166,16 +167,23 @@
 		}
 	}
 	function checkEachMouse() {
-		var distanceBtwPoints;
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
 			if(!mouse.isResting){
-				distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
-				if(mouse.isBeingChased && mouse.visionDistance >= distanceBtwPoints){
+				if(mouse.isBeingChased){
+					distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
+					if(mouse.visionDistance >= distanceBtwPoints){
+						//run away
+					}
+				}
+				else{
 					
 				}
 			}
-			mouse.model.position.x = 100;
+			else{
+				//resting countdown
+			}
+			mouse.model.position.x += 0.1;
 		}
 	}
 	function gameLoop(canvas) {
@@ -197,8 +205,8 @@
 	};
 	class Mouse {
 		constructor(posX, posY, speed, camouflage, visionDistance) {
-			this.model;
-			this.predator;
+			this.model = undefined;
+			this.predator = undefined;
 			this.isResting = false;
 			this.isBeingChased = false;
 			this.visionDistance = visionDistance;
