@@ -179,7 +179,7 @@
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
 			restingCountdown = mouse.restTime;
-			if(!mouse.isResting){
+			if(!mouse.isResting && !mouse.isRestingReproductive){
 				if(mouse.isBeingChased){
 					distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
 					if(mouse.visionDistance >= distanceBtwPoints){
@@ -191,7 +191,7 @@
 						if(mouse.mate.position == mouse.model.position){
 							//have child if female
 							mouse.hasMate = false;
-							//set cooldown timer based on gene
+							mouse.isReproductiveResting = true;
 						}
 						else{
 							//run towards mate
@@ -218,7 +218,7 @@
 					mouse.currentHunger -= deltaTime;
 				}
 			}
-			else{
+			else if(!mouse.isReproductiveResting){
 				//resting countdown
 				restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * hungerGainedFromResting;
@@ -226,6 +226,9 @@
 					restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
+			}
+			else{
+				//reproductive resting
 			}
 		}
 	}
@@ -252,6 +255,7 @@
 			this.model = undefined;
 			this.gender = gender;
 			this.restTime = restTime;
+			this.isRestingReproductive = false;
 			this.hungerGainedFromResting = hungerGainedFromResting;
 			this.timeUntilReproduction = timeAliveUntilReproduction;
 			this.timeAliveUntilReproduction = timeAliveUntilReproduction;
