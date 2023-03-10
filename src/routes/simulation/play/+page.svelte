@@ -179,55 +179,50 @@
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
 			restingCountdown = mouse.restTime;
-			if(!mouse.isResting && !mouse.isRestingReproductive){
-				if(mouse.isBeingChased){
-					distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
-					if(mouse.visionDistance >= distanceBtwPoints){
+			if (!mouse.isResting && !mouse.isRestingReproductive) {
+				if (mouse.isBeingChased) {
+					distanceBtwPoints = Math.sqrt(
+						Math.pow(mouse.predator.pos.x - mouse.pos.x, 2) +
+							Math.pow(mouse.predator.pos.x - mouse.pos.x, 2)
+					);
+					if (mouse.visionDistance >= distanceBtwPoints) {
 						//run away
 					}
-				}
-				else if(mouse.lookingForMate){
-					if(mouse.hasMate){
-						if(mouse.mate.position == mouse.model.position){
+				} else if (mouse.lookingForMate) {
+					if (mouse.hasMate) {
+						if (mouse.mate.position == mouse.model.position) {
 							//have child if female
 							mouse.hasMate = false;
 							mouse.isReproductiveResting = true;
-						}
-						else{
+						} else {
 							//run towards mate
 						}
-					}
-					else{
+					} else {
 						//findMate
 					}
-					else if(!mouse.lookingForMate){
-						mouse.timeUntilReproduction -= time.deltaTime;
-						if(mouse.timeUntilReproduction <= 0){
-							mouse.timeUntilReproduction = mouse.timeAliveUntilReproduction;
-							mouse.lookingForMate = true;
-						}
+				} else if (!mouse.lookingForMate) {
+					mouse.timeUntilReproduction -= deltaTime;
+					if (mouse.timeUntilReproduction <= 0) {
+						mouse.timeUntilReproduction = mouse.timeAliveUntilReproduction;
+						mouse.lookingForMate = true;
 					}
-				}
-				else{
+				} else {
 					//char movement WITH DELTATIME
 				}
-				if(mouse.currentHunger < mouse.minHunger){
+				if (mouse.currentHunger < mouse.minHunger) {
 					mouse.isResting = true;
-				}
-				else{
+				} else {
 					mouse.currentHunger -= deltaTime;
 				}
-			}
-			else if(!mouse.isReproductiveResting){
+			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
 				restingCountdown -= deltaTime;
-				mouse.currentHunger += deltaTime * hungerGainedFromResting;
-				if(restingCountdown <= 0){
+				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
+				if (restingCountdown <= 0) {
 					restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
-			}
-			else{
+			} else {
 				//reproductive resting
 			}
 		}
@@ -251,7 +246,20 @@
 		gameLoop(canvas);
 	};
 	class Mouse {
-		constructor(posX, posY, speed, camouflage, visionDistance, maxHunger, minHunger, gender, hungerGainedFromResting, restTime, timeUntilReproduction, timeAliveUntilReproduction) {
+		constructor(
+			posX,
+			posY,
+			speed,
+			camouflage,
+			visionDistance,
+			maxHunger,
+			minHunger,
+			gender,
+			hungerGainedFromResting,
+			restTime,
+			timeUntilReproduction,
+			timeAliveUntilReproduction
+		) {
 			this.model = undefined;
 			this.gender = gender;
 			this.restTime = restTime;
@@ -279,7 +287,7 @@
 	}
 	class Snake {
 		constructor(posX, posY, speed, camouflage) {
-			this.model;
+			this.model = undefined;
 			this.posX = posX;
 			this.posY = posY;
 			this.speed = speed;
@@ -290,7 +298,7 @@
 	}
 	class Cat {
 		constructor(posX, posY, speed) {
-			this.model;
+			this.model = undefined;
 			this.posX = posX;
 			this.posY = posY;
 			this.speed = speed;
