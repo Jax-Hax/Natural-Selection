@@ -18,6 +18,10 @@
 		maxMiceVision,
 		minMiceSpeed,
 		maxMiceSpeed,
+		minMiceMinHunger,
+		maxMiceMinHunger,
+		minMiceMaxHunger,
+		maxMiceMaxHunger,
 		minSnakeCamouflage,
 		maxSnakeCamouflage,
 		minSnakeSpeed,
@@ -25,7 +29,6 @@
 		minCatSpeed,
 		maxCatSpeed
 	} from '$lib/stores.js';
-	import { FluidRenderingObjectCustomParticles } from '@babylonjs/core/Legacy/legacy';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
 		scene,
@@ -38,7 +41,9 @@
 		mouseMainModel,
 		snakeMainModel,
 		catMainModel,
-		distanceBtwPoints;
+		distanceBtwPoints,
+		deltaTime,
+		restingCountdown;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -99,7 +104,10 @@
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
 				randBtwNums($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage),
-				randBtwNums($minMiceVision, $maxMiceVision)
+				randBtwNums($minMiceVision, $maxMiceVision),
+				randBtwNums($minMiceMaxHunger, $maxMiceMaxHunger),
+				randBtwNums($minMiceMinHunger, $maxMiceMinHunger),
+				Math.random < 0.5
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -170,6 +178,7 @@
 	function checkEachMouse() {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
+			restingCountdown = mouse.restTime;
 			if(!mouse.isResting){
 				if(mouse.isBeingChased){
 					distanceBtwPoints = Math.sqrt(Math.pow((mouse.predator.pos.x-mouse.pos.x),2)+Math.pow((mouse.predator.pos.x-mouse.pos.x),2));
@@ -191,22 +200,40 @@
 					else{
 						//findMate
 					}
+					else if(!mouse.lookingForMate){
+						mouse.timeUntilReproduction -= time.deltaTime;
+						if(mouse.timeUntilReproduction <= 0){
+							mouse.timeUntilReproduction = mouse.timeAliveUntilReproduction;
+							mouse.lookingForMate = true;
+						}
+					}
 				}
 				else{
-					//char movement
+					//char movement WITH DELTATIME
 				}
-				if(mouse.)
+				if(mouse.currentHunger < mouse.minHunger){
+					mouse.isResting = true;
+				}
+				else{
+					mouse.currentHunger -= deltaTime;
+				}
 			}
 			else{
 				//resting countdown
+				restingCountdown -= deltaTime;
+				mouse.currentHunger += deltaTime * hungerGainedFromResting;
+				if(restingCountdown <= 0){
+					restingCountdown = mouse.restTime;
+					mouse.isResting = false;
+				}
 			}
-			mouse.model.position.x += 0.1;
 		}
 	}
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
 		var renderLoop = function () {
+			deltaTime = scene.deltaTime;
 			checkEachMouse();
 			scene.render();
 		};
@@ -221,9 +248,16 @@
 		gameLoop(canvas);
 	};
 	class Mouse {
-		constructor(posX, posY, speed, camouflage, visionDistance, hunger, gender) {
+		constructor(posX, posY, speed, camouflage, visionDistance, maxHunger, minHunger, gender, hungerGainedFromResting, restTime, timeUntilReproduction, timeAliveUntilReproduction) {
 			this.model = undefined;
-			this.hungerLevel = 
+			this.gender = gender;
+			this.restTime = restTime;
+			this.hungerGainedFromResting = hungerGainedFromResting;
+			this.timeUntilReproduction = timeAliveUntilReproduction;
+			this.timeAliveUntilReproduction = timeAliveUntilReproduction;
+			this.maxHunger = maxHunger;
+			this.currentHunger = maxHunger;
+			this.minHunger = minHunger;
 			this.predator = undefined;
 			this.mate = undefined;
 			this.isResting = false;

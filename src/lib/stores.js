@@ -21,3 +21,7 @@ export let minSnakeSpeed = writable(3);
 export let maxSnakeSpeed = writable(5);
 export let minCatSpeed = writable(3);
 export let maxCatSpeed = writable(5);
+export let minMiceMinHunger = writable(3);
+export let maxMiceMinHunger = writable(7);
+export let minMiceMaxHunger = writable(20);
+export let maxMiceMaxHunger = writable(50);
