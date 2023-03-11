@@ -43,7 +43,9 @@
 		catMainModel,
 		distanceBtwPoints,
 		deltaTime,
-		restingCountdown;
+		miceIDNum,
+		snakeIDNum,
+		catIDNum;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -102,12 +104,12 @@
 			let mouse = new Mouse(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
-				randBtwNums($minMiceSpeed, $maxMiceSpeed),
+				randBtwDecimals($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage),
 				randBtwNums($minMiceVision, $maxMiceVision),
 				randBtwNums($minMiceMaxHunger, $maxMiceMaxHunger),
 				randBtwNums($minMiceMinHunger, $maxMiceMinHunger),
-				Math.random < 0.5
+				Math.random() < 0.5
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -130,6 +132,7 @@
 			mouse.model = mouseShape;
 			mice.push(mouse);
 		}
+		miceIDNum = $amMice;
 		//snakes
 		for (let i = 0; i < $amSnakes; i++) {
 			let snake = new Snake(
@@ -178,8 +181,7 @@
 	function checkEachMouse() {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
-			restingCountdown = mouse.restTime;
-			if (!mouse.isResting && !mouse.isRestingReproductive) {
+			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
 						Math.pow(mouse.predator.pos.x - mouse.pos.x, 2) +
@@ -191,8 +193,11 @@
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
 						if (mouse.mate.position == mouse.model.position) {
-							//have child if female
+							if(mouse.isFemale == true){
+								haveChild("mouse",mouse,mouse.mate);
+							}
 							mouse.hasMate = false;
+							mouse.lookingForMate = false;
 							mouse.isReproductiveResting = true;
 						} else {
 							//run towards mate
@@ -216,15 +221,61 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				restingCountdown -= deltaTime;
+				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
-				if (restingCountdown <= 0) {
-					restingCountdown = mouse.restTime;
+				if (mouse.restingCountdown <= 0) {
+					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
 			} else {
 				//reproductive resting
+				mouse.reproductiveRestingCountdown -= deltaTime;
+				if (mouse.reproductiveRestingCountdown <= 0) {
+					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
+					mouse.isReproductiveResting = false;
+				}
 			}
+		}
+	}
+	function haveChild(childType, female, male){
+		if(childType == "mouse"){
+			let mouse = new Mouse(
+				female.model.position.x,
+				female.model.position.y,
+				randBtwDecimals(female.speed, male.speed) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				randBtwNums(female.camouflage, male.camouflage) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				randBtwNums(female.visionDistance, male.visionDistance) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				randBtwNums(female.maxHunger, male.maxHunger) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				randBtwNums(female.minHunger, male.minHunger) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				Math.random() < 0.5
+			);
+			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
+			miceIDNum += 1;
+			mouseShape.position.x = mouse.posX;
+			mouseShape.position.y = 0.38;
+			mouseShape.position.z = mouse.posY;
+			mouseShape.rotation.y = randBtwDecimals(-3.14, 3.14);
+			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			var camouflageColor;
+			if (Math.random() >= 0.5) {
+				camouflageColor = hsv2rgb(121.29 - mouse.camouflage * 2, 1, 0.73);
+			} else {
+				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
+			}
+			mouseShape.instancedBuffers.color = new BABYLON.Color4(
+				camouflageColor[0],
+				camouflageColor[1],
+				camouflageColor[2],
+				1
+			);
+			mouse.model = mouseShape;
+			mice.push(mouse);
+		}
+		else if(childType == "snake"){
+			//snake
+		}
+		else{
+			//cat
 		}
 	}
 	function gameLoop(canvas) {
@@ -254,16 +305,24 @@
 			visionDistance,
 			maxHunger,
 			minHunger,
-			gender,
+			isFemale,
 			hungerGainedFromResting,
 			restTime,
+			reproductiveRestTime,
 			timeUntilReproduction,
-			timeAliveUntilReproduction
+			timeAliveUntilReproduction,
+			geneMutationChance,
+			geneMutationAmount
 		) {
 			this.model = undefined;
-			this.gender = gender;
+			this.isFemale = isFemale;
 			this.restTime = restTime;
-			this.isRestingReproductive = false;
+			this.geneMutationChance = geneMutationChance;
+			this.geneMutationAmount = geneMutationAmount;
+			this.restingCountdown = this.restTime;
+			this.reproductiveRestTime = reproductiveRestTime;
+			this.reproductiveRestingCountdown = this.reproductiveRestTime;
+			this.isReproductiveResting = false;
 			this.hungerGainedFromResting = hungerGainedFromResting;
 			this.timeUntilReproduction = timeAliveUntilReproduction;
 			this.timeAliveUntilReproduction = timeAliveUntilReproduction;
