@@ -178,22 +178,20 @@
 			cats.push(cat);
 		}
 	}
-	function checkEachMouse(translation, rotation) {
+	function checkEachMouse(translation) {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
 			translation.set(0,0,0);
-        	rotation.set(0,0,0);
-			translation.z = deltaTime*100;
-			console.log(deltaTime);
-			mouse.model.locallyTranslate(translation)
-			/*if (!mouse.isResting && !mouse.isReproductiveResting) {
+			translation.z = deltaTime*mouse.speed;
+			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
 						Math.pow(mouse.predator.pos.x - mouse.pos.x, 2) +
 							Math.pow(mouse.predator.pos.x - mouse.pos.x, 2)
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
-						//run away
+						mouse.model.rotation.y = mouse.predator.rotation.y;
+			mouse.model.locallyTranslate(translation)
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
@@ -205,7 +203,9 @@
 							mouse.lookingForMate = false;
 							mouse.isReproductiveResting = true;
 						} else {
-							//run towards mate
+							//THIS WON't work since they will infinitely flip back and forth
+							mouse.model.rotation.y = -mouse.mate.rotation.y;
+			mouse.model.locallyTranslate(translation)
 						}
 					} else {
 						//findMate
@@ -239,7 +239,7 @@
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
 					mouse.isReproductiveResting = false;
 				}
-			}*/
+			}
 		}
 	}
 	function haveChild(childType, female, male){
@@ -287,10 +287,9 @@
 		createScene(canvas);
 		makeFirstGeneration();
 		const translation = new BABYLON.Vector3(0,0,0);
-    	const rotation = new BABYLON.Vector3(0,0,0);
 		var renderLoop = function () {
 			deltaTime = scene.deltaTime ? scene.deltaTime/1000 : 0;
-			checkEachMouse(translation, rotation);
+			checkEachMouse(translation);
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
