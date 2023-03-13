@@ -178,10 +178,15 @@
 			cats.push(cat);
 		}
 	}
-	function checkEachMouse() {
+	function checkEachMouse(translation, rotation) {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
-			if (!mouse.isResting && !mouse.isReproductiveResting) {
+			translation.set(0,0,0);
+        	rotation.set(0,0,0);
+			translation.z = deltaTime*100;
+			console.log(deltaTime);
+			mouse.model.locallyTranslate(translation)
+			/*if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
 						Math.pow(mouse.predator.pos.x - mouse.pos.x, 2) +
@@ -234,7 +239,7 @@
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
 					mouse.isReproductiveResting = false;
 				}
-			}
+			}*/
 		}
 	}
 	function haveChild(childType, female, male){
@@ -281,9 +286,11 @@
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
+		const translation = new BABYLON.Vector3(0,0,0);
+    	const rotation = new BABYLON.Vector3(0,0,0);
 		var renderLoop = function () {
-			deltaTime = scene.deltaTime;
-			checkEachMouse();
+			deltaTime = scene.deltaTime/1000;
+			checkEachMouse(translation, rotation);
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
