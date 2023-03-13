@@ -217,7 +217,7 @@
 						mouse.lookingForMate = true;
 					}
 				} else {
-					//char movement WITH DELTATIME
+					translation.z = ;
 				}
 				if (mouse.currentHunger < mouse.minHunger) {
 					mouse.isResting = true;
