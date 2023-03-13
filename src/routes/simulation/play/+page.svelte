@@ -289,7 +289,7 @@
 		const translation = new BABYLON.Vector3(0,0,0);
     	const rotation = new BABYLON.Vector3(0,0,0);
 		var renderLoop = function () {
-			deltaTime = scene.deltaTime/1000;
+			deltaTime = scene.deltaTime ? scene.deltaTime/1000 : 0;
 			checkEachMouse(translation, rotation);
 			scene.render();
 		};
