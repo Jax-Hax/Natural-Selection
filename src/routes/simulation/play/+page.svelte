@@ -211,13 +211,13 @@
 					} else {
 						//findMate
 					}
-				} else if (!mouse.lookingForMate) {
+				} else {
 					mouse.timeUntilReproduction -= deltaTime;
 					if (mouse.timeUntilReproduction <= 0) {
 						mouse.timeUntilReproduction = mouse.timeAliveUntilReproduction;
 						mouse.lookingForMate = true;
 					}
-				} else {
+					//movement code
 					/*if(Math.random < 0.9*deltaTime){
 					}*/
 					desiredDirection = Math.random(1) * 1.57;
