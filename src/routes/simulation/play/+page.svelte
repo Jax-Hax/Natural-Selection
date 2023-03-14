@@ -192,7 +192,7 @@
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.model.rotation.y = mouse.predator.rotation.y;
-			mouse.model.locallyTranslate(translation)
+						mouse.model.locallyTranslate(translation)
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
