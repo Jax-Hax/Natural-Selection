@@ -45,7 +45,8 @@
 		deltaTime,
 		miceIDNum,
 		snakeIDNum,
-		catIDNum;
+		catIDNum,
+		desiredDirection;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -217,7 +218,17 @@
 						mouse.lookingForMate = true;
 					}
 				} else {
-					translation.z = ;
+					/*if(Math.random < 0.9*deltaTime){
+					}*/
+					desiredDirection = Math.random(1) * 1.57;
+					if(Math.random() > 0.5){
+						mouse.model.rotation.y += desiredDirection;
+					}
+					else{
+						mouse.model.rotation.y -= desiredDirection;
+					}
+					translation.z = deltaTime*mouse.speed - desiredDirection;
+								mouse.model.locallyTranslate(translation)
 				}
 				if (mouse.currentHunger < mouse.minHunger) {
 					mouse.isResting = true;
