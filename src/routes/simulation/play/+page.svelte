@@ -218,14 +218,14 @@
 						mouse.lookingForMate = true;
 					}
 					//movement code
-					/*if(Math.random < 0.9*deltaTime){
-					}*/
-					desiredDirection = Math.random(1) * 1.57;
-					if(Math.random() > 0.5){
+					if(Math.random() < 0.9*deltaTime){
+						desiredDirection = Math.random(1) * 1.57;
+						if(Math.random() > 0.5){
 						mouse.model.rotation.y += desiredDirection;
 					}
 					else{
 						mouse.model.rotation.y -= desiredDirection;
+					}
 					}
 					translation.z = deltaTime*mouse.speed - desiredDirection;
 								mouse.model.locallyTranslate(translation)
