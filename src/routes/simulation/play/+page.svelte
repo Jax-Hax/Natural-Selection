@@ -46,7 +46,8 @@
 		miceIDNum,
 		snakeIDNum,
 		catIDNum,
-		desiredDirection;
+		desiredDirection,
+		miceReproductiveList;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -210,6 +211,14 @@
 						}
 					} else {
 						//findMate
+						if(!mouse.isFemale){
+							miceReproductiveList.add(mouse);
+						}
+						else{
+							for(let i = 0; i < miceReproductiveList.length; i++){
+								if(mouse.reproductiveListValue)
+							}
+						}
 					}
 				} else {
 					mouse.timeUntilReproduction -= deltaTime;
@@ -227,8 +236,12 @@
 						mouse.model.rotation.y -= desiredDirection;
 					}
 					}
+					else{
+						desiredDirection = 0;
+					}
 					translation.z = deltaTime*mouse.speed - desiredDirection;
 								mouse.model.locallyTranslate(translation)
+					//end movement code
 				}
 				if (mouse.currentHunger < mouse.minHunger) {
 					mouse.isResting = true;
