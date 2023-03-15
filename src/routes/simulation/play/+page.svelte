@@ -183,8 +183,8 @@
 	function checkEachMouse(translation) {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
-			translation.set(0,0,0);
-			translation.z = deltaTime*mouse.speed;
+			translation.set(0, 0, 0);
+			translation.z = deltaTime * mouse.speed;
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
@@ -193,13 +193,13 @@
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.model.rotation.y = mouse.predator.rotation.y;
-						mouse.model.locallyTranslate(translation)
+						mouse.model.locallyTranslate(translation);
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
 						if (mouse.mate.position == mouse.model.position) {
-							if(mouse.isFemale == true){
-								haveChild("mouse",mouse,mouse.mate);
+							if (mouse.isFemale == true) {
+								haveChild('mouse', mouse, mouse.mate);
 							}
 							mouse.hasMate = false;
 							mouse.lookingForMate = false;
@@ -207,16 +207,16 @@
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
 							mouse.model.rotation.y = -mouse.mate.rotation.y;
-			mouse.model.locallyTranslate(translation)
+							mouse.model.locallyTranslate(translation);
 						}
 					} else {
 						//findMate
-						if(!mouse.isFemale){
+						if (!mouse.isFemale) {
 							miceReproductiveList.add(mouse);
-						}
-						else{
-							for(let i = 0; i < miceReproductiveList.length; i++){
-								if(mouse.reproductiveListValue)
+						} else {
+							for (let i = 0; i < miceReproductiveList.length; i++) {
+								if (mouse.reproductiveListValue > 0) {
+								}
 							}
 						}
 					}
@@ -227,20 +227,18 @@
 						mouse.lookingForMate = true;
 					}
 					//movement code
-					if(Math.random() < 0.9*deltaTime){
-						desiredDirection = Math.random(1) * 1.57;
-						if(Math.random() > 0.5){
-						mouse.model.rotation.y += desiredDirection;
-					}
-					else{
-						mouse.model.rotation.y -= desiredDirection;
-					}
-					}
-					else{
+					if (Math.random() < 0.9 * deltaTime) {
+						desiredDirection = Math.random() * 1.57;
+						if (Math.random() > 0.5) {
+							mouse.model.rotation.y += desiredDirection;
+						} else {
+							mouse.model.rotation.y -= desiredDirection;
+						}
+					} else {
 						desiredDirection = 0;
 					}
-					translation.z = deltaTime*mouse.speed - desiredDirection;
-								mouse.model.locallyTranslate(translation)
+					translation.z = deltaTime * mouse.speed - desiredDirection;
+					mouse.model.locallyTranslate(translation);
 					//end movement code
 				}
 				if (mouse.currentHunger < mouse.minHunger) {
@@ -266,16 +264,31 @@
 			}
 		}
 	}
-	function haveChild(childType, female, male){
-		if(childType == "mouse"){
+	function haveChild(childType, female, male) {
+		if (childType == 'mouse') {
 			let mouse = new Mouse(
 				female.model.position.x,
 				female.model.position.y,
-				randBtwDecimals(female.speed, male.speed) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
-				randBtwNums(female.camouflage, male.camouflage) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
-				randBtwNums(female.visionDistance, male.visionDistance) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
-				randBtwNums(female.maxHunger, male.maxHunger) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
-				randBtwNums(female.minHunger, male.minHunger) + (Math.random() > randBtwDecimals(female.geneMutationChance,male.geneMutationChance) ? randBtwDecimals(female.geneMutationAmount,male.geneMutationAmount): 0),
+				randBtwDecimals(female.speed, male.speed) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+				randBtwNums(female.camouflage, male.camouflage) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+				randBtwNums(female.visionDistance, male.visionDistance) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+				randBtwNums(female.maxHunger, male.maxHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+				randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
 				Math.random() < 0.5
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
@@ -299,20 +312,18 @@
 			);
 			mouse.model = mouseShape;
 			mice.push(mouse);
-		}
-		else if(childType == "snake"){
+		} else if (childType == 'snake') {
 			//snake
-		}
-		else{
+		} else {
 			//cat
 		}
 	}
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
-		const translation = new BABYLON.Vector3(0,0,0);
+		const translation = new BABYLON.Vector3(0, 0, 0);
 		var renderLoop = function () {
-			deltaTime = scene.deltaTime ? scene.deltaTime/1000 : 0;
+			deltaTime = scene.deltaTime ? scene.deltaTime / 1000 : 0;
 			checkEachMouse(translation);
 			scene.render();
 		};
