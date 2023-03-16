@@ -215,7 +215,8 @@
 							miceReproductiveList.add(mouse);
 						} else {
 							for (let i = 0; i < miceReproductiveList.length; i++) {
-								if (mouse.reproductiveListValue > 0) {
+								if (miceReproductiveList[i].reproductiveListValue > mouse.standards) {
+									//mate
 								}
 							}
 						}
