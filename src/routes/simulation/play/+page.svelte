@@ -41,7 +41,7 @@
 		minMiceGeneMutationChance,
 		maxMiceGeneMutationChance,
 		minMiceGeneMutationAmount,
-		maxMiceGeneMutationAmount,
+		maxMiceGeneMutationAmount
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
@@ -132,7 +132,7 @@
 				randBtwDecimals($minMiceTimeUntilReproduction, $maxMiceTimeUntilReproduction),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
 				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance),
-				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
+				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -227,7 +227,7 @@
 							mouse.isReproductiveResting = true;
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
-							console.log("found mate");
+							console.log('found mate');
 							mouse.model.rotation.y = -mouse.mate.rotation.y;
 							mouse.model.locallyTranslate(translation);
 						}
@@ -250,29 +250,26 @@
 						mouse.lookingForMate = true;
 					}
 					//movement code
-					if(mouse.turning){
+					if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
-						if(mouse.turningLeft){
+						if (mouse.turningLeft) {
 							mouse.model.rotation.y -= desiredDirection;
-						}
-						else{
+						} else {
 							mouse.model.rotation.y += desiredDirection;
 						}
-						if(mouse.turnAmount < 0){
+						if (mouse.turnAmount < 0) {
 							mouse.turning = false;
 						}
-					}
-					else{
+					} else {
 						mouse.timerToTurning -= deltaTime;
-						if(mouse.timerToTurning < 0){
+						if (mouse.timerToTurning < 0) {
 							mouse.turning = true;
 							mouse.timerToTurning = Math.random() * 3;
 							mouse.turnAmount = Math.random() * 1.57;
-							if(Math.random() > 0.5){
+							if (Math.random() > 0.5) {
 								mouse.turningLeft = true;
-							}
-							else{
+							} else {
 								mouse.turningLeft = false;
 							}
 						}
@@ -288,7 +285,7 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				console.log("reproductive timer");
+				console.log('reproductive timer');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.restingCountdown <= 0) {
@@ -297,7 +294,7 @@
 				}
 			} else {
 				//reproductive resting
-				console.log("rest timer");
+				console.log('rest timer');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
