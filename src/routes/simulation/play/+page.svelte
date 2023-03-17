@@ -27,7 +27,21 @@
 		minSnakeSpeed,
 		maxSnakeSpeed,
 		minCatSpeed,
-		maxCatSpeed
+		maxCatSpeed,
+		minMiceHungerGainedFromResting,
+		maxMiceHungerGainedFromResting,
+		minMiceRestTime,
+		maxMiceRestTime,
+		minMiceReproductiveRestTime,
+		maxMiceReproductiveRestTime,
+		minMiceTimeUntilReproduction,
+		maxMiceTimeUntilReproduction,
+		minMiceTimeAliveUntilReproduction,
+		maxMiceTimeAliveUntilReproduction,
+		minMiceGeneMutationChance,
+		maxMiceGeneMutationChance,
+		minMiceGeneMutationAmount,
+		maxMiceGeneMutationAmount,
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
@@ -111,7 +125,14 @@
 				randBtwNums($minMiceVision, $maxMiceVision),
 				randBtwNums($minMiceMaxHunger, $maxMiceMaxHunger),
 				randBtwNums($minMiceMinHunger, $maxMiceMinHunger),
-				Math.random() < 0.5
+				Math.random() < 0.5,
+				randBtwDecimals($minMiceHungerGainedFromResting, $maxMiceHungerGainedFromResting),
+				randBtwDecimals($minMiceRestTime, $maxMiceRestTime),
+				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
+				randBtwDecimals($minMiceTimeUntilReproduction, $maxMiceTimeUntilReproduction),
+				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
+				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance),
+				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
