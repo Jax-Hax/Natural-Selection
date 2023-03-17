@@ -114,6 +114,7 @@
 	}
 	function makeFirstGeneration() {
 		//mice
+		console.log($sizeX);
 		for (let i = 0; i < $amMice; i++) {
 			let mouse = new Mouse(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
@@ -288,9 +289,9 @@
 				//console.log('rest timer');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
-				console.log(deltaTime);
+				//console.log(deltaTime);
 				if (mouse.restingCountdown <= 0) {
-					console.log('it fixed now');
+					//console.log('it fixed now');
 					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
