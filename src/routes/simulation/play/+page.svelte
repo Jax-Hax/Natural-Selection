@@ -228,7 +228,7 @@
 						mouse.lookingForMate = true;
 					}
 					//movement code
-					if (Math.random() < 0.9 * deltaTime) {
+					/*if (Math.random() < 0.9 * deltaTime) {
 						desiredDirection = Math.random() * 1.57;
 						if (Math.random() > 0.5) {
 							mouse.model.rotation.y += desiredDirection;
@@ -237,8 +237,35 @@
 						}
 					} else {
 						desiredDirection = 0;
+					}*/
+					if(mouse.turning){
+						desiredDirection = mouse.speed * deltaTime;
+						mouse.turnAmount -= desiredDirection;
+						if(mouse.turningLeft){
+							mouse.model.rotation.y -= desiredDirection;
+						}
+						else{
+							mouse.model.rotation.y += desiredDirection;
+						}
+						if(mouse.turnAmount < 0){
+							mouse.turning = false;
+						}
 					}
-					translation.z = deltaTime * mouse.speed - desiredDirection;
+					else{
+						mouse.timerToTurning -= deltaTime;
+						if(mouse.timerToTurning < 0){
+							mouse.turning = true;
+							mouse.timerToTurning = Math.random() * 3;
+							mouse.turnAmount = Math.random() * 1.57;
+							if(Math.random() > 0.5){
+								mouse.turningLeft = true;
+							}
+							else{
+								mouse.turningLeft = false;
+							}
+						}
+					}
+					translation.z = deltaTime * mouse.speed;
 					mouse.model.locallyTranslate(translation);
 					//end movement code
 				}
@@ -359,6 +386,7 @@
 			this.model = undefined;
 			this.isFemale = isFemale;
 			this.restTime = restTime;
+			this.turning = false;
 			this.geneMutationChance = geneMutationChance;
 			this.geneMutationAmount = geneMutationAmount;
 			this.restingCountdown = this.restTime;
@@ -375,8 +403,11 @@
 			this.mate = undefined;
 			this.isResting = false;
 			this.lookingForMate = false;
+			this.turningLeft = false;
+			this.turnAmount = 1;
 			this.hasMate = false;
 			this.isBeingChased = false;
+			this.timerToTurning = 2;
 			this.visionDistance = visionDistance;
 			this.posX = posX;
 			this.posY = posY;
