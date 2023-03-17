@@ -34,8 +34,6 @@
 		maxMiceRestTime,
 		minMiceReproductiveRestTime,
 		maxMiceReproductiveRestTime,
-		minMiceTimeUntilReproduction,
-		maxMiceTimeUntilReproduction,
 		minMiceTimeAliveUntilReproduction,
 		maxMiceTimeAliveUntilReproduction,
 		minMiceGeneMutationChance,
@@ -129,7 +127,6 @@
 				randBtwDecimals($minMiceHungerGainedFromResting, $maxMiceHungerGainedFromResting),
 				randBtwDecimals($minMiceRestTime, $maxMiceRestTime),
 				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
-				randBtwDecimals($minMiceTimeUntilReproduction, $maxMiceTimeUntilReproduction),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
 				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance),
 				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount)
@@ -206,6 +203,8 @@
 			mouse = mice[i];
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
+			console.log(mouse.isReproductiveResting + "   reproductive");
+			console.log(mouse.isResting + "   resting");
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
@@ -228,7 +227,9 @@
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
 							console.log('found mate');
-							mouse.model.rotation.y = -mouse.mate.rotation.y;
+							if(!mouse.isFemale){
+								mouse.model.rotation.y = -mouse.mate.rotation.y;
+							}
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
@@ -274,7 +275,6 @@
 							}
 						}
 					}
-					translation.z = deltaTime * mouse.speed;
 					mouse.model.locallyTranslate(translation);
 					//end movement code
 				}
@@ -285,7 +285,7 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				console.log('reproductive timer');
+				console.log('rest timer');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.restingCountdown <= 0) {
@@ -294,7 +294,7 @@
 				}
 			} else {
 				//reproductive resting
-				console.log('rest timer');
+				console.log('reproductive timer');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
@@ -389,7 +389,6 @@
 			hungerGainedFromResting,
 			restTime,
 			reproductiveRestTime,
-			timeUntilReproduction,
 			timeAliveUntilReproduction,
 			geneMutationChance,
 			geneMutationAmount
