@@ -203,8 +203,8 @@
 			mouse = mice[i];
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
-			console.log(mouse.isReproductiveResting + "   reproductive");
-			console.log(mouse.isResting + "   resting");
+			//console.log(mouse.isReproductiveResting + "   reproductive");
+			//console.log(mouse.isResting + "   resting");
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = Math.sqrt(
@@ -226,7 +226,7 @@
 							mouse.isReproductiveResting = true;
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
-							console.log('found mate');
+							//console.log('found mate');
 							if(!mouse.isFemale){
 								mouse.model.rotation.y = -mouse.mate.rotation.y;
 							}
@@ -285,16 +285,18 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				console.log('rest timer');
+				//console.log('rest timer');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
+				console.log(deltaTime);
 				if (mouse.restingCountdown <= 0) {
+					console.log('it fixed now');
 					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
 			} else {
 				//reproductive resting
-				console.log('reproductive timer');
+				//console.log('reproductive timer');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
