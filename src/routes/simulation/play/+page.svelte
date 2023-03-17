@@ -60,11 +60,11 @@
 		miceIDNum,
 		snakeIDNum,
 		catIDNum,
-		desiredDirection,
-		miceReproductiveList;
+		desiredDirection;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
+	const miceReproductiveList = [];
 	function createScene(canvas) {
 		engine = new BABYLON.Engine(canvas);
 		scene = new BABYLON.Scene(engine);
@@ -227,13 +227,14 @@
 							mouse.isReproductiveResting = true;
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
+							console.log("found mate");
 							mouse.model.rotation.y = -mouse.mate.rotation.y;
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
 						//findMate
 						if (!mouse.isFemale) {
-							miceReproductiveList.add(mouse);
+							miceReproductiveList.push(mouse);
 						} else {
 							for (let i = 0; i < miceReproductiveList.length; i++) {
 								if (miceReproductiveList[i].reproductiveListValue > mouse.standards) {
@@ -249,16 +250,6 @@
 						mouse.lookingForMate = true;
 					}
 					//movement code
-					/*if (Math.random() < 0.9 * deltaTime) {
-						desiredDirection = Math.random() * 1.57;
-						if (Math.random() > 0.5) {
-							mouse.model.rotation.y += desiredDirection;
-						} else {
-							mouse.model.rotation.y -= desiredDirection;
-						}
-					} else {
-						desiredDirection = 0;
-					}*/
 					if(mouse.turning){
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
@@ -297,6 +288,7 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
+				console.log("reproductive timer");
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.restingCountdown <= 0) {
@@ -305,6 +297,7 @@
 				}
 			} else {
 				//reproductive resting
+				console.log("rest timer");
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
