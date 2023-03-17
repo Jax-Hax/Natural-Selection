@@ -1,21 +1,24 @@
 <script>
 	import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
+	import ParamListBlack from '$components/ParamListBlack.svelte';
 	let current = 'mouse';
-	let compRepair = [
+	let params = [
 		{
 			name: 'This website!',
-			catagory: 'Web Design',
-			image: '/checkmark(1).jpg',
-			time: '3 months',
-			dateFinished: 2023,
-			link: 'https://computerkidva.com',
+			bind: 'sizeX',
 			description: 'A website for my small business.'
 		}
 	];
+	let currentVar = 'current';
 </script>
 
 <body>
-	<div class="flexCenter">
+	<div class="firstScreen">
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
+
+	<ParamListBlack>
+		<h2>Hello!</h2>
+		<p>This is a box. It can contain anything.</p>
+	</ParamListBlack>
 </body>
