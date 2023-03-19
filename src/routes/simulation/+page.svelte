@@ -1,6 +1,5 @@
 <script>
 	import { sizeX, sizeY, generations, amMice, amSnakes, amCats } from '$lib/stores.js';
-	import ParamListBlack from '$components/ParamListBlack.svelte';
 	let current = 'mouse';
 	let params = [
 		{
@@ -17,8 +16,7 @@
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
 
-	<ParamListBlack>
-		<h2>Hello!</h2>
-		<p>This is a box. It can contain anything.</p>
-	</ParamListBlack>
+	<div class="geneCatagory">
+		<h1>Starting Animals</h1>
+	</div>
 </body>
