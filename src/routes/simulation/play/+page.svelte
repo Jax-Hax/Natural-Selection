@@ -201,6 +201,7 @@
 	function checkEachMouse(translation) {
 		for (let i = 0; i < mice.length; i++) {
 			mouse = mice[i];
+			mouse.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
 			//console.log(mouse.isReproductiveResting + "   reproductive");
@@ -212,12 +213,14 @@
 							Math.pow(mouse.predator.pos.x - mouse.pos.x, 2)
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
+						mouse.canMove = false;
 						mouse.model.rotation.y = mouse.predator.rotation.y;
 						mouse.model.locallyTranslate(translation);
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
-						if (mouse.mate.position == mouse.model.position) {
+						mouse.canMove = false;
+						if (mouse.mate.model.position == mouse.model.position) {
 							if (mouse.isFemale == true) {
 								haveChild('mouse', mouse, mouse.mate);
 							}
@@ -226,20 +229,27 @@
 							mouse.isReproductiveResting = true;
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
-							//console.log('found mate');
-							if(!mouse.isFemale){
+							console.log('found mate');
+							if (!mouse.isFemale) {
 								mouse.model.rotation.y = -mouse.mate.rotation.y;
 							}
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
 						//findMate
+						console.log("looking for mate");
 						if (!mouse.isFemale) {
-							miceReproductiveList.push(mouse);
+							if (!mouse.onReproductiveList) {
+								miceReproductiveList.push(mouse);
+								mouse.onReproductiveList = true;
+							}
 						} else {
 							for (let i = 0; i < miceReproductiveList.length; i++) {
 								if (miceReproductiveList[i].reproductiveListValue > mouse.standards) {
-									//mate
+									mouse.mate = miceReproductiveList[i];
+									mouse.hasMate = true;
+									mouse.mate.hasMate = true;
+									miceReproductiveList[i].mate = mouse;
 								}
 							}
 						}
@@ -250,8 +260,10 @@
 						mouse.timeUntilReproduction = mouse.timeAliveUntilReproduction;
 						mouse.lookingForMate = true;
 					}
-					//movement code
-					if (mouse.turning) {
+				}
+				if(mouse.canMove){
+				//movement code
+				if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
 						if (mouse.turningLeft) {
@@ -393,7 +405,9 @@
 			reproductiveRestTime,
 			timeAliveUntilReproduction,
 			geneMutationChance,
-			geneMutationAmount
+			geneMutationAmount,
+			standards,
+			attractiveness
 		) {
 			this.model = undefined;
 			this.isFemale = isFemale;
@@ -412,8 +426,10 @@
 			this.currentHunger = maxHunger;
 			this.minHunger = minHunger;
 			this.predator = undefined;
+			this.canMove = true;
 			this.mate = undefined;
 			this.isResting = false;
+			this.onReproductiveList = false;
 			this.lookingForMate = false;
 			this.turningLeft = false;
 			this.turnAmount = 1;
@@ -426,7 +442,8 @@
 			this.speed = speed;
 			this.camouflage = camouflage;
 			this.preyListValue = this.speed - this.camouflage;
-			this.reproductiveListValue = 0;
+			this.standards = standards;
+			this.attractiveness = attractiveness;
 		}
 	}
 	class Snake {
