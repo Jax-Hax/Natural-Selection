@@ -236,7 +236,7 @@
 							}
 							else{
 								//get tangent of opposite and adjacent iwth math.atan2
-								mouse.model.rotation.y = 
+								mouse.model.rotation.y = Math.atan(Math.abs(mouse.model.position.y - mouse.mate.model.position.y)/Math.abs(mouse.model.position.x - mouse.mate.model.position.x));
 							}
 							mouse.model.locallyTranslate(translation);
 						}
@@ -473,7 +473,7 @@
 		return [f(5), f(3), f(1)];
 	}
 	function distBtwPoints(xOne,yOne,xTwo,yTwo){
-		return Math.sqrt(Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2);
+		return Math.sqrt(Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2));
 	}
 	function randBtwNums(min, max) {
 		min = Math.ceil(min);
