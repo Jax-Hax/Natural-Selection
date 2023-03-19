@@ -39,3 +39,7 @@ export let minMiceGeneMutationChance = writable(3);
 export let maxMiceGeneMutationChance = writable(5);
 export let minMiceGeneMutationAmount = writable(3);
 export let maxMiceGeneMutationAmount = writable(5);
+export let minMiceAttractiveness = writable(8);
+export let maxMiceAttractiveness = writable(10);
+export let minMiceStandards = writable(3);
+export let maxMiceStandards = writable(5);

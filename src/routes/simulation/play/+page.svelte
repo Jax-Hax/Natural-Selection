@@ -39,7 +39,11 @@
 		minMiceGeneMutationChance,
 		maxMiceGeneMutationChance,
 		minMiceGeneMutationAmount,
-		maxMiceGeneMutationAmount
+		maxMiceGeneMutationAmount,
+		minMiceStandards,
+		maxMiceStandards,
+		minMiceAttractiveness,
+		maxMiceAttractiveness
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
@@ -120,7 +124,7 @@
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
 				randBtwDecimals($minMiceSpeed, $maxMiceSpeed),
 				randBtwNums($minMiceCamouflage, $maxMiceCamouflage),
-				randBtwNums($minMiceVision, $maxMiceVision),
+				randBtwDecimals($minMiceVision, $maxMiceVision),
 				randBtwNums($minMiceMaxHunger, $maxMiceMaxHunger),
 				randBtwNums($minMiceMinHunger, $maxMiceMinHunger),
 				Math.random() < 0.5,
@@ -129,7 +133,9 @@
 				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
 				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance),
-				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount)
+				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
+				randBtwDecimals($minMiceStandards, $maxMiceStandards),
+				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -204,14 +210,9 @@
 			mouse.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
-			//console.log(mouse.isReproductiveResting + "   reproductive");
-			//console.log(mouse.isResting + "   resting");
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
-					distanceBtwPoints = Math.sqrt(
-						Math.pow(mouse.predator.pos.x - mouse.pos.x, 2) +
-							Math.pow(mouse.predator.pos.x - mouse.pos.x, 2)
-					);
+					distanceBtwPoints = distBtwPoints(mouse.model.position.x, mouse.model.position.y, mouse.predator.model.position.x, mouse.predator.model.position.y)
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.canMove = false;
 						mouse.model.rotation.y = mouse.predator.rotation.y;
@@ -221,6 +222,7 @@
 					if (mouse.hasMate) {
 						mouse.canMove = false;
 						if (mouse.mate.model.position == mouse.model.position) {
+							console.log("had child!!");
 							if (mouse.isFemale == true) {
 								haveChild('mouse', mouse, mouse.mate);
 							}
@@ -229,15 +231,17 @@
 							mouse.isReproductiveResting = true;
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
-							console.log('found mate');
 							if (!mouse.isFemale) {
-								mouse.model.rotation.y = -mouse.mate.rotation.y;
+								mouse.model.rotation.y = -mouse.mate.model.rotation.y;
+							}
+							else{
+								//get tangent of opposite and adjacent iwth math.atan2
+								mouse.model.rotation.y = 
 							}
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
 						//findMate
-						console.log("looking for mate");
 						if (!mouse.isFemale) {
 							if (!mouse.onReproductiveList) {
 								miceReproductiveList.push(mouse);
@@ -245,7 +249,7 @@
 							}
 						} else {
 							for (let i = 0; i < miceReproductiveList.length; i++) {
-								if (miceReproductiveList[i].reproductiveListValue > mouse.standards) {
+								if (miceReproductiveList[i].attractiveness > mouse.standards) {
 									mouse.mate = miceReproductiveList[i];
 									mouse.hasMate = true;
 									mouse.mate.hasMate = true;
@@ -297,18 +301,14 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				//console.log('rest timer');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
-				//console.log(deltaTime);
 				if (mouse.restingCountdown <= 0) {
-					//console.log('it fixed now');
 					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
 			} else {
 				//reproductive resting
-				//console.log('reproductive timer');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
@@ -471,6 +471,9 @@
 	function hsv2rgb(h, s, v) {
 		let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
 		return [f(5), f(3), f(1)];
+	}
+	function distBtwPoints(xOne,yOne,xTwo,yTwo){
+		return Math.sqrt(Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2);
 	}
 	function randBtwNums(min, max) {
 		min = Math.ceil(min);
