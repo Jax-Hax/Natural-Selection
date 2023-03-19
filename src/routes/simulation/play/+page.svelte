@@ -114,7 +114,6 @@
 	}
 	function makeFirstGeneration() {
 		//mice
-		console.log($sizeX);
 		for (let i = 0; i < $amMice; i++) {
 			let mouse = new Mouse(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
