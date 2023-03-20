@@ -132,7 +132,7 @@
 				randBtwDecimals($minMiceRestTime, $maxMiceRestTime),
 				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
-				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance),
+				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance)/100,
 				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
 				randBtwDecimals($minMiceStandards, $maxMiceStandards),
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness)
@@ -223,6 +223,7 @@
 						mouse.canMove = false;
 						mouse.model.rotation.y = mouse.predator.rotation.y;
 						mouse.model.locallyTranslate(translation);
+						checkWallCollision(mouse);
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
@@ -303,6 +304,7 @@
 						}
 					}
 					mouse.model.locallyTranslate(translation);
+					checkWallCollision(mouse);
 					//end movement code
 				}
 				if (mouse.currentHunger < mouse.minHunger) {
@@ -325,6 +327,18 @@
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
 					mouse.isReproductiveResting = false;
 				}
+			}
+		}
+	}
+	function checkWallCollision(animal){
+		if(animal.model.position.x > sizeX/2+4){
+			animal.turning = true;
+			animal.timerToTurning = Math.random() + 2;
+			animal.turnAmount = randBtwDecimals(0.78,1.57);
+			if (animal.model.rotation.y > 0) {
+				animal.turningLeft = true;
+			} else {
+				animal.turningLeft = false;
 			}
 		}
 	}
@@ -353,7 +367,39 @@
 					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
 						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
 						: 0),
-				Math.random() < 0.5
+				Math.random() < 0.5,
+				randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
+						randBtwNums(female.minHunger, male.minHunger) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0),
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
 			miceIDNum += 1;
@@ -380,6 +426,26 @@
 			//snake
 		} else {
 			//cat
+		}
+	}
+	function childGeneCalculator(gene1,gene2,female,male){
+		if(Math.random() > 0.5){
+			return randBtwNums(gene1, gene2) +
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0);
+		}
+		else{
+			const num = randBtwNums(gene1, gene2) -
+					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+						: 0);
+			if(num > 0){
+				return num;
+			}
+			else{
+				return randBtwNums(gene1, gene2);
+			}
 		}
 	}
 	function gameLoop(canvas) {
