@@ -156,7 +156,6 @@
 				1
 			);
 			mouse.model = mouseShape;
-			console.log(mouse.isFemale);
 			mice.push(mouse);
 		}
 		miceIDNum = $amMice;
@@ -203,7 +202,7 @@
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
 			cats.push(cat);
-			console.log(Math.atan2(3,2));
+			console.log(Math.atan2(3, 2));
 		}
 	}
 	function checkEachMouse(translation) {
@@ -214,7 +213,12 @@
 			translation.z = deltaTime * mouse.speed;
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
 				if (mouse.isBeingChased) {
-					distanceBtwPoints = distBtwPoints(mouse.model.position.x, mouse.model.position.y, mouse.predator.model.position.x, mouse.predator.model.position.y)
+					distanceBtwPoints = distBtwPoints(
+						mouse.model.position.x,
+						mouse.model.position.y,
+						mouse.predator.model.position.x,
+						mouse.predator.model.position.y
+					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.canMove = false;
 						mouse.model.rotation.y = mouse.predator.rotation.y;
@@ -223,8 +227,13 @@
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
 						mouse.canMove = false;
-						if (mouse.mate.model.position == mouse.model.position) {
-							console.log("had child!!");
+						if (
+							mouse.mate.model.position.x <= mouse.model.position.x + 1 &&
+							mouse.mate.model.position.x >= mouse.model.position.x - 1 &&
+							mouse.mate.model.position.y <= mouse.model.position.y + 1 &&
+							mouse.mate.model.position.y >= mouse.model.position.y - 1
+						) {
+							console.log('had child!!');
 							if (mouse.isFemale == true) {
 								haveChild('mouse', mouse, mouse.mate);
 							}
@@ -235,11 +244,9 @@
 							//THIS WON't work since they will infinitely flip back and forth
 							if (!mouse.isFemale) {
 								mouse.model.lookAt(mouse.mate.model.position);
-							}
-							else{
+							} else {
 								//get tangent of opposite and adjacent iwth math.atan2
 								mouse.model.lookAt(mouse.mate.model.position);
-								//console.log(mouse.model.rotation.y);
 							}
 							mouse.model.locallyTranslate(translation);
 						}
@@ -269,9 +276,9 @@
 						mouse.lookingForMate = true;
 					}
 				}
-				if(mouse.canMove){
-				//movement code
-				if (mouse.turning) {
+				if (mouse.canMove) {
+					//movement code
+					if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
 						if (mouse.turningLeft) {
@@ -476,7 +483,7 @@
 		let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
 		return [f(5), f(3), f(1)];
 	}
-	function distBtwPoints(xOne,yOne,xTwo,yTwo){
+	function distBtwPoints(xOne, yOne, xTwo, yTwo) {
 		return Math.sqrt(Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2));
 	}
 	function randBtwNums(min, max) {
