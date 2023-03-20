@@ -347,66 +347,27 @@
 			let mouse = new Mouse(
 				female.model.position.x,
 				female.model.position.y,
-				randBtwDecimals(female.speed, male.speed) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-				randBtwNums(female.camouflage, male.camouflage) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-				randBtwNums(female.visionDistance, male.visionDistance) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-				randBtwNums(female.maxHunger, male.maxHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-				randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
+				childGeneCalculator(female.speed,male.speed,female,male),
+				childGeneCalculator(female.camouflage,male.camouflage,female,male),
+				childGeneCalculator(female.visionDistance,male.visionDistance,female,male),
+				childGeneCalculator(female.maxHunger,male.maxHunger,female,male),
+				childGeneCalculator(female.minHunger,male.minHunger,female,male),
 				Math.random() < 0.5,
-				randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
-						randBtwNums(female.minHunger, male.minHunger) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0),
+				childGeneCalculator(female.hungerGainedFromResting,male.hungerGainedFromResting,female,male),
+				childGeneCalculator(female.restTime,male.restTime,female,male),
+				childGeneCalculator(female.reproductiveRestTime,male.reproductiveRestTime,female,male),
+				childGeneCalculator(female.timeAliveUntilReproduction,male.timeAliveUntilReproduction,female,male),
+				childGeneCalculator(female.geneMutationChance,male.geneMutationChance,female,male),
+				childGeneCalculator(female.geneMutationAmount,male.geneMutationAmount,female,male),
+				childGeneCalculator(female.standards,male.standards,female,male),
+				childGeneCalculator(female.attractiveness,male.attractiveness,female,male)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
 			miceIDNum += 1;
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
-			mouseShape.rotation.y = randBtwDecimals(-3.14, 3.14);
+			mouseShape.rotation.y = female.model.rotation.y;
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
 			var camouflageColor;
 			if (Math.random() >= 0.5) {
