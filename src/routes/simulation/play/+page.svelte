@@ -156,6 +156,7 @@
 				1
 			);
 			mouse.model = mouseShape;
+			console.log(mouse.isFemale);
 			mice.push(mouse);
 		}
 		miceIDNum = $amMice;
@@ -202,6 +203,7 @@
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
 			cats.push(cat);
+			console.log(Math.atan2(3,2));
 		}
 	}
 	function checkEachMouse(translation) {
@@ -232,11 +234,12 @@
 						} else {
 							//THIS WON't work since they will infinitely flip back and forth
 							if (!mouse.isFemale) {
-								mouse.model.rotation.y = -mouse.mate.model.rotation.y;
+								mouse.model.lookAt(mouse.mate.model.position);
 							}
 							else{
 								//get tangent of opposite and adjacent iwth math.atan2
-								mouse.model.rotation.y = Math.atan(Math.abs(mouse.model.position.y - mouse.mate.model.position.y)/Math.abs(mouse.model.position.x - mouse.mate.model.position.x));
+								mouse.model.lookAt(mouse.mate.model.position);
+								//console.log(mouse.model.rotation.y);
 							}
 							mouse.model.locallyTranslate(translation);
 						}
@@ -254,6 +257,7 @@
 									mouse.hasMate = true;
 									mouse.mate.hasMate = true;
 									miceReproductiveList[i].mate = mouse;
+									miceReproductiveList.splice(i, 1);
 								}
 							}
 						}
