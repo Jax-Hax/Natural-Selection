@@ -57,8 +57,8 @@
 	export let generations2 = writable([$generations]);
 	export let sizeX2 = writable([$sizeX]);
 	export let sizeY2 = writable([$sizeY]);
-	$: $sizeX2, ($sizeX = $sizeX2);
-	$: $sizeY2, ($sizeY = $sizeY2);
+	$: $sizeX2, ($sizeX = $sizeX2[0]);
+	$: $sizeY2, ($sizeY = $sizeY2[0]);
 </script>
 
 <body>
@@ -71,9 +71,12 @@
 			and see what changes.
 		</p>
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
+		<div class="row">
+			<a href="#misc"><button>Miscellaneous</button></a>
+		</div>
 	</div>
 	<div class="spacer blackToWhite" />
-	<div class="geneCatagory2">
+	<div class="geneCatagory2" id="misc">
 		<h1>Miscellaneous Genes</h1>
 		<h2>Width of Simulation</h2>
 		<!--slider with one value-->
@@ -210,6 +213,7 @@
 		padding-bottom: 5em;
 		padding-top: 0;
 		color: white;
+		margin: -1px 0;
 	}
 	#firstScreen {
 		align-items: center;
@@ -232,6 +236,7 @@
 		gap: 0.5em;
 		background-color: #fdfdfd;
 		color: black;
+		margin: -1px 0;
 	}
 	.spacer {
 		aspect-ratio: 960/200;
