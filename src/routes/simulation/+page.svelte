@@ -76,6 +76,8 @@ export let generations2 = writable([1]);
 	<div class="geneCatagory2">
 		<h1>Starting Animals</h1>
 	</div>
+		<div class="spacer whiteToBlack"></div>
+
 	<!--range slider with two values-->
 <RangeSlider range float pips pipstep={100} all='label' bind:values={$miceCamouflage} max={1000}/>
 	<!--for gene variation percent-->
@@ -87,6 +89,9 @@ export let generations2 = writable([1]);
  --range-handle:          #fb8500; /* non-focussed handle color */
  --range-handle-focus:    #fb8500; /* focussed handle color */
 }
+body {
+			width: 100%; overflow-x:hidden
+		}
 .geneCatagory1{
 	display: flex;
 	flex-direction: column;
