@@ -37,6 +37,7 @@
 		maxMiceStandards,
 		minMiceAttractiveness,
 		maxMiceAttractiveness } from '$lib/stores.js';
+		  import RangeSlider from "svelte-range-slider-pips";
 	let current = 'mouse';
 	let params = [
 		{
@@ -56,4 +57,6 @@
 	<div class="geneCatagory">
 		<h1>Starting Animals</h1>
 	</div>
+	<RangeSlider values={[50]} pips />
+
 </body>
