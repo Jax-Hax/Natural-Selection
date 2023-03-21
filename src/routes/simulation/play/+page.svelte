@@ -71,7 +71,11 @@
 		engine = new BABYLON.Engine(canvas);
 		scene = new BABYLON.Scene(engine);
 		scene.clearColor = new BABYLON.Color3(0, 50, 75);
-		camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, $sizeX/4, -$sizeX), scene);
+		camera = new BABYLON.UniversalCamera(
+			'camera1',
+			new BABYLON.Vector3(0, $sizeX / 4, -$sizeX),
+			scene
+		);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
 		camera.speed = 1;
@@ -132,7 +136,7 @@
 				randBtwDecimals($minMiceRestTime, $maxMiceRestTime),
 				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
-				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance)/100,
+				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance) / 100,
 				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
 				randBtwDecimals($minMiceStandards, $maxMiceStandards),
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness)
@@ -325,12 +329,12 @@
 			}
 		}
 	}
-	function checkWallCollision(animal){
-		if(animal.model.position.x > sizeX/2-4){
+	function checkWallCollision(animal) {
+		if (animal.model.position.x > $sizeX / 2 - 4) {
 			animal.turning = true;
 			animal.timerToTurning = Math.random() + 3;
-			console.log("current turning: " + animal.model.rotation.y );
-			console.log("turn amount: " + 3.14 - animal.model.rotation.y );
+			console.log('current turning: ' + animal.model.rotation.y);
+			console.log('turn amount: ' + (3.14 - animal.model.rotation.y));
 			animal.turnAmount = 3.14 - animal.model.rotation.y;
 			if (animal.model.rotation.y > 0) {
 				animal.turningLeft = true;
@@ -344,20 +348,30 @@
 			let mouse = new Mouse(
 				female.model.position.x,
 				female.model.position.y,
-				childGeneCalculator(female.speed,male.speed,female,male),
-				childGeneCalculator(female.camouflage,male.camouflage,female,male),
-				childGeneCalculator(female.visionDistance,male.visionDistance,female,male),
-				childGeneCalculator(female.maxHunger,male.maxHunger,female,male),
-				childGeneCalculator(female.minHunger,male.minHunger,female,male),
+				childGeneCalculator(female.speed, male.speed, female, male),
+				childGeneCalculator(female.camouflage, male.camouflage, female, male),
+				childGeneCalculator(female.visionDistance, male.visionDistance, female, male),
+				childGeneCalculator(female.maxHunger, male.maxHunger, female, male),
+				childGeneCalculator(female.minHunger, male.minHunger, female, male),
 				Math.random() < 0.5,
-				childGeneCalculator(female.hungerGainedFromResting,male.hungerGainedFromResting,female,male),
-				childGeneCalculator(female.restTime,male.restTime,female,male),
-				childGeneCalculator(female.reproductiveRestTime,male.reproductiveRestTime,female,male),
-				childGeneCalculator(female.timeAliveUntilReproduction,male.timeAliveUntilReproduction,female,male),
-				childGeneCalculator(female.geneMutationChance,male.geneMutationChance,female,male),
-				childGeneCalculator(female.geneMutationAmount,male.geneMutationAmount,female,male),
-				childGeneCalculator(female.standards,male.standards,female,male),
-				childGeneCalculator(female.attractiveness,male.attractiveness,female,male)
+				childGeneCalculator(
+					female.hungerGainedFromResting,
+					male.hungerGainedFromResting,
+					female,
+					male
+				),
+				childGeneCalculator(female.restTime, male.restTime, female, male),
+				childGeneCalculator(female.reproductiveRestTime, male.reproductiveRestTime, female, male),
+				childGeneCalculator(
+					female.timeAliveUntilReproduction,
+					male.timeAliveUntilReproduction,
+					female,
+					male
+				),
+				childGeneCalculator(female.geneMutationChance, male.geneMutationChance, female, male),
+				childGeneCalculator(female.geneMutationAmount, male.geneMutationAmount, female, male),
+				childGeneCalculator(female.standards, male.standards, female, male),
+				childGeneCalculator(female.attractiveness, male.attractiveness, female, male)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
 			miceIDNum += 1;
@@ -386,22 +400,23 @@
 			//cat
 		}
 	}
-	function childGeneCalculator(gene1,gene2,female,male){
-		if(Math.random() > 0.5){
-			return randBtwNums(gene1, gene2) +
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0);
-		}
-		else{
-			const num = randBtwNums(gene1, gene2) -
-					(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-						? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
-						: 0);
-			if(num > 0){
+	function childGeneCalculator(gene1, gene2, female, male) {
+		if (Math.random() > 0.5) {
+			return (
+				randBtwNums(gene1, gene2) +
+				(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+					: 0)
+			);
+		} else {
+			const num =
+				randBtwNums(gene1, gene2) -
+				(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
+					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+					: 0);
+			if (num > 0) {
 				return num;
-			}
-			else{
+			} else {
 				return randBtwNums(gene1, gene2);
 			}
 		}
