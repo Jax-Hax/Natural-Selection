@@ -92,7 +92,7 @@ export let generations2 = writable([1]);
   justify-content: center;
 	padding: 3em;
 	gap: 0.5em;
-	background-color: black;
+	background-color: #161a21;
 	color: white;
 }
 </style>
