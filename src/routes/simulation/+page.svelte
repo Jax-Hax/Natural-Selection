@@ -47,6 +47,10 @@
 		}
 	];
 	let currentVar = 'current';
+	import { writable } from 'svelte/store';
+export let miceCamouflage = writable([1,100]);
+export let generations2 = writable([1]);
+let a = [1,100];
 </script>
 
 <body>
@@ -57,6 +61,16 @@
 	<div class="geneCatagory">
 		<h1>Starting Animals</h1>
 	</div>
-	<RangeSlider values={[50]} pips />
+	<!--range slider with two values-->
+<RangeSlider range float pips pipstep={100} all='label' bind:values={$miceCamouflage} max={1000}/>
+	<!--slider with one value-->
+<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={10} max={500}/>
 
 </body>
+<style>
+:root {
+ --range-range:  #fb8500; /* active range bar background color */
+ --range-handle:          #fb8500; /* non-focussed handle color */
+ --range-handle-focus:    #fb8500; /* focussed handle color */
+}
+</style>
