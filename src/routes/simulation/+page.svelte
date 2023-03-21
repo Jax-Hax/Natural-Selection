@@ -94,6 +94,7 @@ export let generations2 = writable([1]);
 	padding: 3em;
 	gap: 0.5em;
 	background-color: #161a21;
+	padding-bottom: 1em;
 	color: white;
 }
 .geneCatagory2{
@@ -101,12 +102,13 @@ export let generations2 = writable([1]);
 	flex-direction: column;
   justify-content: center;
 	padding: 3em;
+	padding-bottom: 1em;
 	gap: 0.5em;
 	background-color: #fdfdfd;
 	color: black;
 }
 .spacer{
-	aspect-ratio: 960/300;
+	aspect-ratio: 960/200;
 	width: 100%;
 	background-repeat: no-repeat;
   background-position: center;
