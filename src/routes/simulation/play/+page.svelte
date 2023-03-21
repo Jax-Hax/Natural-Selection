@@ -242,13 +242,8 @@
 							mouse.lookingForMate = false;
 							mouse.isReproductiveResting = true;
 						} else {
-							//THIS WON't work since they will infinitely flip back and forth
-							if (!mouse.isFemale) {
-								mouse.model.lookAt(mouse.mate.model.position);
-							} else {
-								//get tangent of opposite and adjacent iwth math.atan2
-								mouse.model.lookAt(mouse.mate.model.position);
-							}
+							mouse.model.lookAt(mouse.mate.model.position);
+							mouse.isRuningTowardsMate = true;
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
@@ -331,10 +326,12 @@
 		}
 	}
 	function checkWallCollision(animal){
-		if(animal.model.position.x > sizeX/2+4){
+		if(animal.model.position.x > sizeX/2-4){
 			animal.turning = true;
-			animal.timerToTurning = Math.random() + 2;
-			animal.turnAmount = randBtwDecimals(0.78,1.57);
+			animal.timerToTurning = Math.random() + 3;
+			console.log("current turning: " + animal.model.rotation.y );
+			console.log("turn amount: " + 3.14 - animal.model.rotation.y );
+			animal.turnAmount = 3.14 - animal.model.rotation.y;
 			if (animal.model.rotation.y > 0) {
 				animal.turningLeft = true;
 			} else {
