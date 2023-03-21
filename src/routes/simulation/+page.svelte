@@ -72,6 +72,7 @@ export let generations2 = writable([1]);
 		<!--slider with one value-->
 		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
 	</div>
+	<div class="spacer blackToWhite"></div>
 	<div class="geneCatagory2">
 		<h1>Starting Animals</h1>
 	</div>
@@ -94,5 +95,27 @@ export let generations2 = writable([1]);
 	gap: 0.5em;
 	background-color: #161a21;
 	color: white;
+}
+.geneCatagory2{
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+	padding: 3em;
+	gap: 0.5em;
+	background-color: #fdfdfd;
+	color: black;
+}
+.spacer{
+	aspect-ratio: 960/300;
+	width: 100%;
+	background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.blackToWhite{
+	background-image: url('/blackToWhite.svg');
+}
+.whiteToBlack{
+	background-image: url('/whiteToBlack.svg');
 }
 </style>
