@@ -62,6 +62,15 @@ export let generations2 = writable([1]);
 		<h2>Generations</h2>
 		<!--slider with one value-->
 		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
+		<h2>Amount of Mice</h2>
+		<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
+		<h2>Amount of Snakes</h2>
+		<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
+		<h2>Amount of Cats</h2>
+		<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
 	</div>
 	<div class="geneCatagory2">
 		<h1>Starting Animals</h1>
