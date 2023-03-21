@@ -48,9 +48,8 @@
 	];
 	let currentVar = 'current';
 	import { writable } from 'svelte/store';
-export let miceCamouflage = writable([1,100]);
+export let miceCamouflage = writable([$minMiceCamouflage,$maxMiceCamouflage]);
 export let generations2 = writable([1]);
-let a = [1,100];
 </script>
 
 <body>
@@ -65,7 +64,8 @@ let a = [1,100];
 <RangeSlider range float pips pipstep={100} all='label' bind:values={$miceCamouflage} max={1000}/>
 	<!--slider with one value-->
 <RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={10} max={500}/>
-
+	<!--for gene variation percent-->
+<RangeSlider range float pips pipstep={100} suffix="%" all='label' bind:values={$miceCamouflage} max={1000}/>
 </body>
 <style>
 :root {
