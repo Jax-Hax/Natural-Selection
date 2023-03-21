@@ -71,7 +71,7 @@
 		engine = new BABYLON.Engine(canvas);
 		scene = new BABYLON.Scene(engine);
 		scene.clearColor = new BABYLON.Color3(0, 50, 75);
-		camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 15, -$sizeY), scene);
+		camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, $sizeX/4, -$sizeX), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
 		camera.speed = 1;

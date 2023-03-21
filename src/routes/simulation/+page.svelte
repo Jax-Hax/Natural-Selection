@@ -49,26 +49,35 @@
 	let currentVar = 'current';
 	import { writable } from 'svelte/store';
 export let miceCamouflage = writable([$minMiceCamouflage,$maxMiceCamouflage]);
-export let generations2 = writable([1]);
+export let generations2 = writable([$generations]);
+export let sizeX2 = writable([$sizeX]);
+export let sizeY2 = writable([$sizeY]);
+$: $sizeX2, $sizeX = $sizeX2;
+$: $sizeY2, $sizeY = $sizeY2;
 </script>
 
 <body>
 	<div class="geneCatagory1" id="firstScreen">
-			<h1>Select Page</h1>
-			<p>This is where you change anything you want to about the simulation. I have included all genes present in the simulation, but they are all set to the best levels for a balanced simulation. If you would like to see how different genes affect the animals, try setting one to the max and see what changes.</p>
+			<h1>Parameter Page</h1>
+			<p>This is where you change anything you want to in the simulation. I have included all genes present in the simulation, but they are all set to the best levels for a balanced simulation. If you would like to see how different genes affect the animals, try setting one to the max and see what changes.</p>
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
 	<div class="spacer blackToWhite"></div>
 <div class="geneCatagory2">
 		<h1>Miscellaneous Genes</h1>
-	</div>
-			<div class="spacer whiteToBlack"></div>
-
-	<div class="geneCatagory1">
-		<h1>Starting Animals</h1>
+				<h2>Width of Simulation</h2>
+<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={100} all='label' bind:values={$sizeX2} min={50} max={1050}/>
+		<h2>Length of Simulation</h2>
+<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={100} all='label' bind:values={$sizeY2} min={50} max={1050}/>
 		<h2>Generations</h2>
 		<!--slider with one value-->
 		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
+	</div>
+			<div class="spacer whiteToBlack"></div>
+	<div class="geneCatagory1">
+		<h1>Starting Animals</h1>
 		<h2>Amount of Mice</h2>
 		<!--slider with one value-->
 		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
@@ -106,7 +115,7 @@ body {
 	padding: 3em;
 	gap: 0.5em;
 	background-color: #161a21;
-	padding-bottom: 1em;
+	padding-bottom: 5em;
 		padding-top: 0;
 	color: white;
 }
@@ -114,8 +123,11 @@ body {
 	align-items: center;
 	padding-top: 3em;
 }
-#firstScreen p{
-				font-size: 1.5rem;
+h2{
+	font-size: 2rem;
+}
+p{
+	font-size: 1.5rem;
 }
 .geneCatagory2{
 	display: flex;
@@ -123,6 +135,7 @@ body {
   justify-content: center;
 	padding: 3em;
 	padding-bottom: 1em;
+		padding-bottom: 5em;
 	padding-top: 0;
 	gap: 0.5em;
 	background-color: #fdfdfd;
