@@ -57,13 +57,17 @@ export let generations2 = writable([1]);
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
 
-	<div class="geneCatagory">
+	<div class="geneCatagory1">
+		<h1>Starting Animals</h1>
+		<h2>Generations</h2>
+		<!--slider with one value-->
+		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
+	</div>
+	<div class="geneCatagory2">
 		<h1>Starting Animals</h1>
 	</div>
 	<!--range slider with two values-->
 <RangeSlider range float pips pipstep={100} all='label' bind:values={$miceCamouflage} max={1000}/>
-	<!--slider with one value-->
-<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={10} max={500}/>
 	<!--for gene variation percent-->
 <RangeSlider range float pips pipstep={100} suffix="%" all='label' bind:values={$miceCamouflage} max={1000}/>
 </body>
@@ -72,5 +76,14 @@ export let generations2 = writable([1]);
  --range-range:  #fb8500; /* active range bar background color */
  --range-handle:          #fb8500; /* non-focussed handle color */
  --range-handle-focus:    #fb8500; /* focussed handle color */
+}
+.geneCatagory1{
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+	padding: 3em;
+	gap: 0.5em;
+	background-color: black;
+	color: white;
 }
 </style>
