@@ -53,9 +53,16 @@ export let generations2 = writable([1]);
 </script>
 
 <body>
-	<div class="firstScreen">
+	<div class="geneCatagory1" id="firstScreen">
+			<h1>Select Page</h1>
+			<p>This is where you change anything you want to about the simulation. I have included all genes present in the simulation, but they are all set to the best levels for a balanced simulation. If you would like to see how different genes affect the animals, try setting one to the max and see what changes.</p>
 		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
 	</div>
+	<div class="spacer blackToWhite"></div>
+<div class="geneCatagory2">
+		<h1>Miscellaneous Genes</h1>
+	</div>
+			<div class="spacer whiteToBlack"></div>
 
 	<div class="geneCatagory1">
 		<h1>Starting Animals</h1>
@@ -102,6 +109,13 @@ body {
 	padding-bottom: 1em;
 		padding-top: 0;
 	color: white;
+}
+#firstScreen{
+	align-items: center;
+	padding-top: 3em;
+}
+#firstScreen p{
+				font-size: 1.5rem;
 }
 .geneCatagory2{
 	display: flex;
