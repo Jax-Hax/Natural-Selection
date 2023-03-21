@@ -49,6 +49,9 @@
 	let currentVar = 'current';
 	import { writable } from 'svelte/store';
 export let miceCamouflage = writable([$minMiceCamouflage,$maxMiceCamouflage]);
+export let miceSpeed = writable([$minMiceCamouflage,$maxMiceCamouflage]);
+export let snakeSpeed = writable([$minMiceCamouflage,$maxMiceCamouflage]);
+export let catSpeed = writable([$minMiceCamouflage,$maxMiceCamouflage]);
 export let generations2 = writable([$generations]);
 export let sizeX2 = writable([$sizeX]);
 export let sizeY2 = writable([$sizeY]);
@@ -77,7 +80,7 @@ $: $sizeY2, $sizeY = $sizeY2;
 	</div>
 			<div class="spacer whiteToBlack"></div>
 	<div class="geneCatagory1">
-		<h1>Starting Animals</h1>
+		<h1>Amount of Animals to Start</h1>
 		<h2>Amount of Mice</h2>
 		<!--slider with one value-->
 		<RangeSlider range="min" float pips pipstep={20} all='label' bind:values={$generations2} min={20} max={500}/>
@@ -90,7 +93,16 @@ $: $sizeY2, $sizeY = $sizeY2;
 	</div>
 	<div class="spacer blackToWhite"></div>
 	<div class="geneCatagory2">
-		<h1>Starting Animals</h1>
+		<h1>Speed</h1>
+		<h2>Mice</h2>
+	<!--range slider with two values-->
+<RangeSlider range float pips pipstep={5} all='label' bind:values={$miceSpeed} max={30}/>
+		<h2>Snakes</h2>
+	<!--range slider with two values-->
+<RangeSlider range float pips pipstep={5} all='label' bind:values={$snakeSpeed} max={30}/>
+		<h2>Cats</h2>
+	<!--range slider with two values-->
+<RangeSlider range float pips pipstep={5} all='label' bind:values={$catSpeed} max={30}/>
 	</div>
 		<div class="spacer whiteToBlack"></div>
 
