@@ -95,6 +95,7 @@ export let generations2 = writable([1]);
 	gap: 0.5em;
 	background-color: #161a21;
 	padding-bottom: 1em;
+		padding-top: 0;
 	color: white;
 }
 .geneCatagory2{
@@ -103,6 +104,7 @@ export let generations2 = writable([1]);
   justify-content: center;
 	padding: 3em;
 	padding-bottom: 1em;
+	padding-top: 0;
 	gap: 0.5em;
 	background-color: #fdfdfd;
 	color: black;
