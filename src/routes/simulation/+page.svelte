@@ -70,9 +70,16 @@
 			If you would like to see how different genes affect the animals, try setting one to the max
 			and see what changes.
 		</p>
-		<a href="/simulation/play" id="startButton"><button>Start Simulation</button></a>
-		<div class="row">
+		<a href="/simulation/play" id="startButton"><button id="simButton">Start Simulation</button></a>
+		<div style="padding-top: 1em">
 			<a href="#misc"><button>Miscellaneous</button></a>
+			<a href="#animalNum"><button>Amount of Animals</button></a>
+			<a href="#speed"><button>Speed</button></a>
+			<a href="#vision"><button>Vision</button></a>
+			<a href="#hunger"><button>Hunger</button></a>
+			<a href="#reproductive"><button>Reproductive</button></a>
+			<a href="#geneMutation"><button>Gene Mutation</button></a>
+			<a href="#camouflage"><button>Camouflage</button></a>
 		</div>
 	</div>
 	<div class="spacer blackToWhite" />
@@ -116,7 +123,7 @@
 		/>
 	</div>
 	<div class="spacer whiteToBlack" />
-	<div class="geneCatagory1">
+	<div class="geneCatagory1" id="animalNum">
 		<h1>Amount of Animals to Start</h1>
 		<h2>Amount of Mice</h2>
 		<!--slider with one value-->
@@ -124,11 +131,11 @@
 			range="min"
 			float
 			pips
-			pipstep={20}
+			pipstep={10}
 			all="label"
 			bind:values={$generations2}
-			min={20}
-			max={500}
+			min={10}
+			max={200}
 		/>
 		<h2>Amount of Snakes</h2>
 		<!--slider with one value-->
@@ -136,11 +143,11 @@
 			range="min"
 			float
 			pips
-			pipstep={20}
+			pipstep={10}
 			all="label"
 			bind:values={$generations2}
-			min={20}
-			max={500}
+			min={10}
+			max={200}
 		/>
 		<h2>Amount of Cats</h2>
 		<!--slider with one value-->
@@ -148,15 +155,15 @@
 			range="min"
 			float
 			pips
-			pipstep={20}
+			pipstep={10}
 			all="label"
 			bind:values={$generations2}
 			min={20}
-			max={500}
+			max={200}
 		/>
 	</div>
 	<div class="spacer blackToWhite" />
-	<div class="geneCatagory2">
+	<div class="geneCatagory2" id="speed">
 		<h1>Speed</h1>
 		<h2>Mice</h2>
 		<!--range slider with two values-->
@@ -169,6 +176,28 @@
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed} max={30} />
 	</div>
 	<div class="spacer whiteToBlack" />
+	<div class="geneCatagory1" id="vision">
+			<h1>Vision</h1>
+	</div>
+	<div class="spacer blackToWhite" />
+	<div class="geneCatagory2" id="hunger">
+		<h1>Hunger</h1>
+	</div>
+	<div class="spacer whiteToBlack" />
+	<div class="geneCatagory1" id="reproductive">
+		<h1>Reproductive</h1>
+	</div>
+	<div class="spacer blackToWhite" />
+	<div class="geneCatagory2" id="geneMutation">
+		<h1>Genetic Mutation</h1>
+	</div>
+	<div class="spacer whiteToBlack" />
+	<div class="geneCatagory1" id="camouflage">
+		<h1>Camouflage</h1>
+	</div>
+
+
+
 
 	<!--range slider with two values-->
 	<RangeSlider
@@ -202,6 +231,29 @@
 	body {
 		width: 100%;
 		overflow-x: hidden;
+	}
+	#simButton{
+		background-color: #fb8500;
+		border: -2px solid #fb8500;
+		font-size: 1.5em;
+		border-radius: 25px;
+	}
+	#simButton:hover {
+		background-color: white; /* Green */
+		color: #fb8500;
+		border: -2px solid #fb8500; /* Green */
+		margin-bottom: -2px;
+	}
+	button:hover{
+		background-color: white; /* Green */
+		box-shadow: 0 4px;
+		color: #0077b6;
+		transform: translateY(-0.25em);
+		transition: transform 0.25s;
+		border: -2px solid #0077b6; /* Green */
+		border-width: 1px;
+		border-style: solid;
+		margin-bottom: -2px;
 	}
 	.geneCatagory1 {
 		display: flex;
