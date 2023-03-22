@@ -620,12 +620,10 @@ minCatAggression,
      geneMutationAmount,
      standards,
      attractiveness,
-     foodValue,
 	aggression,
 	standardsForPrey
    ) {
      this.model = undefined;
-     this.foodValue = foodValue;
      this.isFemale = isFemale;
      this.restTime = restTime;
      this.turning = false;
@@ -640,7 +638,6 @@ minCatAggression,
      this.maxHunger = maxHunger;
      this.currentHunger = maxHunger;
      this.minHunger = minHunger;
-     this.predator = undefined;
      this.canMove = true;
      this.mate = undefined;
      this.isResting = false;
