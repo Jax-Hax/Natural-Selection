@@ -66,9 +66,9 @@
 		<h1>Parameter Page</h1>
 		<p>
 			This is where you change anything you want to in the simulation. I have included all genes
-			present in the simulation, but they are all set to the best levels for a balanced simulation.
+			present in the simulation, and they are all set to the best levels for a balanced simulation.
 			If you would like to see how different genes affect the animals, try setting one to the max
-			and see what changes.
+			and see what changes. Most genes are set to ranges, and the gene of each animal will be selected randomly from that range at the start.
 		</p>
 		<a href="/simulation/play" id="startButton"><button id="simButton">Start Simulation</button></a>
 		<div style="padding-top: 1em">
@@ -178,6 +178,16 @@
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="vision">
 			<h1>Vision</h1>
+			<p>This is how close predators have to be for animals to see them and start running away.</p>
+			<h2>Mice</h2>
+		<!--range slider with two values-->
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed} max={30} />
+		<h2>Snakes</h2>
+		<!--range slider with two values-->
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed} max={30} />
+		<h2>Cats</h2>
+		<!--range slider with two values-->
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed} max={30} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="hunger">
