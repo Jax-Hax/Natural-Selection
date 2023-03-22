@@ -330,17 +330,8 @@
 		}
 	}
 	function checkWallCollision(animal) {
-		if (animal.model.position.x > $sizeX / 2 - 4) {
-			animal.turning = true;
-			animal.timerToTurning = Math.random() + 3;
-			console.log('current turning: ' + animal.model.rotation.y);
-			console.log('turn amount: ' + (3.14 - animal.model.rotation.y));
-			animal.turnAmount = 3.14 - animal.model.rotation.y;
-			if (animal.model.rotation.y > 0) {
-				animal.turningLeft = true;
-			} else {
-				animal.turningLeft = false;
-			}
+		if (animal.model.position.x > $sizeX / 2 + 0.1 || animal.model.position.x < -($sizeX / 2 - 0.1) || animal.model.position.z > $sizeY / 2 + 0.1 || animal.model.position.z < -($sizeY / 2 + 0.1)) {
+			animal.model.rotation.y = -animal.model.rotation.y;
 		}
 	}
 	function haveChild(childType, female, male) {
