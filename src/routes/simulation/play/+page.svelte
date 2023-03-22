@@ -366,6 +366,9 @@ minCatAggression,
 				//resting countdown
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
+				if(mouse.currentHunger > mouse.maxHunger){
+					mouse.currentHunger = mouse.maxHunger;
+				}
 				if (mouse.restingCountdown <= 0) {
 					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
