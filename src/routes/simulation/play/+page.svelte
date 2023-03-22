@@ -330,6 +330,7 @@ minCatAggression,
 				if (mouse.canMove) {
 					//movement code
 					if (mouse.turning) {
+						mouse.hasAvoidedWall = false;
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
 						if (mouse.turningLeft) {
@@ -384,8 +385,15 @@ minCatAggression,
 		}
 	}
 	function checkWallCollision(animal) {
-		if (animal.model.position.x > $sizeX / 2 + 0.1 || animal.model.position.x < -($sizeX / 2 - 0.1) || animal.model.position.z > $sizeY / 2 + 0.1 || animal.model.position.z < -($sizeY / 2 + 0.1)) {
+		if(!animal.hasAvoidedWall){
+			if (animal.model.position.x > $sizeX / 2 + 0.1 || animal.model.position.x < -($sizeX / 2 - 0.1) || animal.model.position.z > $sizeY / 2 + 0.1 || animal.model.position.z < -($sizeY / 2 + 0.1)) {
 			animal.model.rotation.y = -animal.model.rotation.y;
+			console.log("mouse has rotated");
+			console.log(animal.model.position.z);
+			animal.turning = false;
+			animal.hasAvoidedWall = true;
+			animal.timerToTurning = Math.random() + 3;
+		}
 		}
 	}
 	function haveChild(childType, female, male) {
@@ -511,6 +519,7 @@ minCatAggression,
 			this.isFemale = isFemale;
 			this.restTime = restTime;
 			this.turning = false;
+			this.hasAvoidedWall = false;
 			this.geneMutationChance = geneMutationChance;
 			this.geneMutationAmount = geneMutationAmount;
 			this.restingCountdown = this.restTime;
