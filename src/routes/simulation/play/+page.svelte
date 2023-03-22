@@ -648,12 +648,9 @@ minCatAggression,
      this.hasMate = false;
      this.isBeingChased = false;
      this.timerToTurning = 2;
-     this.visionDistance = visionDistance;
      this.posX = posX;
      this.posY = posY;
      this.speed = speed;
-     this.camouflage = camouflage;
-     this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
      this.standards = standards;
      this.attractiveness = attractiveness;
 	this.aggression = aggression;
