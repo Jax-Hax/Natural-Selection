@@ -70,13 +70,13 @@ export let minSnakeAggression = writable(3);
 export let maxSnakeAggression = writable(5);
 export let minSnakePreyStandards = writable(3);
 export let maxSnakePreyStandards = writable(5);
+export let minSnakeFoodValue = writable(5);
+export let maxSnakeFoodValue = writable(10);
 //Cat genes
 export let minCatMinHunger = writable(5);
 export let maxCatMinHunger = writable(10);
 export let minCatMaxHunger = writable(15);
 export let maxCatMaxHunger = writable(20);
-export let minCatVision = writable(10);
-export let maxCatVision = writable(20);
 export let minCatRestTime = writable(6);
 export let maxCatRestTime = writable(10);
 export let minCatReproductiveRestTime = writable(3);

@@ -70,6 +70,8 @@ minSnakePreyStandards,
 		maxSnakePreyStandards,
 minSnakeAggression,
 		maxSnakeAggression,
+		minSnakeFoodValue,
+		maxSnakeFoodValue,
 				minCatRestTime,
 		maxCatRestTime,
 		minCatReproductiveRestTime,
@@ -88,8 +90,6 @@ minSnakeAggression,
 		maxCatMinHunger,
 		minCatMaxHunger,
 		maxCatMaxHunger,
-		minCatVision,
-		maxCatVision,
 minCatPreyStandards,
 		maxCatPreyStandards,
 minCatAggression,
@@ -545,24 +545,125 @@ minCatAggression,
 		}
 	}
 	class Snake {
-		constructor(posX, posY, speed, camouflage) {
-			this.model = undefined;
-			this.posX = posX;
-			this.posY = posY;
-			this.speed = speed;
-			this.camouflage = camouflage;
-			this.preyListValue = this.speed - this.camouflage;
-			this.reproductiveListValue = 0;
-		}
+		constructor(
+     posX,
+     posY,
+     speed,
+     camouflage,
+     visionDistance,
+     maxHunger,
+     minHunger,
+     isFemale,
+     restTime,
+     reproductiveRestTime,
+     timeAliveUntilReproduction,
+     geneMutationChance,
+     geneMutationAmount,
+     standards,
+     attractiveness,
+     foodValue,
+	aggression,
+	standardsForPrey
+   ) {
+     this.model = undefined;
+     this.foodValue = foodValue;
+     this.isFemale = isFemale;
+     this.restTime = restTime;
+     this.turning = false;
+     this.geneMutationChance = geneMutationChance;
+     this.geneMutationAmount = geneMutationAmount;
+     this.restingCountdown = this.restTime;
+     this.reproductiveRestTime = reproductiveRestTime;
+     this.reproductiveRestingCountdown = this.reproductiveRestTime;
+     this.isReproductiveResting = false;
+     this.timeUntilReproduction = timeAliveUntilReproduction;
+     this.timeAliveUntilReproduction = timeAliveUntilReproduction;
+     this.maxHunger = maxHunger;
+     this.currentHunger = maxHunger;
+     this.minHunger = minHunger;
+     this.predator = undefined;
+     this.canMove = true;
+     this.mate = undefined;
+     this.isResting = false;
+     this.onReproductiveList = false;
+     this.lookingForMate = false;
+     this.turningLeft = false;
+     this.turnAmount = 1;
+     this.hasMate = false;
+     this.isBeingChased = false;
+     this.timerToTurning = 2;
+     this.visionDistance = visionDistance;
+     this.posX = posX;
+     this.posY = posY;
+     this.speed = speed;
+     this.camouflage = camouflage;
+     this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
+     this.standards = standards;
+     this.attractiveness = attractiveness;
+	this.aggression = aggression;
+	this.standardsForPrey = standardsForPrey;
+	this.prey = undefined;
+   }
 	}
 	class Cat {
-		constructor(posX, posY, speed) {
-			this.model = undefined;
-			this.posX = posX;
-			this.posY = posY;
-			this.speed = speed;
-			this.reproductiveListValue = 0;
-		}
+		constructor(
+     posX,
+     posY,
+     speed,
+     maxHunger,
+     minHunger,
+     isFemale,
+     restTime,
+     reproductiveRestTime,
+     timeAliveUntilReproduction,
+     geneMutationChance,
+     geneMutationAmount,
+     standards,
+     attractiveness,
+     foodValue,
+	aggression,
+	standardsForPrey
+   ) {
+     this.model = undefined;
+     this.foodValue = foodValue;
+     this.isFemale = isFemale;
+     this.restTime = restTime;
+     this.turning = false;
+     this.geneMutationChance = geneMutationChance;
+     this.geneMutationAmount = geneMutationAmount;
+     this.restingCountdown = this.restTime;
+     this.reproductiveRestTime = reproductiveRestTime;
+     this.reproductiveRestingCountdown = this.reproductiveRestTime;
+     this.isReproductiveResting = false;
+     this.timeUntilReproduction = timeAliveUntilReproduction;
+     this.timeAliveUntilReproduction = timeAliveUntilReproduction;
+     this.maxHunger = maxHunger;
+     this.currentHunger = maxHunger;
+     this.minHunger = minHunger;
+     this.predator = undefined;
+     this.canMove = true;
+     this.mate = undefined;
+     this.isResting = false;
+     this.onReproductiveList = false;
+     this.lookingForMate = false;
+     this.turningLeft = false;
+     this.turnAmount = 1;
+     this.hasMate = false;
+     this.isBeingChased = false;
+     this.timerToTurning = 2;
+     this.visionDistance = visionDistance;
+     this.posX = posX;
+     this.posY = posY;
+     this.speed = speed;
+     this.camouflage = camouflage;
+     this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
+     this.standards = standards;
+     this.attractiveness = attractiveness;
+	this.aggression = aggression;
+	this.standardsForPrey = standardsForPrey;
+	this.prey = undefined;
+   }
+
 	}
 
 	//Functions for things that are used often, but not a part of game function
