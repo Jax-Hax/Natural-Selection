@@ -219,9 +219,9 @@
 				if (mouse.isBeingChased) {
 					distanceBtwPoints = distBtwPoints(
 						mouse.model.position.x,
-						mouse.model.position.y,
+						mouse.model.position.z,
 						mouse.predator.model.position.x,
-						mouse.predator.model.position.y
+						mouse.predator.model.position.z
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.canMove = false;
@@ -235,8 +235,8 @@
 						if (
 							mouse.mate.model.position.x <= mouse.model.position.x + 1 &&
 							mouse.mate.model.position.x >= mouse.model.position.x - 1 &&
-							mouse.mate.model.position.y <= mouse.model.position.y + 1 &&
-							mouse.mate.model.position.y >= mouse.model.position.y - 1
+							mouse.mate.model.position.z <= mouse.model.position.z + 1 &&
+							mouse.mate.model.position.z >= mouse.model.position.z - 1
 						) {
 							console.log('had child!!');
 							if (mouse.isFemale == true) {
@@ -347,7 +347,7 @@
 		if (childType == 'mouse') {
 			let mouse = new Mouse(
 				female.model.position.x,
-				female.model.position.y,
+				female.model.position.z,
 				childGeneCalculator(female.speed, male.speed, female, male),
 				childGeneCalculator(female.camouflage, male.camouflage, female, male),
 				childGeneCalculator(female.visionDistance, male.visionDistance, female, male),
