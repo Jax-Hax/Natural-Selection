@@ -204,6 +204,7 @@
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="camouflage">
 		<h1>Camouflage</h1>
+		<p>Cats do not need camouflage since they are the top predator, and cannot be eaten by anything, therefore never evolved to be camouflage.</p>
 	</div>
 
 

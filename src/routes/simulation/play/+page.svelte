@@ -14,14 +14,8 @@
 		amCats,
 		minMiceCamouflage,
 		maxMiceCamouflage,
-		minMiceVision,
-		maxMiceVision,
 		minMiceSpeed,
 		maxMiceSpeed,
-		minMiceMinHunger,
-		maxMiceMinHunger,
-		minMiceMaxHunger,
-		maxMiceMaxHunger,
 		minSnakeCamouflage,
 		maxSnakeCamouflage,
 		minSnakeSpeed,
@@ -43,7 +37,15 @@
 		minMiceStandards,
 		maxMiceStandards,
 		minMiceAttractiveness,
-		maxMiceAttractiveness
+		maxMiceAttractiveness,
+		minMiceFoodValue,
+		maxMiceFoodValue,
+		minMiceMinHunger,
+		maxMiceMinHunger,
+		minMiceMaxHunger,
+		maxMiceMaxHunger,
+		minMiceVision,
+		maxMiceVision
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
 	var engine,
@@ -139,7 +141,8 @@
 				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance) / 100,
 				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
 				randBtwDecimals($minMiceStandards, $maxMiceStandards),
-				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness)
+				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness),
+				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -362,7 +365,8 @@
 				childGeneCalculator(female.geneMutationChance, male.geneMutationChance, female, male),
 				childGeneCalculator(female.geneMutationAmount, male.geneMutationAmount, female, male),
 				childGeneCalculator(female.standards, male.standards, female, male),
-				childGeneCalculator(female.attractiveness, male.attractiveness, female, male)
+				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
+				childGeneCalculator(female.foodValue, male.foodValue, female, male)
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
 			miceIDNum += 1;
@@ -448,9 +452,11 @@
 			geneMutationChance,
 			geneMutationAmount,
 			standards,
-			attractiveness
+			attractiveness,
+			foodValue
 		) {
 			this.model = undefined;
+			this.foodValue = foodValue;
 			this.isFemale = isFemale;
 			this.restTime = restTime;
 			this.turning = false;
@@ -482,7 +488,7 @@
 			this.posY = posY;
 			this.speed = speed;
 			this.camouflage = camouflage;
-			this.preyListValue = this.speed - this.camouflage;
+			this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
 			this.standards = standards;
 			this.attractiveness = attractiveness;
 		}
