@@ -345,6 +345,7 @@
 									mouse.mate.hasMate = true;
 									miceReproductiveList[i].mate = mouse;
 									miceReproductiveList.splice(i, 1);
+									break;
 								}
 							}
 						}
@@ -387,7 +388,7 @@
 					checkWallCollision(mouse);
 					//end movement code
 				}
-				if (mouse.currentHunger < mouse.minHunger) {
+				if (mouse.currentHunger < mouse.minHunger && !mouse.isResting) {
 					mouse.isResting = true;
 				} else {
 					mouse.currentHunger -= deltaTime;
@@ -469,6 +470,7 @@
 									snake.mate.hasMate = true;
 									snakesReproductiveList[i].mate = snake;
 									snakesReproductiveList.splice(i, 1);
+									break;
 								}
 							}
 						}
@@ -511,9 +513,8 @@
 					checkWallCollision(snake);
 					//end movement code
 				}
-				if (snake.currentHunger < snake.minHunger) {
+				if (snake.currentHunger < snake.minHunger && !snake.isHuntingPrey) {
 					snake.isLookingForPrey = true;
-					console.log('lookingForPrey');
 				} else {
 					snake.currentHunger -= deltaTime;
 				}
@@ -525,6 +526,7 @@
 							snake.isLookingForPrey = false;
 							snake.prey.isBeingChased = true;
 							snake.prey.predator = snake;
+							break;
 						}
 					}
 				}
@@ -551,6 +553,7 @@
 					snake.prey.model.position.z >= snake.model.position.z - 1
 				) {
 					//eat prey
+					console.log("eat prey");
 					snake.currentHunger += snake.prey.foodValue;
 					snake.isHuntingPrey = false;
 					snake.prey.model.dispose();
@@ -748,7 +751,7 @@
 			this.posY = posY;
 			this.speed = speed;
 			this.camouflage = camouflage;
-			this.preyListValue = this.speed - this.camouflage / 10 + this.foodValue;
+			this.preyListValue = this.speed - this.camouflage / 20 + this.foodValue;
 			this.standards = standards;
 			this.attractiveness = attractiveness;
 		}
@@ -808,7 +811,7 @@
 			this.posY = posY;
 			this.speed = speed;
 			this.camouflage = camouflage;
-			this.preyListValue = this.speed - this.camouflage / 10 + this.foodValue;
+			this.preyListValue = this.speed - this.camouflage / 20 + this.foodValue;
 			this.standards = standards;
 			this.attractiveness = attractiveness;
 			this.aggression = aggression;
