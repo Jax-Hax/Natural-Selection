@@ -219,8 +219,22 @@ minCatAggression,
 			let snake = new Snake(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
-				randBtwNums($minSnakeSpeed, $maxSnakeSpeed),
-				randBtwNums($minSnakeCamouflage, $maxSnakeCamouflage)
+				randBtwDecimals($minSnakeSpeed, $maxSnakeSpeed),
+				randBtwNums($minSnakeCamouflage, $maxSnakeCamouflage),
+				randBtwDecimals($minSnakeVision, $maxSnakeVision),
+				randBtwNums($minSnakeMaxHunger, $maxSnakeMaxHunger),
+				randBtwNums($minSnakeMinHunger, $maxSnakeMinHunger),
+				Math.random() < 0.5,
+				randBtwDecimals($minSnakeRestTime, $maxSnakeRestTime),
+				randBtwDecimals($minSnakeReproductiveRestTime, $maxSnakeReproductiveRestTime),
+				randBtwDecimals($minSnakeTimeAliveUntilReproduction, $maxSnakeTimeAliveUntilReproduction),
+				randBtwDecimals($minSnakeGeneMutationChance, $maxSnakeGeneMutationChance) / 100,
+				randBtwDecimals($minSnakeGeneMutationAmount, $maxSnakeGeneMutationAmount),
+				randBtwDecimals($minSnakeStandards, $maxSnakeStandards),
+				randBtwDecimals($minSnakeAttractiveness, $maxSnakeAttractiveness),
+				randBtwDecimals($minSnakeFoodValue, $maxSnakeFoodValue),
+				randBtwDecimals($minSnakeAggression, $maxSnakeAggression),
+				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards),
 			);
 			const snakeShape = snakeMainModel.createInstance('snake' + i);
 			snakeShape.position.x = snake.posX;
@@ -242,7 +256,9 @@ minCatAggression,
 			);
 			snake.model = snakeShape;
 			snakes.push(snake);
-		}
+}
+		snakeIDNum = $amSnakes;
+
 		//cats
 		for (let i = 0; i < $amCats; i++) {
 			let cat = new Cat(
