@@ -524,16 +524,13 @@ minCatAggression,
 					if(mice[i].preyListValue >= snake.standardsForPrey){
 						snake.prey = mice[i];
 						snake.isHuntingPrey = true;
+						snake.isLookingForPrey = false;
 					}
 				}
 				}
 			} else if (!snake.isReproductiveResting && !snake.isHuntingPrey) {
 				//resting countdown
 				snake.restingCountdown -= deltaTime;
-				snake.currentHunger += deltaTime * snake.hungerGainedFromResting;
-				if(snake.currentHunger > snake.maxHunger){
-					snake.currentHunger = snake.maxHunger;
-				}
 				if (snake.restingCountdown <= 0) {
 					snake.restingCountdown = snake.restTime;
 					snake.isResting = false;
@@ -548,6 +545,20 @@ minCatAggression,
 			}
 			else{
 				//hunting prey
+				if (
+							snake.prey.model.position.x <= snake.model.position.x + 1 &&
+							snake.prey.model.position.x >= snake.model.position.x - 1 &&
+							snake.prey.model.position.z <= snake.model.position.z + 1 &&
+							snake.prey.model.position.z >= snake.model.position.z - 1
+						) {
+							//eat prey
+							snake.currentHunger += prey.foodValue;
+							snake.isHuntingPrey = false;
+							//DESTROY OBJECT
+				if(snake.currentHunger > snake.maxHunger){
+					snake.currentHunger = snake.maxHunger;
+				}
+						}
 			}
 		}
 	}
