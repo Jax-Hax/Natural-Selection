@@ -734,6 +734,7 @@ minCatAggression,
      this.foodValue = foodValue;
      this.isFemale = isFemale;
      this.restTime = restTime;
+		 this.isLookingForPrey = false;
      this.turning = false;
      this.geneMutationChance = geneMutationChance;
      this.geneMutationAmount = geneMutationAmount;
@@ -792,6 +793,7 @@ minCatAggression,
      this.isFemale = isFemale;
      this.restTime = restTime;
      this.turning = false;
+		 this.isLookingForPrey = false;
      this.geneMutationChance = geneMutationChance;
      this.geneMutationAmount = geneMutationAmount;
      this.restingCountdown = this.restTime;
