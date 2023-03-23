@@ -553,12 +553,11 @@
 					snake.prey.model.position.z >= snake.model.position.z - 1
 				) {
 					//eat prey
-					console.log("eat prey");
 					snake.currentHunger += snake.prey.foodValue;
 					snake.isHuntingPrey = false;
 					snake.prey.model.dispose();
 					for (let i = 0; i < mice.length; i++) {
-						if ((mice[i] = snake.prey)) {
+						if (mice[i] = snake.prey) {
 							if (mice[i].mate != undefined) {
 								mice[i].mate.mate = undefined;
 								mice[i].mate.hasMate = false;
