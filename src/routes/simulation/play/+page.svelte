@@ -292,8 +292,8 @@ minCatAggression,
 
 	}
 	function checkEachMouse(translation) {
-		for (let i = 0; i < mice.length; i++) {
-			mouse = mice[i];
+		for (let j = 0; j < mice.length; j++) {
+			mouse = mice[j];
 			mouse.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
@@ -417,12 +417,12 @@ minCatAggression,
 	}
 
 	function checkEachSnake(translation) {
-		for (let i = 0; i < snakes.length; i++) {
-			snake = snakes[i];
+		for (let j = 0; j < snakes.length; j++) {
+			snake = snakes[j];
 			snake.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * snake.speed;
-			if (!snake.isResting && !snake.isReproductiveResting) {
+			if (!snake.isResting && !snake.isReproductiveResting && !snake.isHuntingPrey) {
 				if (snake.isBeingChased) {
 					distanceBtwPoints = distBtwPoints(
 						snake.model.position.x,
@@ -515,11 +515,19 @@ minCatAggression,
 					//end movement code
 				}
 				if (snake.currentHunger < snake.minHunger) {
-					snake.isResting = true;
+					snake.isLookingForPrey = true;
 				} else {
 					snake.currentHunger -= deltaTime;
 				}
-			} else if (!snake.isReproductiveResting) {
+				if(snake.isLookingForPrey){
+				for(let i = 0; i < mice.length; i++){
+					if(mice[i].preyListValue >= snake.standardsForPrey){
+						snake.prey = mice[i];
+						snake.isHuntingPrey = true;
+					}
+				}
+				}
+			} else if (!snake.isReproductiveResting && !snake.isHuntingPrey) {
 				//resting countdown
 				snake.restingCountdown -= deltaTime;
 				snake.currentHunger += deltaTime * snake.hungerGainedFromResting;
@@ -530,13 +538,16 @@ minCatAggression,
 					snake.restingCountdown = snake.restTime;
 					snake.isResting = false;
 				}
-			} else {
+			} else if(!snake.isHuntingPrey){
 				//reproductive resting
 				snake.reproductiveRestingCountdown -= deltaTime;
 				if (snake.reproductiveRestingCountdown <= 0) {
 					snake.reproductiveRestingCountdown = snake.reproductiveRestTime;
 					snake.isReproductiveResting = false;
 				}
+			}
+			else{
+				//hunting prey
 			}
 		}
 	}
@@ -735,6 +746,7 @@ minCatAggression,
      this.isFemale = isFemale;
      this.restTime = restTime;
 		 this.isLookingForPrey = false;
+		 this.isHuntingPrey = false;
      this.turning = false;
      this.geneMutationChance = geneMutationChance;
      this.geneMutationAmount = geneMutationAmount;
@@ -794,6 +806,7 @@ minCatAggression,
      this.restTime = restTime;
      this.turning = false;
 		 this.isLookingForPrey = false;
+		 this.isHuntingPrey = false;
      this.geneMutationChance = geneMutationChance;
      this.geneMutationAmount = geneMutationAmount;
      this.restingCountdown = this.restTime;
