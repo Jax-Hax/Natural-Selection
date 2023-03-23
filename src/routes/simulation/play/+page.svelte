@@ -561,18 +561,18 @@ minCatAggression,
 							snake.prey.model.dispose();
 							for(let i = 0; i < mice.length; i++){
 								if(mice[i] = snake.prey){
-									mice[i].hasMate = false;
 									if(mice[i].mate != undefined){
-										mice[i].mate.mate = 
+										mice[i].mate.mate = undefined;
+										mice[i].mate.hasMate = false;
 									}
 									mice[i] = null;
 									mice.splice(i,1);
 								}
 							}
 							for(let i = 0; i < miceReproductiveList.length; i++){
-								if(mice[i] = snake.prey){
-									mice[i] = null;
-									mice.splice(i,1);
+								if(miceReproductiveList[i] = snake.prey){
+									miceReproductiveList[i] = null;
+									miceReproductiveList.splice(i,1);
 								}
 							}
 				if(snake.currentHunger > snake.maxHunger){
