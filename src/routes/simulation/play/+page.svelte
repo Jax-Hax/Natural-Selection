@@ -306,7 +306,7 @@
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						mouse.canMove = false;
-						mouse.model.rotation.y = mouse.predator.rotation.y;
+						mouse.model.rotation.y = mouse.predator.model.rotation.y;
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
 					}
@@ -519,10 +519,12 @@
 				}
 				if (snake.isLookingForPrey) {
 					for (let i = 0; i < mice.length; i++) {
-						if (mice[i].preyListValue >= snake.standardsForPrey) {
+						if (mice[i].preyListValue >= snake.standardsForPrey && !mice[i].isBeingChased) {
 							snake.prey = mice[i];
 							snake.isHuntingPrey = true;
 							snake.isLookingForPrey = false;
+							snake.prey.isBeingChased = true;
+							snake.prey.predator = snake;
 						}
 					}
 				}
@@ -549,7 +551,7 @@
 					snake.prey.model.position.z >= snake.model.position.z - 1
 				) {
 					//eat prey
-					snake.currentHunger += prey.foodValue;
+					snake.currentHunger += snake.prey.foodValue;
 					snake.isHuntingPrey = false;
 					snake.prey.model.dispose();
 					for (let i = 0; i < mice.length; i++) {
@@ -857,7 +859,6 @@
 			this.turningLeft = false;
 			this.turnAmount = 1;
 			this.hasMate = false;
-			this.isBeingChased = false;
 			this.timerToTurning = 2;
 			this.posX = posX;
 			this.posY = posY;
