@@ -46,7 +46,7 @@
 		maxMiceMaxHunger,
 		minMiceVision,
 		maxMiceVision,
-				minSnakeRestTime,
+		minSnakeRestTime,
 		maxSnakeRestTime,
 		minSnakeReproductiveRestTime,
 		maxSnakeReproductiveRestTime,
@@ -66,13 +66,13 @@
 		maxSnakeMaxHunger,
 		minSnakeVision,
 		maxSnakeVision,
-minSnakePreyStandards,
+		minSnakePreyStandards,
 		maxSnakePreyStandards,
-minSnakeAggression,
+		minSnakeAggression,
 		maxSnakeAggression,
 		minSnakeFoodValue,
 		maxSnakeFoodValue,
-				minCatRestTime,
+		minCatRestTime,
 		maxCatRestTime,
 		minCatReproductiveRestTime,
 		maxCatReproductiveRestTime,
@@ -90,9 +90,9 @@ minSnakeAggression,
 		maxCatMinHunger,
 		minCatMaxHunger,
 		maxCatMaxHunger,
-minCatPreyStandards,
+		minCatPreyStandards,
 		maxCatPreyStandards,
-minCatAggression,
+		minCatAggression,
 		maxCatAggression
 	} from '$lib/stores.js';
 	//const sizeX = 100, sizeY = 100, amMice = 5;
@@ -258,7 +258,7 @@ minCatAggression,
 			);
 			snake.model = snakeShape;
 			snakes.push(snake);
-}
+		}
 		snakeIDNum = $amSnakes;
 
 		//cats
@@ -287,9 +287,8 @@ minCatAggression,
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
 			cats.push(cat);
-}
+		}
 		catIDNum = $amCats;
-
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -320,18 +319,15 @@ minCatAggression,
 							mouse.mate.model.position.z <= mouse.model.position.z + 1 &&
 							mouse.mate.model.position.z >= mouse.model.position.z - 1
 						) {
-							console.log('had child!!');
 							if (mouse.isFemale == true) {
 								haveChild('mouse', mouse, mouse.mate);
 							}
 							mouse.hasMate = false;
-							mouse.mate.mate = undefined;
 							mouse.mate = undefined;
 							mouse.lookingForMate = false;
 							mouse.isReproductiveResting = true;
 						} else {
 							mouse.model.lookAt(mouse.mate.model.position);
-							mouse.isRuningTowardsMate = true;
 							mouse.model.locallyTranslate(translation);
 						}
 					} else {
@@ -400,7 +396,7 @@ minCatAggression,
 				//resting countdown
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
-				if(mouse.currentHunger > mouse.maxHunger){
+				if (mouse.currentHunger > mouse.maxHunger) {
 					mouse.currentHunger = mouse.maxHunger;
 				}
 				if (mouse.restingCountdown <= 0) {
@@ -447,18 +443,15 @@ minCatAggression,
 							snake.mate.model.position.z <= snake.model.position.z + 1 &&
 							snake.mate.model.position.z >= snake.model.position.z - 1
 						) {
-							console.log('had child!!');
 							if (snake.isFemale == true) {
 								haveChild('snake', snake, snake.mate);
 							}
 							snake.hasMate = false;
-							snake.mate.mate = undefined;
 							snake.mate = undefined;
 							snake.lookingForMate = false;
 							snake.isReproductiveResting = true;
 						} else {
 							snake.model.lookAt(snake.mate.model.position);
-							snake.isRuningTowardsMate = true;
 							snake.model.locallyTranslate(translation);
 						}
 					} else {
@@ -520,17 +513,18 @@ minCatAggression,
 				}
 				if (snake.currentHunger < snake.minHunger) {
 					snake.isLookingForPrey = true;
+					console.log('lookingForPrey');
 				} else {
 					snake.currentHunger -= deltaTime;
 				}
-				if(snake.isLookingForPrey){
-				for(let i = 0; i < mice.length; i++){
-					if(mice[i].preyListValue >= snake.standardsForPrey){
-						snake.prey = mice[i];
-						snake.isHuntingPrey = true;
-						snake.isLookingForPrey = false;
+				if (snake.isLookingForPrey) {
+					for (let i = 0; i < mice.length; i++) {
+						if (mice[i].preyListValue >= snake.standardsForPrey) {
+							snake.prey = mice[i];
+							snake.isHuntingPrey = true;
+							snake.isLookingForPrey = false;
+						}
 					}
-				}
 				}
 			} else if (!snake.isReproductiveResting && !snake.isHuntingPrey) {
 				//resting countdown
@@ -539,59 +533,64 @@ minCatAggression,
 					snake.restingCountdown = snake.restTime;
 					snake.isResting = false;
 				}
-			} else if(!snake.isHuntingPrey){
+			} else if (!snake.isHuntingPrey) {
 				//reproductive resting
 				snake.reproductiveRestingCountdown -= deltaTime;
 				if (snake.reproductiveRestingCountdown <= 0) {
 					snake.reproductiveRestingCountdown = snake.reproductiveRestTime;
 					snake.isReproductiveResting = false;
 				}
-			}
-			else{
+			} else {
 				//hunting prey
 				if (
-							snake.prey.model.position.x <= snake.model.position.x + 1 &&
-							snake.prey.model.position.x >= snake.model.position.x - 1 &&
-							snake.prey.model.position.z <= snake.model.position.z + 1 &&
-							snake.prey.model.position.z >= snake.model.position.z - 1
-						) {
-							//eat prey
-							snake.currentHunger += prey.foodValue;
-							snake.isHuntingPrey = false;
-							snake.prey.model.dispose();
-							for(let i = 0; i < mice.length; i++){
-								if(mice[i] = snake.prey){
-									if(mice[i].mate != undefined){
-										mice[i].mate.mate = undefined;
-										mice[i].mate.hasMate = false;
-									}
-									mice[i] = null;
-									mice.splice(i,1);
-								}
+					snake.prey.model.position.x <= snake.model.position.x + 1 &&
+					snake.prey.model.position.x >= snake.model.position.x - 1 &&
+					snake.prey.model.position.z <= snake.model.position.z + 1 &&
+					snake.prey.model.position.z >= snake.model.position.z - 1
+				) {
+					//eat prey
+					snake.currentHunger += prey.foodValue;
+					snake.isHuntingPrey = false;
+					snake.prey.model.dispose();
+					for (let i = 0; i < mice.length; i++) {
+						if ((mice[i] = snake.prey)) {
+							if (mice[i].mate != undefined) {
+								mice[i].mate.mate = undefined;
+								mice[i].mate.hasMate = false;
 							}
-							for(let i = 0; i < miceReproductiveList.length; i++){
-								if(miceReproductiveList[i] = snake.prey){
-									miceReproductiveList[i] = null;
-									miceReproductiveList.splice(i,1);
-								}
-							}
-				if(snake.currentHunger > snake.maxHunger){
-					snake.currentHunger = snake.maxHunger;
-				}
+							mice[i] = null;
+							mice.splice(i, 1);
 						}
+					}
+					for (let i = 0; i < miceReproductiveList.length; i++) {
+						if ((miceReproductiveList[i] = snake.prey)) {
+							miceReproductiveList[i] = null;
+							miceReproductiveList.splice(i, 1);
+						}
+					}
+					if (snake.currentHunger > snake.maxHunger) {
+						snake.currentHunger = snake.maxHunger;
+					}
+				} else {
+					snake.model.lookAt(snake.prey.model.position);
+					snake.model.locallyTranslate(translation);
+				}
 			}
 		}
 	}
 	function checkWallCollision(animal) {
-		if(!animal.hasAvoidedWall){
-			if (animal.model.position.x > $sizeX / 2 + 0.1 || animal.model.position.x < -($sizeX / 2 - 0.1) || animal.model.position.z > $sizeY / 2 + 0.1 || animal.model.position.z < -($sizeY / 2 + 0.1)) {
-			animal.model.rotation.y = -animal.model.rotation.y;
-			console.log("mouse has rotated");
-			console.log(animal.model.position.z);
-			animal.turning = false;
-			animal.hasAvoidedWall = true;
-			animal.timerToTurning = Math.random() + 3;
-		}
+		if (!animal.hasAvoidedWall) {
+			if (
+				animal.model.position.x > $sizeX / 2 + 0.1 ||
+				animal.model.position.x < -($sizeX / 2 - 0.1) ||
+				animal.model.position.z > $sizeY / 2 + 0.1 ||
+				animal.model.position.z < -($sizeY / 2 + 0.1)
+			) {
+				animal.model.rotation.y = -animal.model.rotation.y;
+				animal.turning = false;
+				animal.hasAvoidedWall = true;
+				animal.timerToTurning = Math.random() + 3;
+			}
 		}
 	}
 	function haveChild(childType, female, male) {
@@ -680,6 +679,7 @@ minCatAggression,
 		var renderLoop = function () {
 			deltaTime = scene.deltaTime ? scene.deltaTime / 1000 : 0;
 			checkEachMouse(translation);
+			checkEachSnake(translation);
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
@@ -746,129 +746,128 @@ minCatAggression,
 			this.posY = posY;
 			this.speed = speed;
 			this.camouflage = camouflage;
-			this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
+			this.preyListValue = this.speed - this.camouflage / 10 + this.foodValue;
 			this.standards = standards;
 			this.attractiveness = attractiveness;
 		}
 	}
 	class Snake {
 		constructor(
-     posX,
-     posY,
-     speed,
-     camouflage,
-     visionDistance,
-     maxHunger,
-     minHunger,
-     isFemale,
-     restTime,
-     reproductiveRestTime,
-     timeAliveUntilReproduction,
-     geneMutationChance,
-     geneMutationAmount,
-     standards,
-     attractiveness,
-     foodValue,
-	aggression,
-	standardsForPrey
-   ) {
-     this.model = undefined;
-     this.foodValue = foodValue;
-     this.isFemale = isFemale;
-     this.restTime = restTime;
-		 this.isLookingForPrey = false;
-		 this.isHuntingPrey = false;
-     this.turning = false;
-     this.geneMutationChance = geneMutationChance;
-     this.geneMutationAmount = geneMutationAmount;
-     this.restingCountdown = this.restTime;
-     this.reproductiveRestTime = reproductiveRestTime;
-     this.reproductiveRestingCountdown = this.reproductiveRestTime;
-     this.isReproductiveResting = false;
-     this.timeUntilReproduction = timeAliveUntilReproduction;
-     this.timeAliveUntilReproduction = timeAliveUntilReproduction;
-     this.maxHunger = maxHunger;
-     this.currentHunger = maxHunger;
-     this.minHunger = minHunger;
-     this.predator = undefined;
-     this.canMove = true;
-     this.mate = undefined;
-     this.isResting = false;
-     this.onReproductiveList = false;
-     this.lookingForMate = false;
-     this.turningLeft = false;
-     this.turnAmount = 1;
-     this.hasMate = false;
-     this.isBeingChased = false;
-     this.timerToTurning = 2;
-     this.visionDistance = visionDistance;
-     this.posX = posX;
-     this.posY = posY;
-     this.speed = speed;
-     this.camouflage = camouflage;
-     this.preyListValue = this.speed - (this.camouflage/10) + this.foodValue;
-     this.standards = standards;
-     this.attractiveness = attractiveness;
-	this.aggression = aggression;
-	this.standardsForPrey = standardsForPrey;
-	this.prey = undefined;
-   }
+			posX,
+			posY,
+			speed,
+			camouflage,
+			visionDistance,
+			maxHunger,
+			minHunger,
+			isFemale,
+			restTime,
+			reproductiveRestTime,
+			timeAliveUntilReproduction,
+			geneMutationChance,
+			geneMutationAmount,
+			standards,
+			attractiveness,
+			foodValue,
+			aggression,
+			standardsForPrey
+		) {
+			this.model = undefined;
+			this.foodValue = foodValue;
+			this.isFemale = isFemale;
+			this.restTime = restTime;
+			this.isLookingForPrey = false;
+			this.isHuntingPrey = false;
+			this.turning = false;
+			this.geneMutationChance = geneMutationChance;
+			this.geneMutationAmount = geneMutationAmount;
+			this.restingCountdown = this.restTime;
+			this.reproductiveRestTime = reproductiveRestTime;
+			this.reproductiveRestingCountdown = this.reproductiveRestTime;
+			this.isReproductiveResting = false;
+			this.timeUntilReproduction = timeAliveUntilReproduction;
+			this.timeAliveUntilReproduction = timeAliveUntilReproduction;
+			this.maxHunger = maxHunger;
+			this.currentHunger = maxHunger;
+			this.minHunger = minHunger;
+			this.predator = undefined;
+			this.canMove = true;
+			this.mate = undefined;
+			this.isResting = false;
+			this.onReproductiveList = false;
+			this.lookingForMate = false;
+			this.turningLeft = false;
+			this.turnAmount = 1;
+			this.hasMate = false;
+			this.isBeingChased = false;
+			this.timerToTurning = 2;
+			this.visionDistance = visionDistance;
+			this.posX = posX;
+			this.posY = posY;
+			this.speed = speed;
+			this.camouflage = camouflage;
+			this.preyListValue = this.speed - this.camouflage / 10 + this.foodValue;
+			this.standards = standards;
+			this.attractiveness = attractiveness;
+			this.aggression = aggression;
+			this.standardsForPrey = standardsForPrey;
+			this.prey = undefined;
+		}
 	}
 	class Cat {
 		constructor(
-     posX,
-     posY,
-     speed,
-     maxHunger,
-     minHunger,
-     isFemale,
-     restTime,
-     reproductiveRestTime,
-     timeAliveUntilReproduction,
-     geneMutationChance,
-     geneMutationAmount,
-     standards,
-     attractiveness,
-	aggression,
-	standardsForPrey
-   ) {
-     this.model = undefined;
-     this.isFemale = isFemale;
-     this.restTime = restTime;
-     this.turning = false;
-		 this.isLookingForPrey = false;
-		 this.isHuntingPrey = false;
-     this.geneMutationChance = geneMutationChance;
-     this.geneMutationAmount = geneMutationAmount;
-     this.restingCountdown = this.restTime;
-     this.reproductiveRestTime = reproductiveRestTime;
-     this.reproductiveRestingCountdown = this.reproductiveRestTime;
-     this.isReproductiveResting = false;
-     this.timeUntilReproduction = timeAliveUntilReproduction;
-     this.timeAliveUntilReproduction = timeAliveUntilReproduction;
-     this.maxHunger = maxHunger;
-     this.currentHunger = maxHunger;
-     this.minHunger = minHunger;
-     this.canMove = true;
-     this.mate = undefined;
-     this.isResting = false;
-     this.onReproductiveList = false;
-     this.lookingForMate = false;
-     this.turningLeft = false;
-     this.turnAmount = 1;
-     this.hasMate = false;
-     this.isBeingChased = false;
-     this.timerToTurning = 2;
-     this.posX = posX;
-     this.posY = posY;
-     this.speed = speed;
-     this.standards = standards;
-     this.attractiveness = attractiveness;
-	this.aggression = aggression;
-	this.standardsForPrey = standardsForPrey;
-	this.prey = undefined;
-   }
-
+			posX,
+			posY,
+			speed,
+			maxHunger,
+			minHunger,
+			isFemale,
+			restTime,
+			reproductiveRestTime,
+			timeAliveUntilReproduction,
+			geneMutationChance,
+			geneMutationAmount,
+			standards,
+			attractiveness,
+			aggression,
+			standardsForPrey
+		) {
+			this.model = undefined;
+			this.isFemale = isFemale;
+			this.restTime = restTime;
+			this.turning = false;
+			this.isLookingForPrey = false;
+			this.isHuntingPrey = false;
+			this.geneMutationChance = geneMutationChance;
+			this.geneMutationAmount = geneMutationAmount;
+			this.restingCountdown = this.restTime;
+			this.reproductiveRestTime = reproductiveRestTime;
+			this.reproductiveRestingCountdown = this.reproductiveRestTime;
+			this.isReproductiveResting = false;
+			this.timeUntilReproduction = timeAliveUntilReproduction;
+			this.timeAliveUntilReproduction = timeAliveUntilReproduction;
+			this.maxHunger = maxHunger;
+			this.currentHunger = maxHunger;
+			this.minHunger = minHunger;
+			this.canMove = true;
+			this.mate = undefined;
+			this.isResting = false;
+			this.onReproductiveList = false;
+			this.lookingForMate = false;
+			this.turningLeft = false;
+			this.turnAmount = 1;
+			this.hasMate = false;
+			this.isBeingChased = false;
+			this.timerToTurning = 2;
+			this.posX = posX;
+			this.posY = posY;
+			this.speed = speed;
+			this.standards = standards;
+			this.attractiveness = attractiveness;
+			this.aggression = aggression;
+			this.standardsForPrey = standardsForPrey;
+			this.prey = undefined;
+		}
 	}
 
 	//Functions for things that are used often, but not a part of game function
