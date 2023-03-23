@@ -325,6 +325,8 @@ minCatAggression,
 								haveChild('mouse', mouse, mouse.mate);
 							}
 							mouse.hasMate = false;
+							mouse.mate.mate = undefined;
+							mouse.mate = undefined;
 							mouse.lookingForMate = false;
 							mouse.isReproductiveResting = true;
 						} else {
@@ -450,6 +452,8 @@ minCatAggression,
 								haveChild('snake', snake, snake.mate);
 							}
 							snake.hasMate = false;
+							snake.mate.mate = undefined;
+							snake.mate = undefined;
 							snake.lookingForMate = false;
 							snake.isReproductiveResting = true;
 						} else {
@@ -554,7 +558,23 @@ minCatAggression,
 							//eat prey
 							snake.currentHunger += prey.foodValue;
 							snake.isHuntingPrey = false;
-							//DESTROY OBJECT
+							snake.prey.model.dispose();
+							for(let i = 0; i < mice.length; i++){
+								if(mice[i] = snake.prey){
+									mice[i].hasMate = false;
+									if(mice[i].mate != undefined){
+										mice[i].mate.mate = 
+									}
+									mice[i] = null;
+									mice.splice(i,1);
+								}
+							}
+							for(let i = 0; i < miceReproductiveList.length; i++){
+								if(mice[i] = snake.prey){
+									mice[i] = null;
+									mice.splice(i,1);
+								}
+							}
 				if(snake.currentHunger > snake.maxHunger){
 					snake.currentHunger = snake.maxHunger;
 				}
