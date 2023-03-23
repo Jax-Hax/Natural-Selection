@@ -312,23 +312,28 @@
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
-						mouse.canMove = false;
-						if (
-							mouse.mate.model.position.x <= mouse.model.position.x + 1 &&
-							mouse.mate.model.position.x >= mouse.model.position.x - 1 &&
-							mouse.mate.model.position.z <= mouse.model.position.z + 1 &&
-							mouse.mate.model.position.z >= mouse.model.position.z - 1
-						) {
-							if (mouse.isFemale == true) {
-								haveChild('mouse', mouse, mouse.mate);
+						if (mouse.mate != undefined) {
+							mouse.canMove = false;
+							if (
+								mouse.mate.model.position.x <= mouse.model.position.x + 1 &&
+								mouse.mate.model.position.x >= mouse.model.position.x - 1 &&
+								mouse.mate.model.position.z <= mouse.model.position.z + 1 &&
+								mouse.mate.model.position.z >= mouse.model.position.z - 1
+							) {
+								if (mouse.isFemale == true) {
+									haveChild('mouse', mouse, mouse.mate);
+								}
+								mouse.hasMate = false;
+								mouse.mate = undefined;
+								mouse.lookingForMate = false;
+								mouse.isReproductiveResting = true;
+							} else {
+								mouse.model.lookAt(mouse.mate.model.position);
+								mouse.model.locallyTranslate(translation);
 							}
+						}
+						else{
 							mouse.hasMate = false;
-							mouse.mate = undefined;
-							mouse.lookingForMate = false;
-							mouse.isReproductiveResting = true;
-						} else {
-							mouse.model.lookAt(mouse.mate.model.position);
-							mouse.model.locallyTranslate(translation);
 						}
 					} else {
 						//findMate
@@ -557,7 +562,7 @@
 					snake.isHuntingPrey = false;
 					snake.prey.model.dispose();
 					for (let i = 0; i < mice.length; i++) {
-						if (mice[i] = snake.prey) {
+						if ((mice[i] = snake.prey)) {
 							if (mice[i].mate != undefined) {
 								mice[i].mate.mate = undefined;
 								mice[i].mate.hasMate = false;
