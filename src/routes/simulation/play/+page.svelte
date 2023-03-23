@@ -234,7 +234,7 @@ minCatAggression,
 				randBtwDecimals($minSnakeAttractiveness, $maxSnakeAttractiveness),
 				randBtwDecimals($minSnakeFoodValue, $maxSnakeFoodValue),
 				randBtwDecimals($minSnakeAggression, $maxSnakeAggression),
-				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards),
+				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards)
 			);
 			const snakeShape = snakeMainModel.createInstance('snake' + i);
 			snakeShape.position.x = snake.posX;
@@ -264,7 +264,19 @@ minCatAggression,
 			let cat = new Cat(
 				randBtwNums(-$sizeX / 2, $sizeX / 2),
 				randBtwNums(-$sizeY / 2, $sizeY / 2),
-				randBtwNums($minCatSpeed, $maxCatSpeed)
+				randBtwDecimals($minCatSpeed, $maxCatSpeed),
+				randBtwNums($minCatMaxHunger, $maxCatMaxHunger),
+				randBtwNums($minCatMinHunger, $maxCatMinHunger),
+				Math.random() < 0.5,
+				randBtwDecimals($minCatRestTime, $maxCatRestTime),
+				randBtwDecimals($minCatReproductiveRestTime, $maxCatReproductiveRestTime),
+				randBtwDecimals($minCatTimeAliveUntilReproduction, $maxCatTimeAliveUntilReproduction),
+				randBtwDecimals($minCatGeneMutationChance, $maxCatGeneMutationChance) / 100,
+				randBtwDecimals($minCatGeneMutationAmount, $maxCatGeneMutationAmount),
+				randBtwDecimals($minCatStandards, $maxCatStandards),
+				randBtwDecimals($minCatAttractiveness, $maxCatAttractiveness),
+				randBtwDecimals($minCatAggression, $maxCatAggression),
+				randBtwDecimals($minCatPreyStandards, $maxCatPreyStandards)
 			);
 			const catShape = catMainModel.createInstance('cat' + i);
 			catShape.position.x = cat.posX;
@@ -273,8 +285,9 @@ minCatAggression,
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
 			cats.push(cat);
-			console.log(Math.atan2(3, 2));
-		}
+}
+		catIDNum = $amCats;
+
 	}
 	function checkEachMouse(translation) {
 		for (let i = 0; i < mice.length; i++) {
