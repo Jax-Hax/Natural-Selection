@@ -458,6 +458,8 @@
 							snake.isReproductiveResting = true;
 						} else {
 							snake.model.lookAt(snake.mate.model.position);
+							snake.model.rotation.x = 0;
+							snake.model.rotation.z = 0;
 							snake.model.locallyTranslate(translation);
 						}
 					} else {
@@ -491,7 +493,7 @@
 					//movement code
 					if (snake.turning) {
 						snake.hasAvoidedWall = false;
-						desiredDirection = snake.speed * deltaTime;
+						desiredDirection = snake.speed/5 * deltaTime;
 						snake.turnAmount -= desiredDirection;
 						if (snake.turningLeft) {
 							snake.model.rotation.y -= desiredDirection;
