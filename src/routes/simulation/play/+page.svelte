@@ -117,6 +117,8 @@ minCatAggression,
 	const snakes = [];
 	const cats = [];
 	const miceReproductiveList = [];
+	const snakesReproductiveList = [];
+	const catsReproductiveList = [];
 	function createScene(canvas) {
 		engine = new BABYLON.Engine(canvas);
 		scene = new BABYLON.Scene(engine);
