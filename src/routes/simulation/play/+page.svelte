@@ -415,6 +415,131 @@ minCatAggression,
 			}
 		}
 	}
+
+	function checkEachSnake(translation) {
+		for (let i = 0; i < snakes.length; i++) {
+			snake = snakes[i];
+			snake.canMove = true;
+			translation.set(0, 0, 0);
+			translation.z = deltaTime * snake.speed;
+			if (!snake.isResting && !snake.isReproductiveResting) {
+				if (snake.isBeingChased) {
+					distanceBtwPoints = distBtwPoints(
+						snake.model.position.x,
+						snake.model.position.z,
+						snake.predator.model.position.x,
+						snake.predator.model.position.z
+					);
+					if (snake.visionDistance >= distanceBtwPoints) {
+						snake.canMove = false;
+						snake.model.rotation.y = snake.predator.rotation.y;
+						snake.model.locallyTranslate(translation);
+						checkWallCollision(snake);
+					}
+				} else if (snake.lookingForMate) {
+					if (snake.hasMate) {
+						snake.canMove = false;
+						if (
+							snake.mate.model.position.x <= snake.model.position.x + 1 &&
+							snake.mate.model.position.x >= snake.model.position.x - 1 &&
+							snake.mate.model.position.z <= snake.model.position.z + 1 &&
+							snake.mate.model.position.z >= snake.model.position.z - 1
+						) {
+							console.log('had child!!');
+							if (snake.isFemale == true) {
+								haveChild('snake', snake, snake.mate);
+							}
+							snake.hasMate = false;
+							snake.lookingForMate = false;
+							snake.isReproductiveResting = true;
+						} else {
+							snake.model.lookAt(snake.mate.model.position);
+							snake.isRuningTowardsMate = true;
+							snake.model.locallyTranslate(translation);
+						}
+					} else {
+						//findMate
+						if (!snake.isFemale) {
+							if (!snake.onReproductiveList) {
+								snakesReproductiveList.push(snake);
+								snake.onReproductiveList = true;
+							}
+						} else {
+							for (let i = 0; i < snakesReproductiveList.length; i++) {
+								if (snakesReproductiveList[i].attractiveness > snake.standards) {
+									snake.mate = snakesReproductiveList[i];
+									snake.hasMate = true;
+									snake.mate.hasMate = true;
+									snakesReproductiveList[i].mate = snake;
+									snakesReproductiveList.splice(i, 1);
+								}
+							}
+						}
+					}
+				} else {
+					snake.timeUntilReproduction -= deltaTime;
+					if (snake.timeUntilReproduction <= 0) {
+						snake.timeUntilReproduction = snake.timeAliveUntilReproduction;
+						snake.lookingForMate = true;
+					}
+				}
+				if (snake.canMove) {
+					//movement code
+					if (snake.turning) {
+						snake.hasAvoidedWall = false;
+						desiredDirection = snake.speed * deltaTime;
+						snake.turnAmount -= desiredDirection;
+						if (snake.turningLeft) {
+							snake.model.rotation.y -= desiredDirection;
+						} else {
+							snake.model.rotation.y += desiredDirection;
+						}
+						if (snake.turnAmount < 0) {
+							snake.turning = false;
+						}
+					} else {
+						snake.timerToTurning -= deltaTime;
+						if (snake.timerToTurning < 0) {
+							snake.turning = true;
+							snake.timerToTurning = Math.random() * 3;
+							snake.turnAmount = Math.random() * 1.57;
+							if (Math.random() > 0.5) {
+								snake.turningLeft = true;
+							} else {
+								snake.turningLeft = false;
+							}
+						}
+					}
+					snake.model.locallyTranslate(translation);
+					checkWallCollision(snake);
+					//end movement code
+				}
+				if (snake.currentHunger < snake.minHunger) {
+					snake.isResting = true;
+				} else {
+					snake.currentHunger -= deltaTime;
+				}
+			} else if (!snake.isReproductiveResting) {
+				//resting countdown
+				snake.restingCountdown -= deltaTime;
+				snake.currentHunger += deltaTime * snake.hungerGainedFromResting;
+				if(snake.currentHunger > snake.maxHunger){
+					snake.currentHunger = snake.maxHunger;
+				}
+				if (snake.restingCountdown <= 0) {
+					snake.restingCountdown = snake.restTime;
+					snake.isResting = false;
+				}
+			} else {
+				//reproductive resting
+				snake.reproductiveRestingCountdown -= deltaTime;
+				if (snake.reproductiveRestingCountdown <= 0) {
+					snake.reproductiveRestingCountdown = snake.reproductiveRestTime;
+					snake.isReproductiveResting = false;
+				}
+			}
+		}
+	}
 	function checkWallCollision(animal) {
 		if(!animal.hasAvoidedWall){
 			if (animal.model.position.x > $sizeX / 2 + 0.1 || animal.model.position.x < -($sizeX / 2 - 0.1) || animal.model.position.z > $sizeY / 2 + 0.1 || animal.model.position.z < -($sizeY / 2 + 0.1)) {
