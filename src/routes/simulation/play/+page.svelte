@@ -523,7 +523,7 @@
 					checkWallCollision(snake);
 					//end movement code
 				}
-				if (snake.currentHunger < snake.minHunger && !snake.isHuntingPrey) {
+				if (snake.currentHunger - snake.aggression < snake.minHunger && !snake.isHuntingPrey) {
 					snake.isLookingForPrey = true;
 				} else {
 					snake.currentHunger -= deltaTime;
@@ -565,6 +565,7 @@
 					//eat prey
 					snake.currentHunger += snake.prey.foodValue;
 					snake.isHuntingPrey = false;
+					snake.isResting = true;
 					snake.prey.model.dispose();
 					for (let i = 0; i < mice.length; i++) {
 						if ((mice[i] = snake.prey)) {
@@ -659,7 +660,52 @@
 			mouse.model = mouseShape;
 			mice.push(mouse);
 		} else if (childType == 'snake') {
-			//snake
+			let snake = new Snake(
+				female.model.position.x,
+				female.model.position.z,
+				childGeneCalculator(female.speed, male.speed, female, male),
+				childGeneCalculator(female.camouflage, male.camouflage, female, male),
+				childGeneCalculator(female.visionDistance, male.visionDistance, female, male),
+				childGeneCalculator(female.maxHunger, male.maxHunger, female, male),
+				childGeneCalculator(female.minHunger, male.minHunger, female, male),
+				Math.random() < 0.5,
+				childGeneCalculator(female.restTime, male.restTime, female, male),
+				childGeneCalculator(female.reproductiveRestTime, male.reproductiveRestTime, female, male),
+				childGeneCalculator(
+					female.timeAliveUntilReproduction,
+					male.timeAliveUntilReproduction,
+					female,
+					male
+				),
+				childGeneCalculator(female.geneMutationChance, male.geneMutationChance, female, male),
+				childGeneCalculator(female.geneMutationAmount, male.geneMutationAmount, female, male),
+				childGeneCalculator(female.standards, male.standards, female, male),
+				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
+				childGeneCalculator(female.foodValue, male.foodValue, female, male),
+				childGeneCalculator(female.aggression, male.aggression, female, male),
+				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male)
+			);
+			const snakeShape = snakeMainModel.createInstance('snake' + snakeIDNum);
+			snakeShape.position.x = snake.posX;
+			snakeShape.position.y = 0.76;
+			snakeShape.position.z = snake.posY;
+			snakeIDNum += 1;
+			snakeShape.rotation.y = randBtwDecimals(-3.14, 3.14);
+			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
+			var camouflageColor;
+			if (Math.random() >= 0.5) {
+				camouflageColor = hsv2rgb(121.29 - snake.camouflage * 2, 1, 0.73);
+			} else {
+				camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
+			}
+			snakeShape.instancedBuffers.color = new BABYLON.Color4(
+				camouflageColor[0],
+				camouflageColor[1],
+				camouflageColor[2],
+				1
+			);
+			snake.model = snakeShape;
+			snakes.push(snake);
 		} else {
 			//cat
 		}
