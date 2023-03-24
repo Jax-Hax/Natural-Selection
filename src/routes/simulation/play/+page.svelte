@@ -443,6 +443,7 @@
 				} else if (snake.lookingForMate) {
 					if (snake.hasMate) {
 						snake.canMove = false;
+						if(snake.mate != undefined){
 						if (
 							snake.mate.model.position.x <= snake.model.position.x + 1 &&
 							snake.mate.model.position.x >= snake.model.position.x - 1 &&
@@ -461,6 +462,10 @@
 							snake.model.rotation.x = 0;
 							snake.model.rotation.z = 0;
 							snake.model.locallyTranslate(translation);
+						}
+						}
+						else{
+							mouse.hasMate = false;
 						}
 					} else {
 						//findMate
