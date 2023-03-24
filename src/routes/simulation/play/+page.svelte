@@ -589,6 +589,8 @@
 					}
 				} else {
 					snake.model.lookAt(snake.prey.model.position);
+					snake.model.rotation.x = 0;
+					snake.model.rotation.z = 0;
 					snake.model.locallyTranslate(translation);
 				}
 			}
@@ -596,16 +598,15 @@
 	}
 	function checkWallCollision(animal) {
 		if (!animal.hasAvoidedWall) {
-			if (
-				animal.model.position.x > $sizeX / 2 + 0.1 ||
-				animal.model.position.x < -($sizeX / 2 - 0.1) ||
-				animal.model.position.z > $sizeY / 2 + 0.1 ||
-				animal.model.position.z < -($sizeY / 2 + 0.1)
-			) {
-				animal.model.rotation.y = -animal.model.rotation.y;
-				animal.turning = false;
-				animal.hasAvoidedWall = true;
-				animal.timerToTurning = Math.random() + 3;
+			if (animal.model.position.x > $sizeX / 2) {
+				animal.model.position.x = $sizeX / 2;
+			} else if (animal.model.position.x < -$sizeX / 2) {
+				animal.model.position.x = -$sizeX / 2;
+			}
+			if (animal.model.position.z > $sizeY / 2) {
+				animal.model.position.z = $sizeY / 2;
+			} else if (animal.model.position.z < -50) {
+				animal.model.position.z = -$sizeY / 2;
 			}
 		}
 	}
@@ -791,6 +792,7 @@
 			this.model = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
+			this.hasAvoidedWall = false;
 			this.restTime = restTime;
 			this.isLookingForPrey = false;
 			this.isHuntingPrey = false;
@@ -850,6 +852,7 @@
 		) {
 			this.model = undefined;
 			this.isFemale = isFemale;
+			this.hasAvoidedWall = false;
 			this.restTime = restTime;
 			this.turning = false;
 			this.isLookingForPrey = false;
