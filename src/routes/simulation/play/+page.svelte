@@ -365,7 +365,6 @@
 				if (mouse.canMove) {
 					//movement code
 					if (mouse.turning) {
-						mouse.hasAvoidedWall = false;
 						desiredDirection = mouse.speed * deltaTime;
 						mouse.turnAmount -= desiredDirection;
 						if (mouse.turningLeft) {
@@ -497,7 +496,6 @@
 				if (snake.canMove) {
 					//movement code
 					if (snake.turning) {
-						snake.hasAvoidedWall = false;
 						desiredDirection = snake.speed/5 * deltaTime;
 						snake.turnAmount -= desiredDirection;
 						if (snake.turningLeft) {
@@ -597,17 +595,15 @@
 		}
 	}
 	function checkWallCollision(animal) {
-		if (!animal.hasAvoidedWall) {
-			if (animal.model.position.x > $sizeX / 2) {
-				animal.model.position.x = $sizeX / 2;
-			} else if (animal.model.position.x < -$sizeX / 2) {
-				animal.model.position.x = -$sizeX / 2;
-			}
-			if (animal.model.position.z > $sizeY / 2) {
-				animal.model.position.z = $sizeY / 2;
-			} else if (animal.model.position.z < -50) {
-				animal.model.position.z = -$sizeY / 2;
-			}
+		if (animal.model.position.x > $sizeX / 2) {
+			animal.model.position.x = $sizeX / 2;
+		} else if (animal.model.position.x < -$sizeX / 2) {
+			animal.model.position.x = -$sizeX / 2;
+		}
+		if (animal.model.position.z > $sizeY / 2) {
+			animal.model.position.z = $sizeY / 2;
+		} else if (animal.model.position.z < -50) {
+			animal.model.position.z = -$sizeY / 2;
 		}
 	}
 	function haveChild(childType, female, male) {
@@ -734,7 +730,6 @@
 			this.isFemale = isFemale;
 			this.restTime = restTime;
 			this.turning = false;
-			this.hasAvoidedWall = false;
 			this.geneMutationChance = geneMutationChance;
 			this.geneMutationAmount = geneMutationAmount;
 			this.restingCountdown = this.restTime;
@@ -792,7 +787,6 @@
 			this.model = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
-			this.hasAvoidedWall = false;
 			this.restTime = restTime;
 			this.isLookingForPrey = false;
 			this.isHuntingPrey = false;
@@ -852,7 +846,6 @@
 		) {
 			this.model = undefined;
 			this.isFemale = isFemale;
-			this.hasAvoidedWall = false;
 			this.restTime = restTime;
 			this.turning = false;
 			this.isLookingForPrey = false;
