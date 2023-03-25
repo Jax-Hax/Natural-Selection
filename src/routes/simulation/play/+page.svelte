@@ -902,6 +902,7 @@
 			deltaTime = scene.deltaTime ? scene.deltaTime / 1000 : 0;
 			checkEachMouse(translation);
 			checkEachSnake(translation);
+			checkEachCat(translation);
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
