@@ -307,7 +307,7 @@
 					if (mouse.visionDistance >= distanceBtwPoints) {
 						console.log("is running");
 						mouse.canMove = false;
-						mouse.model.rotation.y = 3.14 + mouse.model.lookAt(mouse.predator.model);
+						mouse.model.rotation.y = mouse.predator.model.rotation.y;
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
 					}
