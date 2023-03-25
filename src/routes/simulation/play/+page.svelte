@@ -525,9 +525,8 @@
 				}
 				if (snake.currentHunger - snake.aggression < snake.minHunger && !snake.isHuntingPrey) {
 					snake.isLookingForPrey = true;
-				} else {
-					snake.currentHunger -= deltaTime;
 				}
+				snake.currentHunger -= deltaTime;
 				if (snake.isLookingForPrey) {
 					for (let i = 0; i < mice.length; i++) {
 						if (mice[i].preyListValue >= snake.standardsForPrey && !mice[i].isBeingChased) {
@@ -687,9 +686,8 @@
 				}
 				if (cat.currentHunger - cat.aggression < cat.minHunger && !cat.isHuntingPrey) {
 					cat.isLookingForPrey = true;
-				} else {
-					cat.currentHunger -= deltaTime;
 				}
+				cat.currentHunger -= deltaTime;
 				if (cat.isLookingForPrey) {
 					for (let i = 0; i < cats.length; i++) {
 						if (cats[i].preyListValue >= cat.standardsForPrey && !cats[i].isBeingChased) {
