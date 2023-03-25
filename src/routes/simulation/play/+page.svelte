@@ -305,8 +305,9 @@
 						mouse.predator.model.position.z
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
+						console.log("is running");
 						mouse.canMove = false;
-						mouse.model.rotation.y = mouse.predator.model.rotation.y;
+						mouse.model.rotation.y = 3.14 + mouse.model.lookAt(mouse.predator.model);
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
 					}
@@ -331,8 +332,7 @@
 								mouse.model.lookAt(mouse.mate.model.position);
 								mouse.model.locallyTranslate(translation);
 							}
-						}
-						else{
+						} else {
 							mouse.hasMate = false;
 						}
 					} else {
@@ -442,28 +442,27 @@
 				} else if (snake.lookingForMate) {
 					if (snake.hasMate) {
 						snake.canMove = false;
-						if(snake.mate != undefined){
-						if (
-							snake.mate.model.position.x <= snake.model.position.x + 1 &&
-							snake.mate.model.position.x >= snake.model.position.x - 1 &&
-							snake.mate.model.position.z <= snake.model.position.z + 1 &&
-							snake.mate.model.position.z >= snake.model.position.z - 1
-						) {
-							if (snake.isFemale == true) {
-								haveChild('snake', snake, snake.mate);
+						if (snake.mate != undefined) {
+							if (
+								snake.mate.model.position.x <= snake.model.position.x + 1 &&
+								snake.mate.model.position.x >= snake.model.position.x - 1 &&
+								snake.mate.model.position.z <= snake.model.position.z + 1 &&
+								snake.mate.model.position.z >= snake.model.position.z - 1
+							) {
+								if (snake.isFemale == true) {
+									haveChild('snake', snake, snake.mate);
+								}
+								snake.hasMate = false;
+								snake.mate = undefined;
+								snake.lookingForMate = false;
+								snake.isReproductiveResting = true;
+							} else {
+								snake.model.lookAt(snake.mate.model.position);
+								snake.model.rotation.x = 0;
+								snake.model.rotation.z = 0;
+								snake.model.locallyTranslate(translation);
 							}
-							snake.hasMate = false;
-							snake.mate = undefined;
-							snake.lookingForMate = false;
-							snake.isReproductiveResting = true;
 						} else {
-							snake.model.lookAt(snake.mate.model.position);
-							snake.model.rotation.x = 0;
-							snake.model.rotation.z = 0;
-							snake.model.locallyTranslate(translation);
-						}
-						}
-						else{
 							snake.hasMate = false;
 						}
 					} else {
@@ -496,7 +495,7 @@
 				if (snake.canMove) {
 					//movement code
 					if (snake.turning) {
-						desiredDirection = snake.speed/5 * deltaTime;
+						desiredDirection = (snake.speed / 5) * deltaTime;
 						snake.turnAmount -= desiredDirection;
 						if (snake.turningLeft) {
 							snake.model.rotation.y -= desiredDirection;
@@ -596,178 +595,181 @@
 		}
 	}
 	function checkEachCat(translation) {
-   for (let j = 0; j < cats.length; j++) {
-     cat = cats[j];
-     cat.canMove = true;
-     translation.set(0, 0, 0);
-     translation.z = deltaTime * cat.speed;
-     if (!cat.isResting && !cat.isReproductiveResting && !cat.isHuntingPrey) {
-       if (cat.lookingForMate) {
-         if (cat.hasMate) {
-           cat.canMove = false;
-           if(cat.mate != undefined){
-           if (
-             cat.mate.model.position.x <= cat.model.position.x + 1 &&
-             cat.mate.model.position.x >= cat.model.position.x - 1 &&
-             cat.mate.model.position.z <= cat.model.position.z + 1 &&
-             cat.mate.model.position.z >= cat.model.position.z - 1
-           ) {
-             if (cat.isFemale == true) {
-               haveChild('cat', cat, cat.mate);
-             }
-             cat.hasMate = false;
-             cat.mate = undefined;
-             cat.lookingForMate = false;
-             cat.isReproductiveResting = true;
-           } else {
-             cat.model.lookAt(cat.mate.model.position);
-             cat.model.rotation.x = 0;
-             cat.model.rotation.z = 0;
-             cat.model.locallyTranslate(translation);
-           }
-           }
-           else{
-             cat.hasMate = false;
-           }
-         } else {
-           //findMate
-           if (!cat.isFemale) {
-             if (!cat.onReproductiveList) {
-               catsReproductiveList.push(cat);
-               cat.onReproductiveList = true;
-             }
-           } else {
-             for (let i = 0; i < catsReproductiveList.length; i++) {
-               if (catsReproductiveList[i].attractiveness > cat.standards) {
-                 cat.mate = catsReproductiveList[i];
-                 cat.hasMate = true;
-                 cat.mate.hasMate = true;
-                 catsReproductiveList[i].mate = cat;
-                 catsReproductiveList.splice(i, 1);
-                 break;
-               }
-             }
-           }
-         }
-       } else {
-         cat.timeUntilReproduction -= deltaTime;
-         if (cat.timeUntilReproduction <= 0) {
-           cat.timeUntilReproduction = cat.timeAliveUntilReproduction;
-           cat.lookingForMate = true;
-         }
-       }
-       if (cat.canMove) {
-         //movement code
-         if (cat.turning) {
-           desiredDirection = cat.speed/5 * deltaTime;
-           cat.turnAmount -= desiredDirection;
-           if (cat.turningLeft) {
-             cat.model.rotation.y -= desiredDirection;
-           } else {
-             cat.model.rotation.y += desiredDirection;
-           }
-           if (cat.turnAmount < 0) {
-             cat.turning = false;
-           }
-         } else {
-           cat.timerToTurning -= deltaTime;
-           if (cat.timerToTurning < 0) {
-             cat.turning = true;
-             cat.timerToTurning = Math.random() * 3;
-             cat.turnAmount = Math.random() * 1.57;
-             if (Math.random() > 0.5) {
-               cat.turningLeft = true;
-             } else {
-               cat.turningLeft = false;
-             }
-           }
-         }
-         cat.model.locallyTranslate(translation);
-         checkWallCollision(cat);
-         //end movement code
-       }
-       if (cat.currentHunger - cat.aggression < cat.minHunger && !cat.isHuntingPrey) {
-         cat.isLookingForPrey = true;
-       } else {
-         cat.currentHunger -= deltaTime;
-       }
-       if (cat.isLookingForPrey) {
-         for (let i = 0; i < cats.length; i++) {
-           if (cats[i].preyListValue >= cat.standardsForPrey && !cats[i].isBeingChased) {
-             cat.prey = cats[i];
-             cat.isHuntingPrey = true;
-             cat.isLookingForPrey = false;
-             cat.prey.isBeingChased = true;
-             cat.prey.predator = cat;
-             break;
-           }
-         }
-       }
-     } else if (!cat.isReproductiveResting && !cat.isHuntingPrey) {
-       //resting countdown
-       cat.restingCountdown -= deltaTime;
-       if (cat.restingCountdown <= 0) {
-         cat.restingCountdown = cat.restTime;
-         cat.isResting = false;
-       }
-     } else if (!cat.isHuntingPrey) {
-       //reproductive resting
-       cat.reproductiveRestingCountdown -= deltaTime;
-       if (cat.reproductiveRestingCountdown <= 0) {
-         cat.reproductiveRestingCountdown = cat.reproductiveRestTime;
-         cat.isReproductiveResting = false;
-       }
-     } else {
-       //hunting prey
-       if (
-         cat.prey.model.position.x <= cat.model.position.x + 1 &&
-         cat.prey.model.position.x >= cat.model.position.x - 1 &&
-         cat.prey.model.position.z <= cat.model.position.z + 1 &&
-         cat.prey.model.position.z >= cat.model.position.z - 1
-       ) {
-         //eat prey
-         cat.currentHunger += cat.prey.foodValue;
-         cat.isHuntingPrey = false;
-         cat.isResting = true;
-         cat.prey.model.dispose();
-         for (let i = 0; i < cats.length; i++) {
-           if ((cats[i] = cat.prey)) {
-             if (cats[i].mate != undefined) {
-               cats[i].mate.mate = undefined;
-               cats[i].mate.hasMate = false;
-             }
-             cats[i] = null;
-             cats.splice(i, 1);
-           }
-         }
-         for (let i = 0; i < catsReproductiveList.length; i++) {
-           if ((catsReproductiveList[i] = cat.prey)) {
-             catsReproductiveList[i] = null;
-             catsReproductiveList.splice(i, 1);
-           }
-         }
-         if (cat.currentHunger > cat.maxHunger) {
-           cat.currentHunger = cat.maxHunger;
-         }
-       } else {
-         cat.model.lookAt(cat.prey.model.position);
-         cat.model.rotation.x = 0;
-         cat.model.rotation.z = 0;
-         cat.model.locallyTranslate(translation);
-       }
-     }
-   }
- }
+		for (let j = 0; j < cats.length; j++) {
+			cat = cats[j];
+			cat.canMove = true;
+			translation.set(0, 0, 0);
+			translation.z = deltaTime * cat.speed;
+			if (!cat.isResting && !cat.isReproductiveResting && !cat.isHuntingPrey) {
+				if (cat.lookingForMate) {
+					if (cat.hasMate) {
+						cat.canMove = false;
+						if (cat.mate != undefined) {
+							if (
+								cat.mate.model.position.x <= cat.model.position.x + 1 &&
+								cat.mate.model.position.x >= cat.model.position.x - 1 &&
+								cat.mate.model.position.z <= cat.model.position.z + 1 &&
+								cat.mate.model.position.z >= cat.model.position.z - 1
+							) {
+								if (cat.isFemale == true) {
+									haveChild('cat', cat, cat.mate);
+								}
+								cat.hasMate = false;
+								cat.mate = undefined;
+								cat.lookingForMate = false;
+								cat.isReproductiveResting = true;
+							} else {
+								cat.model.lookAt(cat.mate.model.position);
+								cat.model.rotation.x = 0;
+								cat.model.rotation.z = 0;
+								cat.model.locallyTranslate(translation);
+							}
+						} else {
+							cat.hasMate = false;
+						}
+					} else {
+						//findMate
+						if (!cat.isFemale) {
+							if (!cat.onReproductiveList) {
+								catsReproductiveList.push(cat);
+								cat.onReproductiveList = true;
+							}
+						} else {
+							for (let i = 0; i < catsReproductiveList.length; i++) {
+								if (catsReproductiveList[i].attractiveness > cat.standards) {
+									cat.mate = catsReproductiveList[i];
+									cat.hasMate = true;
+									cat.mate.hasMate = true;
+									catsReproductiveList[i].mate = cat;
+									catsReproductiveList.splice(i, 1);
+									break;
+								}
+							}
+						}
+					}
+				} else {
+					cat.timeUntilReproduction -= deltaTime;
+					if (cat.timeUntilReproduction <= 0) {
+						cat.timeUntilReproduction = cat.timeAliveUntilReproduction;
+						cat.lookingForMate = true;
+					}
+				}
+				if (cat.canMove) {
+					//movement code
+					if (cat.turning) {
+						desiredDirection = (cat.speed / 5) * deltaTime;
+						cat.turnAmount -= desiredDirection;
+						if (cat.turningLeft) {
+							cat.model.rotation.y -= desiredDirection;
+						} else {
+							cat.model.rotation.y += desiredDirection;
+						}
+						if (cat.turnAmount < 0) {
+							cat.turning = false;
+						}
+					} else {
+						cat.timerToTurning -= deltaTime;
+						if (cat.timerToTurning < 0) {
+							cat.turning = true;
+							cat.timerToTurning = Math.random() * 3;
+							cat.turnAmount = Math.random() * 1.57;
+							if (Math.random() > 0.5) {
+								cat.turningLeft = true;
+							} else {
+								cat.turningLeft = false;
+							}
+						}
+					}
+					cat.model.locallyTranslate(translation);
+					checkWallCollision(cat);
+					//end movement code
+				}
+				if (cat.currentHunger - cat.aggression < cat.minHunger && !cat.isHuntingPrey) {
+					cat.isLookingForPrey = true;
+				} else {
+					cat.currentHunger -= deltaTime;
+				}
+				if (cat.isLookingForPrey) {
+					for (let i = 0; i < cats.length; i++) {
+						if (cats[i].preyListValue >= cat.standardsForPrey && !cats[i].isBeingChased) {
+							cat.prey = cats[i];
+							cat.isHuntingPrey = true;
+							cat.isLookingForPrey = false;
+							cat.prey.isBeingChased = true;
+							cat.prey.predator = cat;
+							break;
+						}
+					}
+				}
+			} else if (!cat.isReproductiveResting && !cat.isHuntingPrey) {
+				//resting countdown
+				cat.restingCountdown -= deltaTime;
+				if (cat.restingCountdown <= 0) {
+					cat.restingCountdown = cat.restTime;
+					cat.isResting = false;
+				}
+			} else if (!cat.isHuntingPrey) {
+				//reproductive resting
+				cat.reproductiveRestingCountdown -= deltaTime;
+				if (cat.reproductiveRestingCountdown <= 0) {
+					cat.reproductiveRestingCountdown = cat.reproductiveRestTime;
+					cat.isReproductiveResting = false;
+				}
+			} else {
+				//hunting prey
+				if (
+					cat.prey.model.position.x <= cat.model.position.x + 1 &&
+					cat.prey.model.position.x >= cat.model.position.x - 1 &&
+					cat.prey.model.position.z <= cat.model.position.z + 1 &&
+					cat.prey.model.position.z >= cat.model.position.z - 1
+				) {
+					//eat prey
+					cat.currentHunger += cat.prey.foodValue;
+					cat.isHuntingPrey = false;
+					cat.isResting = true;
+					cat.prey.model.dispose();
+					for (let i = 0; i < cats.length; i++) {
+						if ((cats[i] = cat.prey)) {
+							if (cats[i].mate != undefined) {
+								cats[i].mate.mate = undefined;
+								cats[i].mate.hasMate = false;
+							}
+							cats[i] = null;
+							cats.splice(i, 1);
+						}
+					}
+					for (let i = 0; i < catsReproductiveList.length; i++) {
+						if ((catsReproductiveList[i] = cat.prey)) {
+							catsReproductiveList[i] = null;
+							catsReproductiveList.splice(i, 1);
+						}
+					}
+					if (cat.currentHunger > cat.maxHunger) {
+						cat.currentHunger = cat.maxHunger;
+					}
+				} else {
+					cat.model.lookAt(cat.prey.model.position);
+					cat.model.rotation.x = 0;
+					cat.model.rotation.z = 0;
+					cat.model.locallyTranslate(translation);
+				}
+			}
+		}
+	}
 	function checkWallCollision(animal) {
 		if (animal.model.position.x > $sizeX / 2) {
 			animal.model.position.x = $sizeX / 2;
+			animal.model.rotation.y = 4.71 + randBtwDecimals(-0.5, 0.5);
 		} else if (animal.model.position.x < -$sizeX / 2) {
 			animal.model.position.x = -$sizeX / 2;
+			animal.model.rotation.y = 1.57 + randBtwDecimals(-0.5, 0.5);
 		}
 		if (animal.model.position.z > $sizeY / 2) {
 			animal.model.position.z = $sizeY / 2;
+			animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
 		} else if (animal.model.position.z < -50) {
 			animal.model.position.z = -$sizeY / 2;
+			animal.model.rotation.y = randBtwDecimals(-0.5, 0.5);
 		}
 	}
 	function haveChild(childType, female, male) {
@@ -852,7 +854,7 @@
 			snakeShape.position.x = snake.posX;
 			snakeShape.position.y = 0.76;
 			snakeShape.position.z = snake.posY;
-			snakeIDNum += 1;
+			snakeIDNum++;
 			snakeShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			//randomly changes the ground value by a certain amount using hsv, then converts to rgb
 			var camouflageColor;
@@ -871,6 +873,36 @@
 			snakes.push(snake);
 		} else {
 			//cat
+			let cat = new Cat(
+				female.model.position.x,
+				female.model.position.z,
+				childGeneCalculator(female.speed, male.speed, female, male),
+				childGeneCalculator(female.maxHunger, male.maxHunger, female, male),
+				childGeneCalculator(female.minHunger, male.minHunger, female, male),
+				Math.random() < 0.5,
+				childGeneCalculator(female.restTime, male.restTime, female, male),
+				childGeneCalculator(female.reproductiveRestTime, male.reproductiveRestTime, female, male),
+				childGeneCalculator(
+					female.timeAliveUntilReproduction,
+					male.timeAliveUntilReproduction,
+					female,
+					male
+				),
+				childGeneCalculator(female.geneMutationChance, male.geneMutationChance, female, male),
+				childGeneCalculator(female.geneMutationAmount, male.geneMutationAmount, female, male),
+				childGeneCalculator(female.standards, male.standards, female, male),
+				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
+				childGeneCalculator(female.aggression, male.aggression, female, male),
+				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male)
+			);
+			const catShape = catMainModel.createInstance('cat' + catIDNum);
+			catShape.position.x = cat.posX;
+			catIDNum++;
+			catShape.position.y = 0.76;
+			catShape.position.z = cat.posY;
+			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
+			cat.model = catShape;
+			cats.push(cat);
 		}
 	}
 	function childGeneCalculator(gene1, gene2, female, male) {
