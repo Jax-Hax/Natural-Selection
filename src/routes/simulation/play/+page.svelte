@@ -305,9 +305,9 @@
 						mouse.predator.model.position.z
 					);
 					if (mouse.visionDistance >= distanceBtwPoints) {
-						console.log("is running");
 						mouse.canMove = false;
-						mouse.model.rotation.y = mouse.predator.model.rotation.y;
+						mouse.model.lookAt(mouse.predator.model.position);
+						mouse.model.rotation.y += 3.14;
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
 					}
@@ -435,7 +435,8 @@
 					);
 					if (snake.visionDistance >= distanceBtwPoints) {
 						snake.canMove = false;
-						snake.model.rotation.y = snake.predator.rotation.y;
+						snake.model.lookAt(snake.predator.model.position);
+						snake.model.rotation.y += 3.14;
 						snake.model.locallyTranslate(translation);
 						checkWallCollision(snake);
 					}
@@ -759,17 +760,25 @@
 	function checkWallCollision(animal) {
 		if (animal.model.position.x > $sizeX / 2) {
 			animal.model.position.x = $sizeX / 2;
-			animal.model.rotation.y = 4.71 + randBtwDecimals(-0.5, 0.5);
+			if (!animal.isBeingChased) {
+				animal.model.rotation.y = 4.71 + randBtwDecimals(-0.5, 0.5);
+			}
 		} else if (animal.model.position.x < -$sizeX / 2) {
 			animal.model.position.x = -$sizeX / 2;
-			animal.model.rotation.y = 1.57 + randBtwDecimals(-0.5, 0.5);
+			if (!animal.isBeingChased) {
+				animal.model.rotation.y = 1.57 + randBtwDecimals(-0.5, 0.5);
+			}
 		}
 		if (animal.model.position.z > $sizeY / 2) {
 			animal.model.position.z = $sizeY / 2;
-			animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
+			if (!animal.isBeingChased) {
+				animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
+			}
 		} else if (animal.model.position.z < -50) {
 			animal.model.position.z = -$sizeY / 2;
-			animal.model.rotation.y = randBtwDecimals(-0.5, 0.5);
+			if (!animal.isBeingChased) {
+				animal.model.rotation.y = randBtwDecimals(-0.5, 0.5);
+			}
 		}
 	}
 	function haveChild(childType, female, male) {
