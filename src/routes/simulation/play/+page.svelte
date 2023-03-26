@@ -5,6 +5,7 @@
 		startGame(el);
 	});
 	import * as BABYLON from '@babylonjs/core/Legacy/legacy';
+	import { AdvancedDynamicTexture } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
 		sizeY,
@@ -213,6 +214,7 @@
 				1
 			);
 			mouse.model = mouseShape;
+			createGUI(mouse);
 			mice.push(mouse);
 		}
 		miceIDNum = $amMice;
@@ -290,6 +292,10 @@
 		}
 		catIDNum = $amCats;
 	}
+	function createGUI(animal){
+		animal.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+    	var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
 			mouse = mice[j];
@@ -312,6 +318,7 @@
 						checkWallCollision(mouse);
 					}
 				} else if (mouse.lookingForMate) {
+					console.log("looking for mate");
 					if (mouse.hasMate) {
 						if (mouse.mate != undefined) {
 							mouse.canMove = false;
@@ -362,6 +369,7 @@
 						mouse.lookingForMate = true;
 					}
 				}
+				console.log(mouse.canMove);
 				if (mouse.canMove) {
 					//movement code
 					if (mouse.turning) {
@@ -376,6 +384,7 @@
 							mouse.turning = false;
 						}
 					} else {
+						console.log("moving");
 						mouse.timerToTurning -= deltaTime;
 						if (mouse.timerToTurning < 0) {
 							mouse.turning = true;
@@ -399,6 +408,7 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
+				console.log("resting countdown");
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.currentHunger > mouse.maxHunger) {
@@ -410,6 +420,7 @@
 				}
 			} else {
 				//reproductive resting
+				console.log("reproductive resting");
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
