@@ -5,7 +5,8 @@
 		startGame(el);
 	});
 	import * as BABYLON from '@babylonjs/core/Legacy/legacy';
-	import { AdvancedDynamicTexture } from '@babylonjs/gui/2D';
+	import {GUID} from '@babylonjs/core';
+	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
 		sizeY,
@@ -294,7 +295,16 @@
 	}
 	function createGUI(animal){
 		animal.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-    	var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+    	var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal);
+		var button1 = Button.CreateSimpleButton("but1", "Click Me");
+    button1.width = 1;
+    button1.height = 0.4;
+    button1.color = "white";
+    button1.fontSize = 50;
+    button1.background = "green";
+    button1.onPointerUpObservable.add(function() {
+        alert("you did it!");
+    });
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
