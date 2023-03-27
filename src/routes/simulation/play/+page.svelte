@@ -1,11 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	let el;
-	onMount(() => {
-		startGame(el);
-	});
 	import * as BABYLON from '@babylonjs/core/Legacy/legacy';
-	import {GUID} from '@babylonjs/core';
+	import { GUID } from '@babylonjs/core';
 	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
@@ -97,7 +93,10 @@
 		minCatAggression,
 		maxCatAggression
 	} from '$lib/stores.js';
-	//const sizeX = 100, sizeY = 100, amMice = 5;
+	let canvas;
+	onMount(() => {
+		startGame(canvas);
+	});
 	var engine,
 		scene,
 		camera,
@@ -293,18 +292,18 @@
 		}
 		catIDNum = $amCats;
 	}
-	function createGUI(animal){
+	function createGUI(animal) {
 		animal.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-    	var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal);
-		var button1 = Button.CreateSimpleButton("but1", "Click Me");
-    button1.width = 1;
-    button1.height = 0.4;
-    button1.color = "white";
-    button1.fontSize = 50;
-    button1.background = "green";
-    button1.onPointerUpObservable.add(function() {
-        alert("you did it!");
-    });
+		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal);
+		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
+		button1.width = 1;
+		button1.height = 0.4;
+		button1.color = 'white';
+		button1.fontSize = 50;
+		button1.background = 'green';
+		button1.onPointerUpObservable.add(function () {
+			alert('you did it!');
+		});
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -328,7 +327,7 @@
 						checkWallCollision(mouse);
 					}
 				} else if (mouse.lookingForMate) {
-					console.log("looking for mate");
+					console.log('looking for mate');
 					if (mouse.hasMate) {
 						if (mouse.mate != undefined) {
 							mouse.canMove = false;
@@ -394,7 +393,7 @@
 							mouse.turning = false;
 						}
 					} else {
-						console.log("moving");
+						console.log('moving');
 						mouse.timerToTurning -= deltaTime;
 						if (mouse.timerToTurning < 0) {
 							mouse.turning = true;
@@ -418,7 +417,7 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				console.log("resting countdown");
+				console.log('resting countdown');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.currentHunger > mouse.maxHunger) {
@@ -430,7 +429,7 @@
 				}
 			} else {
 				//reproductive resting
-				console.log("reproductive resting");
+				console.log('reproductive resting');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
@@ -1175,7 +1174,7 @@
 		style="width: 100%;
     height: 100%;
     touch-action: none;"
-		bind:this={el}
+		bind:this={canvas}
 	/>
 </body>
 
