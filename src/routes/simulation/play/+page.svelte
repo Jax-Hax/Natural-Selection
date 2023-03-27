@@ -146,7 +146,6 @@
 		});
 		const groundColor = new StandardMaterial('groundColor', scene);
 		groundColor.diffuseColor = new Color3(0, 0.737, 0.016);
-
 		groundColor.backFaceCulling = false;
 		ground.material = groundColor;
 		mouseMainModel = MeshBuilder.CreateBox('mouseModel', {
@@ -154,7 +153,6 @@
 			height: 0.75,
 			depth: 2
 		});
-		mouseMainModel.registerInstancedBuffer('color', 4);
 		mouseMainModel.setEnabled(false);
 		snakeMainModel = MeshBuilder.CreateBox('snakeModel', {
 			width: 2,
@@ -197,7 +195,11 @@
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness),
 				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue)
 			);
-			const mouseShape = mouseMainModel.createInstance('mouse' + i);
+			const mouseShape = MeshBuilder.CreateBox('mouseModel' + i, {
+			width: 1,
+			height: 0.75,
+			depth: 2
+		});
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
@@ -209,12 +211,14 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			mouseShape.instancedBuffers.color = new Color4(
+			var mouseTexture = new StandardMaterial("mouseTexture", scene);
+			mouseTexture.diffuseColor = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
 				1
 			);
+			mouseShape.material = mouseTexture;
 			mouse.model = mouseShape;
 			createGUI(mouse);
 			mice.push(mouse);
