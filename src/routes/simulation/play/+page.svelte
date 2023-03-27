@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import * as BABYLON from '@babylonjs/core/Legacy/legacy';
-	import { GUID } from '@babylonjs/core';
+	import {Engine, Scene, Color3, Color4, UniversalCamera, Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Mesh} from '@babylonjs/core';
 	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
@@ -121,12 +120,12 @@
 	const snakesReproductiveList = [];
 	const catsReproductiveList = [];
 	function createScene(canvas) {
-		engine = new BABYLON.Engine(canvas);
-		scene = new BABYLON.Scene(engine);
-		scene.clearColor = new BABYLON.Color3(0, 50, 75);
-		camera = new BABYLON.UniversalCamera(
+		engine = new Engine(canvas);
+		scene = new Scene(engine);
+		scene.clearColor = new Color3(0, 50, 75);
+		camera = new UniversalCamera(
 			'camera1',
-			new BABYLON.Vector3(0, $sizeX / 4, -$sizeX),
+			new Vector3(0, $sizeX / 4, -$sizeX),
 			scene
 		);
 		camera.attachControl(canvas, true);
@@ -137,39 +136,39 @@
 		camera.keysLeft.push(65); // “a”
 		camera.keysRight.push(68); // “d”
 		camera.inputs.addMouseWheel();
-		light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(5, 50, -10), scene);
+		light = new HemisphericLight('light', new Vector3(5, 50, -10), scene);
 		light.intensity = 0.8;
-		ground = BABYLON.MeshBuilder.CreateGround('ground', {
+		ground = MeshBuilder.CreateGround('ground', {
 			height: $sizeX,
 			width: $sizeY,
 			subdivisions: 1
 		});
-		const groundColor = new BABYLON.StandardMaterial('groundColor', scene);
-		groundColor.diffuseColor = new BABYLON.Color3(0, 0.737, 0.016);
+		const groundColor = new StandardMaterial('groundColor', scene);
+		groundColor.diffuseColor = new Color3(0, 0.737, 0.016);
 
 		groundColor.backFaceCulling = false;
 		ground.material = groundColor;
-		mouseMainModel = BABYLON.MeshBuilder.CreateBox('mouseModel', {
+		mouseMainModel = MeshBuilder.CreateBox('mouseModel', {
 			width: 1,
 			height: 0.75,
 			depth: 2
 		});
 		mouseMainModel.registerInstancedBuffer('color', 4);
 		mouseMainModel.setEnabled(false);
-		snakeMainModel = BABYLON.MeshBuilder.CreateBox('snakeModel', {
+		snakeMainModel = MeshBuilder.CreateBox('snakeModel', {
 			width: 2,
 			height: 1.5,
 			depth: 7
 		});
 		snakeMainModel.registerInstancedBuffer('color', 4);
 		snakeMainModel.setEnabled(false);
-		catMainModel = BABYLON.MeshBuilder.CreateBox('catModel', {
+		catMainModel = MeshBuilder.CreateBox('catModel', {
 			width: 2,
 			height: 1.5,
 			depth: 3
 		});
-		const catColor = new BABYLON.StandardMaterial('catMaterial', scene);
-		catColor.diffuseColor = new BABYLON.Color3(0.557, 0.557, 0.557);
+		const catColor = new StandardMaterial('catMaterial', scene);
+		catColor.diffuseColor = new Color3(0.557, 0.557, 0.557);
 		catMainModel.material = catColor;
 		catMainModel.setEnabled(false);
 	}
@@ -207,7 +206,7 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			mouseShape.instancedBuffers.color = new BABYLON.Color4(
+			mouseShape.instancedBuffers.color = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
@@ -252,7 +251,7 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
 			}
-			snakeShape.instancedBuffers.color = new BABYLON.Color4(
+			snakeShape.instancedBuffers.color = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
@@ -293,8 +292,8 @@
 		catIDNum = $amCats;
 	}
 	function createGUI(animal) {
-		animal.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal);
+		animal.billboardMode = Mesh.BILLBOARDMODE_ALL;
+		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal.model);
 		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
 		button1.width = 1;
 		button1.height = 0.4;
@@ -304,6 +303,7 @@
 		button1.onPointerUpObservable.add(function () {
 			alert('you did it!');
 		});
+		//advancedTexture.addControl(button1);
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -327,7 +327,6 @@
 						checkWallCollision(mouse);
 					}
 				} else if (mouse.lookingForMate) {
-					console.log('looking for mate');
 					if (mouse.hasMate) {
 						if (mouse.mate != undefined) {
 							mouse.canMove = false;
@@ -378,7 +377,6 @@
 						mouse.lookingForMate = true;
 					}
 				}
-				console.log(mouse.canMove);
 				if (mouse.canMove) {
 					//movement code
 					if (mouse.turning) {
@@ -393,7 +391,6 @@
 							mouse.turning = false;
 						}
 					} else {
-						console.log('moving');
 						mouse.timerToTurning -= deltaTime;
 						if (mouse.timerToTurning < 0) {
 							mouse.turning = true;
@@ -417,7 +414,6 @@
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
-				console.log('resting countdown');
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.currentHunger > mouse.maxHunger) {
@@ -429,7 +425,6 @@
 				}
 			} else {
 				//reproductive resting
-				console.log('reproductive resting');
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
 					mouse.reproductiveRestingCountdown = mouse.reproductiveRestTime;
@@ -843,7 +838,7 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			mouseShape.instancedBuffers.color = new BABYLON.Color4(
+			mouseShape.instancedBuffers.color = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
@@ -890,7 +885,7 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + snake.camouflage * 2, 1, 0.73);
 			}
-			snakeShape.instancedBuffers.color = new BABYLON.Color4(
+			snakeShape.instancedBuffers.color = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
@@ -956,7 +951,7 @@
 	function gameLoop(canvas) {
 		createScene(canvas);
 		makeFirstGeneration();
-		const translation = new BABYLON.Vector3(0, 0, 0);
+		const translation = new Vector3(0, 0, 0);
 		var renderLoop = function () {
 			deltaTime = scene.deltaTime ? scene.deltaTime / 1000 : 0;
 			checkEachMouse(translation);
