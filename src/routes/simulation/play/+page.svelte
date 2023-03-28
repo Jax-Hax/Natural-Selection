@@ -119,7 +119,6 @@
 	const miceReproductiveList = [];
 	const snakesReproductiveList = [];
 	const catsReproductiveList = [];
-	const geneArray = 
 	function createScene(canvas) {
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
@@ -301,8 +300,8 @@
     var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane,1024, 1024, false);
 		//make ui
     var button1 = Button.CreateSimpleButton("but1", "Click Me");
-    button1.width = 3;
-    button1.height = 1;
+    button1.width = 1;
+    button1.height = 0.4;
     button1.color = "white";
     button1.fontSize = 50;
     button1.background = "green";
@@ -311,9 +310,10 @@
     slider.minimum = 0;
     slider.maximum = 10;
     slider.value = 2;
-    slider.height = "20px";
-    slider.width = "200px";
-		slider.isThumbClamped = true;
+		slider.color = "white";
+    slider.height = "100px";
+    slider.width = "500px";
+		slider.displayThumb = false;
     advancedTexture.addControl(slider);
 	}
 	function checkEachMouse(translation) {
