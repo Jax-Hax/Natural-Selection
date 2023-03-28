@@ -290,19 +290,24 @@
 		catIDNum = $amCats;
 	}
 	function createGUI(animal) {
-		
-		animal.billboardMode = Mesh.BILLBOARDMODE_ALL;
-		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal.model);
-		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
-		button1.width = 1;
-		button1.height = 0.4;
-		button1.color = 'white';
-		button1.fontSize = 50;
-		button1.background = 'green';
-		button1.onPointerUpObservable.add(function () {
-			alert('you did it!');
-		});
-		//advancedTexture.addControl(button1);
+		var plane = BABYLON.Mesh.CreatePlane("plane", 2);
+    plane.parent = animal.model;
+    plane.position.y = 2;
+
+    plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+
+    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Click Me");
+    button1.width = 1;
+    button1.height = 0.4;
+    button1.color = "white";
+    button1.fontSize = 50;
+    button1.background = "green";
+    button1.onPointerUpObservable.add(function() {
+        alert("you did it!");
+    });
+    advancedTexture.addControl(button1);
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
