@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import {Engine, Scene, Color3, Color4, UniversalCamera, Vector3, HemisphericLight, MeshBuilder, StandardMaterial} from '@babylonjs/core';
-	import { AdvancedDynamicTexture, Rectangle } from '@babylonjs/gui/2D';
+	import {Engine, Scene, Color3, Color4, UniversalCamera, Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Mesh} from '@babylonjs/core';
+	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
 		sizeY,
@@ -112,8 +112,7 @@
 		miceIDNum,
 		snakeIDNum,
 		catIDNum,
-		desiredDirection,
-		advancedTexture;
+		desiredDirection;
 	const mice = [];
 	const snakes = [];
 	const cats = [];
@@ -153,6 +152,7 @@
 			height: 0.75,
 			depth: 2
 		});
+		mouseMainModel.registerInstancedBuffer('color', 4);
 		mouseMainModel.setEnabled(false);
 		snakeMainModel = MeshBuilder.CreateBox('snakeModel', {
 			width: 2,
@@ -170,8 +170,6 @@
 		catColor.diffuseColor = new Color3(0.557, 0.557, 0.557);
 		catMainModel.material = catColor;
 		catMainModel.setEnabled(false);
-		advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
-    	advancedTexture.idealWidth = 600;
 	}
 	function makeFirstGeneration() {
 		//mice
@@ -195,11 +193,7 @@
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness),
 				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue)
 			);
-			const mouseShape = MeshBuilder.CreateBox('mouseModel' + i, {
-			width: 1,
-			height: 0.75,
-			depth: 2
-		});
+			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
 			mouseShape.position.z = mouse.posY;
@@ -211,16 +205,14 @@
 			} else {
 				camouflageColor = hsv2rgb(121.29 + mouse.camouflage * 2, 1, 0.73);
 			}
-			var mouseTexture = new StandardMaterial("mouseTexture", scene);
-			mouseTexture.diffuseColor = new Color4(
+			mouseShape.instancedBuffers.color = new Color4(
 				camouflageColor[0],
 				camouflageColor[1],
 				camouflageColor[2],
 				1
 			);
-			mouseShape.material = mouseTexture;
 			mouse.model = mouseShape;
-			createGUI(mouse);
+			//createGUI(mouse);
 			mice.push(mouse);
 		}
 		miceIDNum = $amMice;
@@ -268,7 +260,6 @@
 			snakes.push(snake);
 		}
 		snakeIDNum = $amSnakes;
-
 		//cats
 		for (let i = 0; i < $amCats; i++) {
 			let cat = new Cat(
@@ -299,16 +290,19 @@
 		catIDNum = $amCats;
 	}
 	function createGUI(animal) {
-		var rect1 = new Rectangle();
-    rect1.width = 0.2;
-    rect1.height = "40px";
-    rect1.cornerRadius = 20;
-    rect1.color = "Orange";
-    rect1.thickness = 4;
-    rect1.background = "green";
-    advancedTexture.addControl(rect1);
-    rect1.linkWithMesh(animal);   
-    rect1.linkOffsetY = -150;
+		
+		animal.billboardMode = Mesh.BILLBOARDMODE_ALL;
+		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(animal.model);
+		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
+		button1.width = 1;
+		button1.height = 0.4;
+		button1.color = 'white';
+		button1.fontSize = 50;
+		button1.background = 'green';
+		button1.onPointerUpObservable.add(function () {
+			alert('you did it!');
+		});
+		//advancedTexture.addControl(button1);
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -438,7 +432,6 @@
 			}
 		}
 	}
-
 	function checkEachSnake(translation) {
 		for (let j = 0; j < snakes.length; j++) {
 			snake = snakes[j];
@@ -965,7 +958,6 @@
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
-
 		window.addEventListener('resize', function () {
 			engine.resize();
 		});
@@ -1149,7 +1141,6 @@
 			this.prey = undefined;
 		}
 	}
-
 	//Functions for things that are used often, but not a part of game function
 	function hsv2rgb(h, s, v) {
 		let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
