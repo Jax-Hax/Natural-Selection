@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import {Engine, Scene, Color3, Color4, UniversalCamera, Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Mesh} from '@babylonjs/core';
-	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
+	import { AdvancedDynamicTexture, Button, Slider } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
 		sizeY,
@@ -119,6 +119,7 @@
 	const miceReproductiveList = [];
 	const snakesReproductiveList = [];
 	const catsReproductiveList = [];
+	const geneArray = 
 	function createScene(canvas) {
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
@@ -170,6 +171,8 @@
 		catColor.diffuseColor = new Color3(0.557, 0.557, 0.557);
 		catMainModel.material = catColor;
 		catMainModel.setEnabled(false);
+		//MAKE GENE ARRAY
+		
 	}
 	function makeFirstGeneration() {
 		//mice
@@ -290,21 +293,28 @@
 		catIDNum = $amCats;
 	}
 	function createGUI(animal,i) {
-		var plane = MeshBuilder.CreatePlane("plane" + i, {height:2, width: 1});
+		//init gui
+		var plane = MeshBuilder.CreatePlane("plane" + i, {height:4, width: 4});
     plane.parent = animal.model;
     plane.position.y = 2;
-
     plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
-
     var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane,1024, 1024, false);
-
+		//make ui
     var button1 = Button.CreateSimpleButton("but1", "Click Me");
-    button1.width = 1;
-    button1.height = 0.4;
+    button1.width = 3;
+    button1.height = 1;
     button1.color = "white";
     button1.fontSize = 50;
     button1.background = "green";
     advancedTexture.addControl(button1);
+		var slider = new Slider();
+    slider.minimum = 0;
+    slider.maximum = 10;
+    slider.value = 2;
+    slider.height = "20px";
+    slider.width = "200px";
+		slider.isThumbClamped = true;
+    advancedTexture.addControl(slider);
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
