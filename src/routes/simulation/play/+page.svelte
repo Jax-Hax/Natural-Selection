@@ -212,7 +212,7 @@
 				1
 			);
 			mouse.model = mouseShape;
-			//createGUI(mouse);
+			createGUI(mouse, i);
 			mice.push(mouse);
 		}
 		miceIDNum = $amMice;
@@ -289,24 +289,21 @@
 		}
 		catIDNum = $amCats;
 	}
-	function createGUI(animal) {
-		var plane = BABYLON.Mesh.CreatePlane("plane", 2);
+	function createGUI(animal,i) {
+		var plane = MeshBuilder.CreatePlane("plane" + i, {height:2, width: 1});
     plane.parent = animal.model;
     plane.position.y = 2;
 
-    plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+    plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
 
-    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+    var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane,1024, 1024, false);
 
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Click Me");
+    var button1 = Button.CreateSimpleButton("but1", "Click Me");
     button1.width = 1;
     button1.height = 0.4;
     button1.color = "white";
     button1.fontSize = 50;
     button1.background = "green";
-    button1.onPointerUpObservable.add(function() {
-        alert("you did it!");
-    });
     advancedTexture.addControl(button1);
 	}
 	function checkEachMouse(translation) {
