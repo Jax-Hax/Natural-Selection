@@ -795,7 +795,7 @@
 			if (!animal.isBeingChased) {
 				animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
 			}
-		} else if (animal.model.position.z < -50) {
+		} else if (animal.model.position.z < -$sizeY / 2) {
 			animal.model.position.z = -$sizeY / 2;
 			if (!animal.isBeingChased) {
 				animal.model.rotation.y = randBtwDecimals(-0.5, 0.5);
