@@ -1,6 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
-	import {Engine, Scene, Color3, Color4, UniversalCamera, Vector3, HemisphericLight, MeshBuilder, StandardMaterial, Mesh} from '@babylonjs/core';
+	import {
+		Engine,
+		Scene,
+		Color3,
+		Color4,
+		UniversalCamera,
+		Vector3,
+		HemisphericLight,
+		MeshBuilder,
+		StandardMaterial,
+		Mesh
+	} from '@babylonjs/core';
 	import { AdvancedDynamicTexture, Button, Slider } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
@@ -123,11 +134,7 @@
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
 		scene.clearColor = new Color3(0, 50, 75);
-		camera = new UniversalCamera(
-			'camera1',
-			new Vector3(0, $sizeX / 4, -$sizeX),
-			scene
-		);
+		camera = new UniversalCamera('camera1', new Vector3(0, $sizeX / 4, -$sizeX), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
 		camera.speed = 1;
@@ -171,7 +178,6 @@
 		catMainModel.material = catColor;
 		catMainModel.setEnabled(false);
 		//MAKE GENE ARRAY
-		
 	}
 	function makeFirstGeneration() {
 		//mice
@@ -291,30 +297,32 @@
 		}
 		catIDNum = $amCats;
 	}
-	function createGUI(animal,i) {
+	function createGUI(animal, i) {
 		//init gui
-		var plane = MeshBuilder.CreatePlane("plane" + i, {height:4, width: 4});
-    plane.parent = animal.model;
-    plane.position.y = 2;
-    plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
-    var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane,1024, 1024, false);
+		var plane = MeshBuilder.CreatePlane('plane' + i, { height: 4, width: 4 });
+		plane.parent = animal.model;
+		plane.position.y = 2;
+		plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
+		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane, 1024, 1024, false);
 		//make ui
-    var button1 = Button.CreateSimpleButton("but1", "Click Me");
-    button1.width = 1;
-    button1.height = 0.4;
-    button1.color = "white";
-    button1.fontSize = 50;
-    button1.background = "green";
-    advancedTexture.addControl(button1);
-		var slider = new Slider();
-    slider.minimum = 0;
-    slider.maximum = 10;
-    slider.value = 2;
-		slider.color = "white";
-    slider.height = "100px";
-    slider.width = "500px";
-		slider.displayThumb = false;
-    advancedTexture.addControl(slider);
+		/*var button1 = Button.CreateSimpleButton('but1', 'Click Me');
+		button1.width = 1;
+		button1.height = 0.4;
+		button1.color = 'white';
+		button1.fontSize = 50;
+		button1.background = 'green';
+		advancedTexture.addControl(button1);
+		button1.isReadOnly = true;*/
+		var hunger = new Slider();
+		hunger.minimum = 0;
+		hunger.maximum = animal.maxHunger;
+		hunger.value = animal.currentHunger;
+		hunger.height = '100px';
+		hunger.width = '500px';
+		hunger.displayThumb = false;
+		hunger.isReadOnly = true;
+		advancedTexture.addControl(hunger);
+		hunger.color = 'white';
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
