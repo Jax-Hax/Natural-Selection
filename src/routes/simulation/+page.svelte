@@ -140,11 +140,12 @@
 	let catMinHunger2 = writable([$minCatMinHunger,$maxCatMinHunger]);
 	let catMaxHunger2 = writable([$minCatMaxHunger,$maxCatMaxHunger]);
 	let catPreyStandards2 = writable([$minCatPreyStandards,$maxCatPreyStandards]);
-	let catAggression2 = writable([$minCatAggression,$maxCatAggression]);$: $sizeX2, ($sizeX = $sizeX2[0]);
+	let catAggression2 = writable([$minCatAggression,$maxCatAggression]);
+	$: $sizeX2, ($sizeX = $sizeX2[0]);
 	$: $sizeY2, ($sizeY = $sizeY2[0]);
 	$: $generations2, ($generations = $generations2[0]);
 	$: $amMice2, ($amMice = $amMice2[0]);
-	$: $amSnakes2, ($sizeY = $amSnakes2[0]);
+	$: $amSnakes2, ($amSnakes = $amSnakes2[0]);
 	$: $amCats2, ($amCats = $amCats2[0]);
 	$: $miceCamouflage2, ($minMiceCamouflage = $miceCamouflage2[0], $maxMiceCamouflage = $miceCamouflage2[1]);
 	$: $miceSpeed2, ($minMiceSpeed = $miceSpeed2[0], $maxMiceSpeed = $miceSpeed2[1]);
@@ -271,8 +272,7 @@
 			pips
 			pipstep={10}
 			all="label"
-			bind:values={$generations2}
-			min={10}
+			bind:values={$amMice2}
 			max={200}
 		/>
 		<h2>Amount of Snakes</h2>
@@ -283,8 +283,7 @@
 			pips
 			pipstep={10}
 			all="label"
-			bind:values={$generations2}
-			min={10}
+			bind:values={$amSnakes2}
 			max={200}
 		/>
 		<h2>Amount of Cats</h2>
@@ -295,8 +294,7 @@
 			pips
 			pipstep={10}
 			all="label"
-			bind:values={$generations2}
-			min={20}
+			bind:values={$amCats2}
 			max={200}
 		/>
 	</div>
@@ -346,6 +344,15 @@
 			Cats do not need camouflage since they are the top predator, and cannot be eaten by anything,
 			therefore never evolved to be camouflage.
 		</p>
+		<RangeSlider
+		range
+		float
+		pips
+		pipstep={10}
+		all="label"
+		bind:values={$miceCamouflage2}
+		max={50}
+	/>
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="hunting">
