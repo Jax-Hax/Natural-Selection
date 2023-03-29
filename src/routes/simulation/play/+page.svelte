@@ -305,7 +305,7 @@
 		plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
 		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane, 1024, 1024, false);
 		//make ui
-		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
+		var button1 = Button.CreateSimpleButton('but1', '');
 		button1.width = 1;
 		button1.height = 0.4;
 		button1.color = 'white';
