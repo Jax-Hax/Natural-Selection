@@ -389,7 +389,7 @@
 	<div class="geneCatagory2" id="hunger">
 		<h1>Hunger</h1>
 		<h2>Rest Time</h2>
-		<p>The time that each animal has to rest after
+		<p>The time that each animal has to rest after eating.</p>
 		<p>Mouse</p>
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceRestTime2} max={30} />
 		<p>Snake</p>
@@ -404,10 +404,42 @@
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="reproductive">
 		<h1>Reproductive</h1>
+		<h2>Rest Time</h2>
+		<p>The time that each animal has to rest after reproducing.</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceReproductiveRestTime2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeReproductiveRestTime2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catReproductiveRestTime2} max={30} />
+		<h2>Time between children</h2>
+		<p>The time that each animal has to be alive for before it can have another child.</p>
+		<p>Mouse</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$miceReproductiveRestTime2} max={30} />
+		<p>Snake</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$snakeReproductiveRestTime2} max={30} />
+		<p>Cat</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$catReproductiveRestTime2} max={30} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="geneMutation">
 		<h1>Genetic Mutation</h1>
+		<h2>Gene Mutation Percentage</h2>
+		<p>The chance an animal has to mutate.</p>
+		<p>Mouse</p>
+		<RangeSlider range suffix="%" float pips pipstep={10} all="label" bind:values={$miceReproductiveRestTime2} max={100} />
+		<p>Snake</p>
+		<RangeSlider range float pips suffix="%" pipstep={10} all="label" bind:values={$snakeReproductiveRestTime2} max={100} />
+		<p>Cat</p>
+		<RangeSlider range float pips suffix="%" pipstep={10} all="label" bind:values={$catReproductiveRestTime2} max={100} />
+		<h2>Gene Mutation Amount</h2>
+		<p>The amount a gene will mutate by, scales with the minimum and maximum values you set for the gene (1 is by the minimum).</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceReproductiveRestTime2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeReproductiveRestTime2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catReproductiveRestTime2} max={30} />
 	</div>
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="camouflage">
@@ -438,28 +470,6 @@
 		/>
 	</div>
 	<div class="spacer blackToWhite" />
-
-	<!--range slider with two values-->
-	<RangeSlider
-		range
-		float
-		pips
-		pipstep={100}
-		all="label"
-		bind:values={$miceCamouflage2}
-		max={1000}
-	/>
-	<!--for gene variation percent-->
-	<RangeSlider
-		range
-		float
-		pips
-		pipstep={100}
-		suffix="%"
-		all="label"
-		bind:values={$miceCamouflage2}
-		max={1000}
-	/>
 </body>
 
 <style>
@@ -467,6 +477,8 @@
 		--range-range: #fb8500; /* active range bar background color */
 		--range-handle: #fb8500; /* non-focussed handle color */
 		--range-handle-focus: #fb8500; /* focussed handle color */
+ 		--range-handle-inactive: #0077b6; /* inactive handle color */
+		 --range-range-inactive: #0077b6;
 	}
 	body {
 		width: 100%;
