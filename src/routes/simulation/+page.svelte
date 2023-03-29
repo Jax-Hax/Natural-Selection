@@ -140,8 +140,26 @@
 	export let catMinHunger2 = writable([$minCatMinHunger,$maxCatMinHunger]);
 	export let catMaxHunger2 = writable([$minCatMaxHunger,$maxCatMaxHunger]);
 	export let catPreyStandards2 = writable([$minCatPreyStandards,$maxCatPreyStandards]);
-	export let catAggression2 = writable([$minCatAggression,$maxCatAggression]);	$: $sizeX2, ($sizeX = $sizeX2[0]);
+	export let catAggression2 = writable([$minCatAggression,$maxCatAggression]);$: $sizeX2, ($sizeX = $sizeX2[0]);
 	$: $sizeY2, ($sizeY = $sizeY2[0]);
+	$: $generations2, ($generations = $generations2[0]);
+	$: $amMice2, ($amMice = $amMice2[0]);
+	$: $amSnakes2, ($sizeY = $amSnakes2[0]);
+	$: $amCats2, ($amCats = $amCats2[0]);
+	$: $miceCamouflage2, ($minMiceCamouflage = $miceCamouflage2[0], $maxMiceCamouflage = $miceCamouflage2[1]);
+	$: $miceSpeed2, ($minMiceSpeed = $miceSpeed2[0], $maxMiceSpeed = $miceSpeed2[1]);
+	$: $miceHungerGainedFromResting2, ($minMiceHungerGainedFromResting = $miceHungerGainedFromResting2[0], $maxMiceHungerGainedFromResting = $miceHungerGainedFromResting2[1]);
+	$: $miceRestTime2, ($minMiceRestTime = $miceRestTime2[0], $maxMiceRestTime = $miceRestTime2[1]);
+	$: $miceReproductiveRestTime2, ($minMiceReproductiveRestTime = $miceReproductiveRestTime2[0], $maxMiceReproductiveRestTime = $miceReproductiveRestTime2[1]);
+	$: $miceTimeAliveUntilReproduction2, ($minMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[0], $maxMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[1]);
+	$: $miceGeneMutationChance2, ($minMiceGeneMutationChance = $miceGeneMutationChance2[0], $maxMiceGeneMutationChance = $miceGeneMutationChance2[1]);
+	$: $miceGeneMutationAmount2, ($minMiceGeneMutationAmount = $miceGeneMutationAmount2[0], $maxMiceGeneMutationAmount = $miceGeneMutationAmount2[1]);
+	$: $miceStandards2, ($minMiceStandards = $miceStandards2[0], $maxMiceStandards = $miceStandards2[1]);
+	$: $miceAttractiveness2, ($minMiceAttractiveness = $miceAttractiveness2[0], $maxMiceAttractiveness = $miceAttractiveness2[1]);
+	$: $miceFoodValue2, ($minMiceFoodValue = $miceFoodValue2[0], $maxMiceFoodValue = $miceFoodValue2[1]);
+	$: $snakeCamouflage2, ($minSnakeCamouflage = $snakeCamouflage2[0], $maxSnakeCamouflage = $snakeCamouflage2[1]);
+	$: $snakeSpeed2, ($minSnakeSpeed = $snakeSpeed2[0], $maxSnakeSpeed = $snakeSpeed2[1]);
+	$: $catSpeed2, ($minCatSpeed = $catSpeed2[0], $maxCatSpeed = $catSpeed2[1]);
 </script>
 
 <body>
