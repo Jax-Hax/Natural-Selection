@@ -178,7 +178,8 @@
 	$: $snakeMinHunger2, ($minSnakeMinHunger = $snakeMinHunger2[0], $maxSnakeMinHunger = $snakeMinHunger2[1]);
 	$: $snakeMaxHunger2, ($minSnakeMaxHunger = $snakeMaxHunger2[0], $maxSnakeMaxHunger = $snakeMaxHunger2[1]);
 	$: $snakeVision2, ($minSnakeVision = $snakeVision2[0], $maxSnakeVision = $snakeVision2[1]);
-
+	$: $snakePreyStandards2, ($minSnakePreyStandards = $snakePreyStandards2[0], $maxSnakePreyStandards = $snakePreyStandards2[1]);
+	$: $snakeAggression2, ($minSnakeAggression = $snakeAggression2[0], $maxSnakeAggression = $snakeAggression2[1]);
 
 	$: $catRestTime2, ($minCatRestTime = $catRestTime2[0], $maxCatRestTime = $catRestTime2[1]);
 	$: $catReproductiveRestTime2, ($minCatReproductiveRestTime = $catReproductiveRestTime2[0], $maxCatReproductiveRestTime = $catReproductiveRestTime2[1]);
@@ -191,6 +192,9 @@
 	$: $catMinHunger2, ($minCatMinHunger = $catMinHunger2[0], $maxCatMinHunger = $catMinHunger2[1]);
 	$: $catMaxHunger2, ($minCatMaxHunger = $catMaxHunger2[0], $maxCatMaxHunger = $catMaxHunger2[1]);
 	$: $catVision2, ($minCatVision = $catVision2[0], $maxCatVision = $catVision2[1]);
+	$: $catPreyStandards2, ($minCatPreyStandards = $catPreyStandards2[0], $maxCatPreyStandards = $catPreyStandards2[1]);
+	$: $catAggression2, ($minCatAggression = $catAggression2[0], $maxCatAggression = $catAggression2[1]);
+	
 </script>
 
 <body>
