@@ -8,14 +8,8 @@
 		amCats,
 		minMiceCamouflage,
 		maxMiceCamouflage,
-		minMiceVision,
-		maxMiceVision,
 		minMiceSpeed,
 		maxMiceSpeed,
-		minMiceMinHunger,
-		maxMiceMinHunger,
-		minMiceMaxHunger,
-		maxMiceMaxHunger,
 		minSnakeCamouflage,
 		maxSnakeCamouflage,
 		minSnakeSpeed,
@@ -37,27 +31,116 @@
 		minMiceStandards,
 		maxMiceStandards,
 		minMiceAttractiveness,
-		maxMiceAttractiveness
+		maxMiceAttractiveness,
+		minMiceFoodValue,
+		maxMiceFoodValue,
+		minMiceMinHunger,
+		maxMiceMinHunger,
+		minMiceMaxHunger,
+		maxMiceMaxHunger,
+		minMiceVision,
+		maxMiceVision,
+		minSnakeRestTime,
+		maxSnakeRestTime,
+		minSnakeReproductiveRestTime,
+		maxSnakeReproductiveRestTime,
+		minSnakeTimeAliveUntilReproduction,
+		maxSnakeTimeAliveUntilReproduction,
+		minSnakeGeneMutationChance,
+		maxSnakeGeneMutationChance,
+		minSnakeGeneMutationAmount,
+		maxSnakeGeneMutationAmount,
+		minSnakeStandards,
+		maxSnakeStandards,
+		minSnakeAttractiveness,
+		maxSnakeAttractiveness,
+		minSnakeMinHunger,
+		maxSnakeMinHunger,
+		minSnakeMaxHunger,
+		maxSnakeMaxHunger,
+		minSnakeVision,
+		maxSnakeVision,
+		minSnakePreyStandards,
+		maxSnakePreyStandards,
+		minSnakeAggression,
+		maxSnakeAggression,
+		minSnakeFoodValue,
+		maxSnakeFoodValue,
+		minCatRestTime,
+		maxCatRestTime,
+		minCatReproductiveRestTime,
+		maxCatReproductiveRestTime,
+		minCatTimeAliveUntilReproduction,
+		maxCatTimeAliveUntilReproduction,
+		minCatGeneMutationChance,
+		maxCatGeneMutationChance,
+		minCatGeneMutationAmount,
+		maxCatGeneMutationAmount,
+		minCatStandards,
+		maxCatStandards,
+		minCatAttractiveness,
+		maxCatAttractiveness,
+		minCatMinHunger,
+		maxCatMinHunger,
+		minCatMaxHunger,
+		maxCatMaxHunger,
+		minCatPreyStandards,
+		maxCatPreyStandards,
+		minCatAggression,
+		maxCatAggression
 	} from '$lib/stores.js';
 	import RangeSlider from 'svelte-range-slider-pips';
-	let current = 'mouse';
-	let params = [
-		{
-			name: 'This website!',
-			bind: 'sizeX',
-			description: 'A website for my small business.'
-		}
-	];
-	let currentVar = 'current';
 	import { writable } from 'svelte/store';
-	export let miceCamouflage = writable([$minMiceCamouflage, $maxMiceCamouflage]);
-	export let miceSpeed = writable([$minMiceCamouflage, $maxMiceCamouflage]);
-	export let snakeSpeed = writable([$minMiceCamouflage, $maxMiceCamouflage]);
-	export let catSpeed = writable([$minMiceCamouflage, $maxMiceCamouflage]);
-	export let generations2 = writable([$generations]);
 	export let sizeX2 = writable([$sizeX]);
 	export let sizeY2 = writable([$sizeY]);
-	$: $sizeX2, ($sizeX = $sizeX2[0]);
+	export let generations2 = writable([$generations]);
+	export let amMice2 = writable([$amMice]);
+	export let amSnakes2 = writable([$amSnakes]);
+	export let amCats2 = writable([$amCats]);
+	export let miceCamouflage2 = writable([$minMiceCamouflage,$maxMiceCamouflage]);
+	export let miceSpeed2 = writable([$minMiceSpeed,$maxMiceSpeed]);
+	export let snakeCamouflage2 = writable([$minSnakeCamouflage,$maxSnakeCamouflage]);
+	export let snakeSpeed2 = writable([$minSnakeSpeed,$maxSnakeSpeed]);
+	export let catSpeed2 = writable([$minCatSpeed,$maxCatSpeed]);
+	export let miceHungerGainedFromResting2 = writable([$minMiceHungerGainedFromResting,$maxMiceHungerGainedFromResting]);
+	export let miceRestTime2 = writable([$minMiceRestTime,$maxMiceRestTime]);
+	export let miceReproductiveRestTime2 = writable([$minMiceReproductiveRestTime,$maxMiceReproductiveRestTime]);
+	export let miceTimeAliveUntilReproduction2 = writable([$minMiceTimeAliveUntilReproduction,$maxMiceTimeAliveUntilReproduction]);
+	export let miceGeneMutationChance2 = writable([$minMiceGeneMutationChance,$maxMiceGeneMutationChance]);
+	export let miceGeneMutationAmount2 = writable([$minMiceGeneMutationAmount,$maxMiceGeneMutationAmount]);
+	export let miceStandards2 = writable([$minMiceStandards,$maxMiceStandards]);
+	export let miceAttractiveness2 = writable([$minMiceAttractiveness,$maxMiceAttractiveness]);
+	export let miceFoodValue2 = writable([$minMiceFoodValue,$maxMiceFoodValue]);
+	export let miceMinHunger2 = writable([$minMiceMinHunger,$maxMiceMinHunger]);
+	export let miceMaxHunger2 = writable([$minMiceMaxHunger,$maxMiceMaxHunger]);
+	export let miceVision2 = writable([$minMiceVision,$maxMiceVision]);
+
+
+	export let snakeRestTime2 = writable([$minSnakeRestTime,$maxSnakeRestTime]);
+	export let snakeReproductiveRestTime2 = writable([$minSnakeReproductiveRestTime,$maxSnakeReproductiveRestTime]);
+	export let snakeTimeAliveUntilReproduction2 = writable([$minSnakeTimeAliveUntilReproduction,$maxSnakeTimeAliveUntilReproduction]);
+	export let snakeGeneMutationChance2 = writable([$minSnakeGeneMutationChance,$maxSnakeGeneMutationChance]);
+	export let snakeGeneMutationAmount2 = writable([$minSnakeGeneMutationAmount,$maxSnakeGeneMutationAmount]);
+	export let snakeStandards2 = writable([$minSnakeStandards,$maxSnakeStandards]);
+	export let snakeAttractiveness2 = writable([$minSnakeAttractiveness,$maxSnakeAttractiveness]);
+	export let snakeFoodValue2 = writable([$minSnakeFoodValue,$maxSnakeFoodValue]);
+	export let snakeMinHunger2 = writable([$minSnakeMinHunger,$maxSnakeMinHunger]);
+	export let snakeMaxHunger2 = writable([$minSnakeMaxHunger,$maxSnakeMaxHunger]);
+	export let snakeVision2 = writable([$minSnakeVision,$maxSnakeVision]);
+	export let snakePreyStandards2 = writable([$minSnakePreyStandards,$maxSnakePreyStandards]);
+	export let snakeAggression2 = writable([$minSnakeAggression,$maxSnakeAggression]);
+
+	export let catRestTime2 = writable([$minCatRestTime,$maxCatRestTime]);
+	export let catReproductiveRestTime2 = writable([$minCatReproductiveRestTime,$maxCatReproductiveRestTime]);
+	export let catTimeAliveUntilReproduction2 = writable([$minCatTimeAliveUntilReproduction,$maxCatTimeAliveUntilReproduction]);
+	export let catGeneMutationChance2 = writable([$minCatGeneMutationChance,$maxCatGeneMutationChance]);
+	export let catGeneMutationAmount2 = writable([$minCatGeneMutationAmount,$maxCatGeneMutationAmount]);
+	export let catStandards2 = writable([$minCatStandards,$maxCatStandards]);
+	export let catAttractiveness2 = writable([$minCatAttractiveness,$maxCatAttractiveness]);
+	export let catMinHunger2 = writable([$minCatMinHunger,$maxCatMinHunger]);
+	export let catMaxHunger2 = writable([$minCatMaxHunger,$maxCatMaxHunger]);
+	export let catPreyStandards2 = writable([$minCatPreyStandards,$maxCatPreyStandards]);
+	export let catAggression2 = writable([$minCatAggression,$maxCatAggression]);	$: $sizeX2, ($sizeX = $sizeX2[0]);
 	$: $sizeY2, ($sizeY = $sizeY2[0]);
 </script>
 
