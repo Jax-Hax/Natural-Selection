@@ -134,7 +134,6 @@
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
 		scene.clearColor = new Color3(0, 50, 75);
-		scene.debugLayer.show();
 		camera = new UniversalCamera('camera1', new Vector3(0, $sizeX / 4, -$sizeX), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
@@ -306,25 +305,14 @@
 		plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
 		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane, 1024, 1024, false);
 		//make ui
-		/*var button1 = Button.CreateSimpleButton('but1', 'Click Me');
+		var button1 = Button.CreateSimpleButton('but1', 'Click Me');
 		button1.width = 1;
 		button1.height = 0.4;
 		button1.color = 'white';
 		button1.fontSize = 50;
 		button1.background = 'green';
 		advancedTexture.addControl(button1);
-		button1.isReadOnly = true;*/
-		var hunger = new Slider();
-		hunger.minimum = 0;
-		hunger.maximum = animal.maxHunger;
-		hunger.value = animal.currentHunger;
-		hunger.height = '100px';
-		hunger.width = '500px';
-		hunger.displayThumb = false;
-		hunger.isReadOnly = true;
-		advancedTexture.addControl(hunger);
-		hunger.color = 'white';
-		animal.hungerSlider = hunger;
+		button1.isReadOnly = true;
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -432,9 +420,6 @@
 					mouse.isResting = true;
 				} else {
 					mouse.currentHunger -= deltaTime;
-					if(mouse.hungerSlider != undefined){
-					//	mouse.hungerSlider.value = mouse.currentHunger;
-					}
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
@@ -1011,7 +996,6 @@
 			attractiveness,
 			foodValue
 		) {
-			this.hungerSlider = undefined;
 			this.model = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
