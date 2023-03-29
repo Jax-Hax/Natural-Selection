@@ -188,10 +188,8 @@
 	$: $catGeneMutationAmount2, ($minCatGeneMutationAmount = $catGeneMutationAmount2[0], $maxCatGeneMutationAmount = $catGeneMutationAmount2[1]);
 	$: $catStandards2, ($minCatStandards = $catStandards2[0], $maxCatStandards = $catStandards2[1]);
 	$: $catAttractiveness2, ($minCatAttractiveness = $catAttractiveness2[0], $maxCatAttractiveness = $catAttractiveness2[1]);
-	$: $catFoodValue2, ($minCatFoodValue = $catFoodValue2[0], $maxCatFoodValue = $catFoodValue2[1]);
 	$: $catMinHunger2, ($minCatMinHunger = $catMinHunger2[0], $maxCatMinHunger = $catMinHunger2[1]);
 	$: $catMaxHunger2, ($minCatMaxHunger = $catMaxHunger2[0], $maxCatMaxHunger = $catMaxHunger2[1]);
-	$: $catVision2, ($minCatVision = $catVision2[0], $maxCatVision = $catVision2[1]);
 	$: $catPreyStandards2, ($minCatPreyStandards = $catPreyStandards2[0], $maxCatPreyStandards = $catPreyStandards2[1]);
 	$: $catAggression2, ($minCatAggression = $catAggression2[0], $maxCatAggression = $catAggression2[1]);
 	
@@ -219,6 +217,7 @@
 			<a href="#reproductive"><button>Reproductive</button></a>
 			<a href="#geneMutation"><button>Gene Mutation</button></a>
 			<a href="#camouflage"><button>Camouflage</button></a>
+			<a href="#hunting"><button>Hunting</button></a>
 		</div>
 	</div>
 	<div class="spacer blackToWhite" />
@@ -306,13 +305,13 @@
 		<h1>Speed</h1>
 		<h2>Mice</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed2} max={30} />
 		<h2>Snakes</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed2} max={30} />
 		<h2>Cats</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed2} max={30} />
 	</div>
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="vision">
@@ -320,13 +319,13 @@
 		<p>This is how close predators have to be for animals to see them and start running away.</p>
 		<h2>Mice</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed2} max={30} />
 		<h2>Snakes</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed2} max={30} />
 		<h2>Cats</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed2} max={30} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="hunger">
@@ -348,6 +347,10 @@
 			therefore never evolved to be camouflage.
 		</p>
 	</div>
+	<div class="spacer blackToWhite" />
+	<div class="geneCatagory2" id="hunting">
+		<h1>Hunting</h1>
+	</div>
 
 	<!--range slider with two values-->
 	<RangeSlider
@@ -356,7 +359,7 @@
 		pips
 		pipstep={100}
 		all="label"
-		bind:values={$miceCamouflage}
+		bind:values={$miceCamouflage2}
 		max={1000}
 	/>
 	<!--for gene variation percent-->
@@ -367,7 +370,7 @@
 		pipstep={100}
 		suffix="%"
 		all="label"
-		bind:values={$miceCamouflage}
+		bind:values={$miceCamouflage2}
 		max={1000}
 	/>
 </body>
