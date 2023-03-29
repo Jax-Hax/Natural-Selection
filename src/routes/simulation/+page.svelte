@@ -97,103 +97,180 @@
 	let amMice2 = writable([$amMice]);
 	let amSnakes2 = writable([$amSnakes]);
 	let amCats2 = writable([$amCats]);
-	let miceCamouflage2 = writable([$minMiceCamouflage,$maxMiceCamouflage]);
-	let miceSpeed2 = writable([$minMiceSpeed,$maxMiceSpeed]);
-	let snakeCamouflage2 = writable([$minSnakeCamouflage,$maxSnakeCamouflage]);
-	let snakeSpeed2 = writable([$minSnakeSpeed,$maxSnakeSpeed]);
-	let catSpeed2 = writable([$minCatSpeed,$maxCatSpeed]);
-	let miceHungerGainedFromResting2 = writable([$minMiceHungerGainedFromResting,$maxMiceHungerGainedFromResting]);
-	let miceRestTime2 = writable([$minMiceRestTime,$maxMiceRestTime]);
-	let miceReproductiveRestTime2 = writable([$minMiceReproductiveRestTime,$maxMiceReproductiveRestTime]);
-	let miceTimeAliveUntilReproduction2 = writable([$minMiceTimeAliveUntilReproduction,$maxMiceTimeAliveUntilReproduction]);
-	let miceGeneMutationChance2 = writable([$minMiceGeneMutationChance,$maxMiceGeneMutationChance]);
-	let miceGeneMutationAmount2 = writable([$minMiceGeneMutationAmount,$maxMiceGeneMutationAmount]);
-	let miceStandards2 = writable([$minMiceStandards,$maxMiceStandards]);
-	let miceAttractiveness2 = writable([$minMiceAttractiveness,$maxMiceAttractiveness]);
-	let miceFoodValue2 = writable([$minMiceFoodValue,$maxMiceFoodValue]);
-	let miceMinHunger2 = writable([$minMiceMinHunger,$maxMiceMinHunger]);
-	let miceMaxHunger2 = writable([$minMiceMaxHunger,$maxMiceMaxHunger]);
-	let miceVision2 = writable([$minMiceVision,$maxMiceVision]);
+	let miceCamouflage2 = writable([$minMiceCamouflage, $maxMiceCamouflage]);
+	let miceSpeed2 = writable([$minMiceSpeed, $maxMiceSpeed]);
+	let snakeCamouflage2 = writable([$minSnakeCamouflage, $maxSnakeCamouflage]);
+	let snakeSpeed2 = writable([$minSnakeSpeed, $maxSnakeSpeed]);
+	let catSpeed2 = writable([$minCatSpeed, $maxCatSpeed]);
+	let miceHungerGainedFromResting2 = writable([
+		$minMiceHungerGainedFromResting,
+		$maxMiceHungerGainedFromResting
+	]);
+	let miceRestTime2 = writable([$minMiceRestTime, $maxMiceRestTime]);
+	let miceReproductiveRestTime2 = writable([
+		$minMiceReproductiveRestTime,
+		$maxMiceReproductiveRestTime
+	]);
+	let miceTimeAliveUntilReproduction2 = writable([
+		$minMiceTimeAliveUntilReproduction,
+		$maxMiceTimeAliveUntilReproduction
+	]);
+	let miceGeneMutationChance2 = writable([$minMiceGeneMutationChance, $maxMiceGeneMutationChance]);
+	let miceGeneMutationAmount2 = writable([$minMiceGeneMutationAmount, $maxMiceGeneMutationAmount]);
+	let miceStandards2 = writable([$minMiceStandards, $maxMiceStandards]);
+	let miceAttractiveness2 = writable([$minMiceAttractiveness, $maxMiceAttractiveness]);
+	let miceFoodValue2 = writable([$minMiceFoodValue, $maxMiceFoodValue]);
+	let miceMinHunger2 = writable([$minMiceMinHunger, $maxMiceMinHunger]);
+	let miceMaxHunger2 = writable([$minMiceMaxHunger, $maxMiceMaxHunger]);
+	let miceVision2 = writable([$minMiceVision, $maxMiceVision]);
 
+	let snakeRestTime2 = writable([$minSnakeRestTime, $maxSnakeRestTime]);
+	let snakeReproductiveRestTime2 = writable([
+		$minSnakeReproductiveRestTime,
+		$maxSnakeReproductiveRestTime
+	]);
+	let snakeTimeAliveUntilReproduction2 = writable([
+		$minSnakeTimeAliveUntilReproduction,
+		$maxSnakeTimeAliveUntilReproduction
+	]);
+	let snakeGeneMutationChance2 = writable([
+		$minSnakeGeneMutationChance,
+		$maxSnakeGeneMutationChance
+	]);
+	let snakeGeneMutationAmount2 = writable([
+		$minSnakeGeneMutationAmount,
+		$maxSnakeGeneMutationAmount
+	]);
+	let snakeStandards2 = writable([$minSnakeStandards, $maxSnakeStandards]);
+	let snakeAttractiveness2 = writable([$minSnakeAttractiveness, $maxSnakeAttractiveness]);
+	let snakeFoodValue2 = writable([$minSnakeFoodValue, $maxSnakeFoodValue]);
+	let snakeMinHunger2 = writable([$minSnakeMinHunger, $maxSnakeMinHunger]);
+	let snakeMaxHunger2 = writable([$minSnakeMaxHunger, $maxSnakeMaxHunger]);
+	let snakeVision2 = writable([$minSnakeVision, $maxSnakeVision]);
+	let snakePreyStandards2 = writable([$minSnakePreyStandards, $maxSnakePreyStandards]);
+	let snakeAggression2 = writable([$minSnakeAggression, $maxSnakeAggression]);
 
-	let snakeRestTime2 = writable([$minSnakeRestTime,$maxSnakeRestTime]);
-	let snakeReproductiveRestTime2 = writable([$minSnakeReproductiveRestTime,$maxSnakeReproductiveRestTime]);
-	let snakeTimeAliveUntilReproduction2 = writable([$minSnakeTimeAliveUntilReproduction,$maxSnakeTimeAliveUntilReproduction]);
-	let snakeGeneMutationChance2 = writable([$minSnakeGeneMutationChance,$maxSnakeGeneMutationChance]);
-	let snakeGeneMutationAmount2 = writable([$minSnakeGeneMutationAmount,$maxSnakeGeneMutationAmount]);
-	let snakeStandards2 = writable([$minSnakeStandards,$maxSnakeStandards]);
-	let snakeAttractiveness2 = writable([$minSnakeAttractiveness,$maxSnakeAttractiveness]);
-	let snakeFoodValue2 = writable([$minSnakeFoodValue,$maxSnakeFoodValue]);
-	let snakeMinHunger2 = writable([$minSnakeMinHunger,$maxSnakeMinHunger]);
-	let snakeMaxHunger2 = writable([$minSnakeMaxHunger,$maxSnakeMaxHunger]);
-	let snakeVision2 = writable([$minSnakeVision,$maxSnakeVision]);
-	let snakePreyStandards2 = writable([$minSnakePreyStandards,$maxSnakePreyStandards]);
-	let snakeAggression2 = writable([$minSnakeAggression,$maxSnakeAggression]);
-
-	let catRestTime2 = writable([$minCatRestTime,$maxCatRestTime]);
-	let catReproductiveRestTime2 = writable([$minCatReproductiveRestTime,$maxCatReproductiveRestTime]);
-	let catTimeAliveUntilReproduction2 = writable([$minCatTimeAliveUntilReproduction,$maxCatTimeAliveUntilReproduction]);
-	let catGeneMutationChance2 = writable([$minCatGeneMutationChance,$maxCatGeneMutationChance]);
-	let catGeneMutationAmount2 = writable([$minCatGeneMutationAmount,$maxCatGeneMutationAmount]);
-	let catStandards2 = writable([$minCatStandards,$maxCatStandards]);
-	let catAttractiveness2 = writable([$minCatAttractiveness,$maxCatAttractiveness]);
-	let catMinHunger2 = writable([$minCatMinHunger,$maxCatMinHunger]);
-	let catMaxHunger2 = writable([$minCatMaxHunger,$maxCatMaxHunger]);
-	let catPreyStandards2 = writable([$minCatPreyStandards,$maxCatPreyStandards]);
-	let catAggression2 = writable([$minCatAggression,$maxCatAggression]);
+	let catRestTime2 = writable([$minCatRestTime, $maxCatRestTime]);
+	let catReproductiveRestTime2 = writable([
+		$minCatReproductiveRestTime,
+		$maxCatReproductiveRestTime
+	]);
+	let catTimeAliveUntilReproduction2 = writable([
+		$minCatTimeAliveUntilReproduction,
+		$maxCatTimeAliveUntilReproduction
+	]);
+	let catGeneMutationChance2 = writable([$minCatGeneMutationChance, $maxCatGeneMutationChance]);
+	let catGeneMutationAmount2 = writable([$minCatGeneMutationAmount, $maxCatGeneMutationAmount]);
+	let catStandards2 = writable([$minCatStandards, $maxCatStandards]);
+	let catAttractiveness2 = writable([$minCatAttractiveness, $maxCatAttractiveness]);
+	let catMinHunger2 = writable([$minCatMinHunger, $maxCatMinHunger]);
+	let catMaxHunger2 = writable([$minCatMaxHunger, $maxCatMaxHunger]);
+	let catPreyStandards2 = writable([$minCatPreyStandards, $maxCatPreyStandards]);
+	let catAggression2 = writable([$minCatAggression, $maxCatAggression]);
 	$: $sizeX2, ($sizeX = $sizeX2[0]);
 	$: $sizeY2, ($sizeY = $sizeY2[0]);
 	$: $generations2, ($generations = $generations2[0]);
 	$: $amMice2, ($amMice = $amMice2[0]);
 	$: $amSnakes2, ($amSnakes = $amSnakes2[0]);
 	$: $amCats2, ($amCats = $amCats2[0]);
-	$: $miceCamouflage2, ($minMiceCamouflage = $miceCamouflage2[0], $maxMiceCamouflage = $miceCamouflage2[1]);
-	$: $miceSpeed2, ($minMiceSpeed = $miceSpeed2[0], $maxMiceSpeed = $miceSpeed2[1]);
-	$: $miceHungerGainedFromResting2, ($minMiceHungerGainedFromResting = $miceHungerGainedFromResting2[0], $maxMiceHungerGainedFromResting = $miceHungerGainedFromResting2[1]);
-	$: $miceRestTime2, ($minMiceRestTime = $miceRestTime2[0], $maxMiceRestTime = $miceRestTime2[1]);
-	$: $miceReproductiveRestTime2, ($minMiceReproductiveRestTime = $miceReproductiveRestTime2[0], $maxMiceReproductiveRestTime = $miceReproductiveRestTime2[1]);
-	$: $miceTimeAliveUntilReproduction2, ($minMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[0], $maxMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[1]);
-	$: $miceGeneMutationChance2, ($minMiceGeneMutationChance = $miceGeneMutationChance2[0], $maxMiceGeneMutationChance = $miceGeneMutationChance2[1]);
-	$: $miceGeneMutationAmount2, ($minMiceGeneMutationAmount = $miceGeneMutationAmount2[0], $maxMiceGeneMutationAmount = $miceGeneMutationAmount2[1]);
-	$: $miceStandards2, ($minMiceStandards = $miceStandards2[0], $maxMiceStandards = $miceStandards2[1]);
-	$: $miceAttractiveness2, ($minMiceAttractiveness = $miceAttractiveness2[0], $maxMiceAttractiveness = $miceAttractiveness2[1]);
-	$: $miceFoodValue2, ($minMiceFoodValue = $miceFoodValue2[0], $maxMiceFoodValue = $miceFoodValue2[1]);
+	$: $miceCamouflage2,
+		(($minMiceCamouflage = $miceCamouflage2[0]), ($maxMiceCamouflage = $miceCamouflage2[1]));
+	$: $miceSpeed2, (($minMiceSpeed = $miceSpeed2[0]), ($maxMiceSpeed = $miceSpeed2[1]));
+	$: $miceHungerGainedFromResting2,
+		(($minMiceHungerGainedFromResting = $miceHungerGainedFromResting2[0]),
+		($maxMiceHungerGainedFromResting = $miceHungerGainedFromResting2[1]));
+	$: $miceRestTime2,
+		(($minMiceRestTime = $miceRestTime2[0]), ($maxMiceRestTime = $miceRestTime2[1]));
+	$: $miceReproductiveRestTime2,
+		(($minMiceReproductiveRestTime = $miceReproductiveRestTime2[0]),
+		($maxMiceReproductiveRestTime = $miceReproductiveRestTime2[1]));
+	$: $miceTimeAliveUntilReproduction2,
+		(($minMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[0]),
+		($maxMiceTimeAliveUntilReproduction = $miceTimeAliveUntilReproduction2[1]));
+	$: $miceGeneMutationChance2,
+		(($minMiceGeneMutationChance = $miceGeneMutationChance2[0]),
+		($maxMiceGeneMutationChance = $miceGeneMutationChance2[1]));
+	$: $miceGeneMutationAmount2,
+		(($minMiceGeneMutationAmount = $miceGeneMutationAmount2[0]),
+		($maxMiceGeneMutationAmount = $miceGeneMutationAmount2[1]));
+	$: $miceStandards2,
+		(($minMiceStandards = $miceStandards2[0]), ($maxMiceStandards = $miceStandards2[1]));
+	$: $miceAttractiveness2,
+		(($minMiceAttractiveness = $miceAttractiveness2[0]),
+		($maxMiceAttractiveness = $miceAttractiveness2[1]));
+	$: $miceFoodValue2,
+		(($minMiceFoodValue = $miceFoodValue2[0]), ($maxMiceFoodValue = $miceFoodValue2[1]));
 
-	$: $miceMinHunger2, ($minMiceMinHunger = $miceMinHunger2[0], $maxMiceMinHunger = $miceMinHunger2[1]);
-	$: $miceMaxHunger2, ($minMiceMaxHunger = $miceMaxHunger2[0], $maxMiceMaxHunger = $miceMaxHunger2[1]);
-	$: $miceVision2, ($minMiceVision = $miceVision2[0], $maxMiceVision = $miceVision2[1]);
+	$: $miceMinHunger2,
+		(($minMiceMinHunger = $miceMinHunger2[0]), ($maxMiceMinHunger = $miceMinHunger2[1]));
+	$: $miceMaxHunger2,
+		(($minMiceMaxHunger = $miceMaxHunger2[0]), ($maxMiceMaxHunger = $miceMaxHunger2[1]));
+	$: $miceVision2, (($minMiceVision = $miceVision2[0]), ($maxMiceVision = $miceVision2[1]));
 
-	$: $snakeCamouflage2, ($minSnakeCamouflage = $snakeCamouflage2[0], $maxSnakeCamouflage = $snakeCamouflage2[1]);
-	$: $snakeSpeed2, ($minSnakeSpeed = $snakeSpeed2[0], $maxSnakeSpeed = $snakeSpeed2[1]);
-	$: $catSpeed2, ($minCatSpeed = $catSpeed2[0], $maxCatSpeed = $catSpeed2[1]);
-	
+	$: $snakeCamouflage2,
+		(($minSnakeCamouflage = $snakeCamouflage2[0]), ($maxSnakeCamouflage = $snakeCamouflage2[1]));
+	$: $snakeSpeed2, (($minSnakeSpeed = $snakeSpeed2[0]), ($maxSnakeSpeed = $snakeSpeed2[1]));
+	$: $catSpeed2, (($minCatSpeed = $catSpeed2[0]), ($maxCatSpeed = $catSpeed2[1]));
 
-	$: $snakeRestTime2, ($minSnakeRestTime = $snakeRestTime2[0], $maxSnakeRestTime = $snakeRestTime2[1]);
-	$: $snakeReproductiveRestTime2, ($minSnakeReproductiveRestTime = $snakeReproductiveRestTime2[0], $maxSnakeReproductiveRestTime = $snakeReproductiveRestTime2[1]);
-	$: $snakeTimeAliveUntilReproduction2, ($minSnakeTimeAliveUntilReproduction = $snakeTimeAliveUntilReproduction2[0], $maxSnakeTimeAliveUntilReproduction = $snakeTimeAliveUntilReproduction2[1]);
-	$: $snakeGeneMutationChance2, ($minSnakeGeneMutationChance = $snakeGeneMutationChance2[0], $maxSnakeGeneMutationChance = $snakeGeneMutationChance2[1]);
-	$: $snakeGeneMutationAmount2, ($minSnakeGeneMutationAmount = $snakeGeneMutationAmount2[0], $maxSnakeGeneMutationAmount = $snakeGeneMutationAmount2[1]);
-	$: $snakeStandards2, ($minSnakeStandards = $snakeStandards2[0], $maxSnakeStandards = $snakeStandards2[1]);
-	$: $snakeAttractiveness2, ($minSnakeAttractiveness = $snakeAttractiveness2[0], $maxSnakeAttractiveness = $snakeAttractiveness2[1]);
-	$: $snakeFoodValue2, ($minSnakeFoodValue = $snakeFoodValue2[0], $maxSnakeFoodValue = $snakeFoodValue2[1]);
-	$: $snakeMinHunger2, ($minSnakeMinHunger = $snakeMinHunger2[0], $maxSnakeMinHunger = $snakeMinHunger2[1]);
-	$: $snakeMaxHunger2, ($minSnakeMaxHunger = $snakeMaxHunger2[0], $maxSnakeMaxHunger = $snakeMaxHunger2[1]);
-	$: $snakeVision2, ($minSnakeVision = $snakeVision2[0], $maxSnakeVision = $snakeVision2[1]);
-	$: $snakePreyStandards2, ($minSnakePreyStandards = $snakePreyStandards2[0], $maxSnakePreyStandards = $snakePreyStandards2[1]);
-	$: $snakeAggression2, ($minSnakeAggression = $snakeAggression2[0], $maxSnakeAggression = $snakeAggression2[1]);
+	$: $snakeRestTime2,
+		(($minSnakeRestTime = $snakeRestTime2[0]), ($maxSnakeRestTime = $snakeRestTime2[1]));
+	$: $snakeReproductiveRestTime2,
+		(($minSnakeReproductiveRestTime = $snakeReproductiveRestTime2[0]),
+		($maxSnakeReproductiveRestTime = $snakeReproductiveRestTime2[1]));
+	$: $snakeTimeAliveUntilReproduction2,
+		(($minSnakeTimeAliveUntilReproduction = $snakeTimeAliveUntilReproduction2[0]),
+		($maxSnakeTimeAliveUntilReproduction = $snakeTimeAliveUntilReproduction2[1]));
+	$: $snakeGeneMutationChance2,
+		(($minSnakeGeneMutationChance = $snakeGeneMutationChance2[0]),
+		($maxSnakeGeneMutationChance = $snakeGeneMutationChance2[1]));
+	$: $snakeGeneMutationAmount2,
+		(($minSnakeGeneMutationAmount = $snakeGeneMutationAmount2[0]),
+		($maxSnakeGeneMutationAmount = $snakeGeneMutationAmount2[1]));
+	$: $snakeStandards2,
+		(($minSnakeStandards = $snakeStandards2[0]), ($maxSnakeStandards = $snakeStandards2[1]));
+	$: $snakeAttractiveness2,
+		(($minSnakeAttractiveness = $snakeAttractiveness2[0]),
+		($maxSnakeAttractiveness = $snakeAttractiveness2[1]));
+	$: $snakeFoodValue2,
+		(($minSnakeFoodValue = $snakeFoodValue2[0]), ($maxSnakeFoodValue = $snakeFoodValue2[1]));
+	$: $snakeMinHunger2,
+		(($minSnakeMinHunger = $snakeMinHunger2[0]), ($maxSnakeMinHunger = $snakeMinHunger2[1]));
+	$: $snakeMaxHunger2,
+		(($minSnakeMaxHunger = $snakeMaxHunger2[0]), ($maxSnakeMaxHunger = $snakeMaxHunger2[1]));
+	$: $snakeVision2, (($minSnakeVision = $snakeVision2[0]), ($maxSnakeVision = $snakeVision2[1]));
+	$: $snakePreyStandards2,
+		(($minSnakePreyStandards = $snakePreyStandards2[0]),
+		($maxSnakePreyStandards = $snakePreyStandards2[1]));
+	$: $snakeAggression2,
+		(($minSnakeAggression = $snakeAggression2[0]), ($maxSnakeAggression = $snakeAggression2[1]));
 
-	$: $catRestTime2, ($minCatRestTime = $catRestTime2[0], $maxCatRestTime = $catRestTime2[1]);
-	$: $catReproductiveRestTime2, ($minCatReproductiveRestTime = $catReproductiveRestTime2[0], $maxCatReproductiveRestTime = $catReproductiveRestTime2[1]);
-	$: $catTimeAliveUntilReproduction2, ($minCatTimeAliveUntilReproduction = $catTimeAliveUntilReproduction2[0], $maxCatTimeAliveUntilReproduction = $catTimeAliveUntilReproduction2[1]);
-	$: $catGeneMutationChance2, ($minCatGeneMutationChance = $catGeneMutationChance2[0], $maxCatGeneMutationChance = $catGeneMutationChance2[1]);
-	$: $catGeneMutationAmount2, ($minCatGeneMutationAmount = $catGeneMutationAmount2[0], $maxCatGeneMutationAmount = $catGeneMutationAmount2[1]);
-	$: $catStandards2, ($minCatStandards = $catStandards2[0], $maxCatStandards = $catStandards2[1]);
-	$: $catAttractiveness2, ($minCatAttractiveness = $catAttractiveness2[0], $maxCatAttractiveness = $catAttractiveness2[1]);
-	$: $catMinHunger2, ($minCatMinHunger = $catMinHunger2[0], $maxCatMinHunger = $catMinHunger2[1]);
-	$: $catMaxHunger2, ($minCatMaxHunger = $catMaxHunger2[0], $maxCatMaxHunger = $catMaxHunger2[1]);
-	$: $catPreyStandards2, ($minCatPreyStandards = $catPreyStandards2[0], $maxCatPreyStandards = $catPreyStandards2[1]);
-	$: $catAggression2, ($minCatAggression = $catAggression2[0], $maxCatAggression = $catAggression2[1]);
-	
+	$: $catRestTime2, (($minCatRestTime = $catRestTime2[0]), ($maxCatRestTime = $catRestTime2[1]));
+	$: $catReproductiveRestTime2,
+		(($minCatReproductiveRestTime = $catReproductiveRestTime2[0]),
+		($maxCatReproductiveRestTime = $catReproductiveRestTime2[1]));
+	$: $catTimeAliveUntilReproduction2,
+		(($minCatTimeAliveUntilReproduction = $catTimeAliveUntilReproduction2[0]),
+		($maxCatTimeAliveUntilReproduction = $catTimeAliveUntilReproduction2[1]));
+	$: $catGeneMutationChance2,
+		(($minCatGeneMutationChance = $catGeneMutationChance2[0]),
+		($maxCatGeneMutationChance = $catGeneMutationChance2[1]));
+	$: $catGeneMutationAmount2,
+		(($minCatGeneMutationAmount = $catGeneMutationAmount2[0]),
+		($maxCatGeneMutationAmount = $catGeneMutationAmount2[1]));
+	$: $catStandards2,
+		(($minCatStandards = $catStandards2[0]), ($maxCatStandards = $catStandards2[1]));
+	$: $catAttractiveness2,
+		(($minCatAttractiveness = $catAttractiveness2[0]),
+		($maxCatAttractiveness = $catAttractiveness2[1]));
+	$: $catMinHunger2,
+		(($minCatMinHunger = $catMinHunger2[0]), ($maxCatMinHunger = $catMinHunger2[1]));
+	$: $catMaxHunger2,
+		(($minCatMaxHunger = $catMaxHunger2[0]), ($maxCatMaxHunger = $catMaxHunger2[1]));
+	$: $catPreyStandards2,
+		(($minCatPreyStandards = $catPreyStandards2[0]),
+		($maxCatPreyStandards = $catPreyStandards2[1]));
+	$: $catAggression2,
+		(($minCatAggression = $catAggression2[0]), ($maxCatAggression = $catAggression2[1]));
 </script>
 
 <body>
@@ -218,7 +295,6 @@
 			<a href="#reproductive"><button>Reproductive</button></a>
 			<a href="#geneMutation"><button>Gene Mutation</button></a>
 			<a href="#camouflage"><button>Camouflage</button></a>
-			<a href="#hunting"><button>Hunting</button></a>
 		</div>
 	</div>
 	<div class="spacer blackToWhite" />
@@ -266,15 +342,7 @@
 		<h1>Amount of Animals to Start</h1>
 		<h2>Amount of Mice</h2>
 		<!--slider with one value-->
-		<RangeSlider
-			range="min"
-			float
-			pips
-			pipstep={10}
-			all="label"
-			bind:values={$amMice2}
-			max={200}
-		/>
+		<RangeSlider range="min" float pips pipstep={10} all="label" bind:values={$amMice2} max={200} />
 		<h2>Amount of Snakes</h2>
 		<!--slider with one value-->
 		<RangeSlider
@@ -288,15 +356,7 @@
 		/>
 		<h2>Amount of Cats</h2>
 		<!--slider with one value-->
-		<RangeSlider
-			range="min"
-			float
-			pips
-			pipstep={10}
-			all="label"
-			bind:values={$amCats2}
-			max={200}
-		/>
+		<RangeSlider range="min" float pips pipstep={10} all="label" bind:values={$amCats2} max={200} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="speed">
@@ -328,6 +388,18 @@
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="hunger">
 		<h1>Hunger</h1>
+		<h2>Rest Time</h2>
+		<p>The time that each animal has to rest after
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceRestTime2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeRestTime2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catRestTime2} max={30} />
+		<p>The mice gain hunger from sitting still while eating grass, while the snakes and cats gain hunger from eating their respective preys, and their hunger gain is based on the prey's food value.</p>
+		<h2>Mouse: Hunger gained from resting</h2>
+		<RangeSlider range float pips pipstep={10} all="label" bind:values={$miceHungerGainedFromResting2} max={100} />
+		
 	</div>
 	<div class="spacer whiteToBlack" />
 	<div class="geneCatagory1" id="reproductive">
@@ -341,23 +413,31 @@
 	<div class="geneCatagory1" id="camouflage">
 		<h1>Camouflage</h1>
 		<p>
-			Cats do not need camouflage since they are the top predator, and cannot be eaten by anything,
+			The higher the value, the less they blend in, so zero means they blend in perfectly to the background. Cats do not need camouflage since they are the top predator, and cannot be eaten by anything,
 			therefore never evolved to be camouflage.
 		</p>
+		<h2>Mouse</h2>
 		<RangeSlider
-		range
-		float
-		pips
-		pipstep={10}
-		all="label"
-		bind:values={$miceCamouflage2}
-		max={50}
-	/>
+			range
+			float
+			pips
+			pipstep={10}
+			all="label"
+			bind:values={$miceCamouflage2}
+			max={60}
+		/>
+		<h2>Snake</h2>
+		<RangeSlider
+			range
+			float
+			pips
+			pipstep={10}
+			all="label"
+			bind:values={$snakeCamouflage2}
+			max={60}
+		/>
 	</div>
 	<div class="spacer blackToWhite" />
-	<div class="geneCatagory2" id="hunting">
-		<h1>Hunting</h1>
-	</div>
 
 	<!--range slider with two values-->
 	<RangeSlider
