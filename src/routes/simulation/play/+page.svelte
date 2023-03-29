@@ -134,6 +134,7 @@
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
 		scene.clearColor = new Color3(0, 50, 75);
+		scene.debugLayer.show();
 		camera = new UniversalCamera('camera1', new Vector3(0, $sizeX / 4, -$sizeX), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
@@ -323,6 +324,7 @@
 		hunger.isReadOnly = true;
 		advancedTexture.addControl(hunger);
 		hunger.color = 'white';
+		animal.hungerSlider = hunger;
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -430,6 +432,9 @@
 					mouse.isResting = true;
 				} else {
 					mouse.currentHunger -= deltaTime;
+					if(mouse.hungerSlider != undefined){
+					//	mouse.hungerSlider.value = mouse.currentHunger;
+					}
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
@@ -1006,6 +1011,7 @@
 			attractiveness,
 			foodValue
 		) {
+			this.hungerSlider = undefined;
 			this.model = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
