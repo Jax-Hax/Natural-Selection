@@ -1,21 +1,25 @@
 <body>
 	<section id="attentioncatcher">
-			<h1>Natural Selection. How does it work?</h1>
-			<p>
-				Even biologists don't know the full story, like how did the first self-replicating organism form? But some of it is explainable, and that is what this is for. Whether you are a teacher trying to explain it to kids, or someone just trying to learn, this simple demonstration acts as an interactive way to figure out how evolution works. 
-			</p>
-			<a href="/simulation"><button> Play </button></a>
-			<a href="/howitworks"><button> How was this made? </button></a>
+		<h1>Evolution</h1>
+		<p>
+			How does it work? Well, it works by a lot of theories and vocabulary, like natural selection, but I am not going to teach you that. The goal of this is to get a hands on experience of how evolution works. To do that, you are going to be able to watch animals evolve in real time, and be like their god. Don't like how easy the cats have it? Change their speed to 3, or set the maximum hunger to 10. Click play to select genes, or just use the already selected ones for the best starting environment. If you want to know the behind the scenes of how it all works, go to the "How was this made?" section! Enjoy!
+		</p>
+		<a href="/simulation"><button> Play </button></a>
+		<a href="/howitworks"><button> How was this made? </button></a>
 	</section>
-	</body>
+</body>
+
 <style>
-body { min-height: 100%; overflow:hidden}
+	body {
+		min-height: 100%;
+		overflow-x: hidden;
+	}
 	section {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 5vw 2vw 100em 2vw;
+		padding: 5vw 2vw 10vw 2vw;
 		justify-content: center;
 		color: white;
 		gap: 1rem;
@@ -54,4 +58,4 @@ body { min-height: 100%; overflow:hidden}
 		border: -2px solid #fb8500; /* Green */
 		margin-bottom: -2px;
 	}
-	</style>
+</style>
