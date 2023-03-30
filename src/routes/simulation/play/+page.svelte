@@ -12,7 +12,7 @@
 		StandardMaterial,
 		Mesh
 	} from '@babylonjs/core';
-	import { AdvancedDynamicTexture, Button, Slider } from '@babylonjs/gui/2D';
+	import { AdvancedDynamicTexture, Button } from '@babylonjs/gui/2D';
 	import {
 		sizeX,
 		sizeY,
@@ -307,14 +307,26 @@
 		plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
 		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane, 1024, 1024, false);
 		//make ui
-		var button1 = Button.CreateSimpleButton('but1', 'testingsgsdafslfk');
-		button1.width = 1;
-		button1.height = 0.4;
-		button1.color = 'white';
-		button1.fontSize = 100;
-		button1.background = 'green';
-		button1.isReadOnly = true;
-		advancedTexture.addControl(button1);
+		var genderButton = Button.CreateSimpleButton('but1', animal.isFemale ? 'Female' : 'Male');
+		genderButton.width = 0.5;
+		genderButton.height = 0.2;
+		genderButton.color = 'white';
+		genderButton.fontSize = 100;
+		genderButton.background = animal.isFemale ? '#510080' : '#0077b6';
+		genderButton.isReadOnly = true;
+		genderButton.cornerRadius = 50;
+		advancedTexture.addControl(genderButton);
+		var stateButton = Button.CreateSimpleButton('but1', 'Wandering');
+		stateButton.width = 0.5;
+		stateButton.top = '-200px';
+		stateButton.height = 0.2;
+		stateButton.color = 'white';
+		stateButton.fontSize = 100;
+		stateButton.background = 'green';
+		stateButton.isReadOnly = true;
+		stateButton.cornerRadius = 50;
+		advancedTexture.addControl(stateButton);
+		animal.stateButton = stateButton;
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
@@ -354,6 +366,8 @@
 								mouse.mate = undefined;
 								mouse.lookingForMate = false;
 								mouse.isReproductiveResting = true;
+								mouse.stateButton.textBlock.text = "Resting";
+								mouse.stateButton.background = '#c30cc9';
 							} else {
 								mouse.model.lookAt(mouse.mate.model.position);
 								mouse.model.locallyTranslate(translation);
@@ -482,6 +496,8 @@
 								snake.mate = undefined;
 								snake.lookingForMate = false;
 								snake.isReproductiveResting = true;
+								snake.stateButton.textBlock.text = "Resting";
+								snake.stateButton.background = '#c30cc9';
 							} else {
 								snake.model.lookAt(snake.mate.model.position);
 								snake.model.rotation.x = 0;
@@ -999,6 +1015,7 @@
 			foodValue
 		) {
 			this.model = undefined;
+			this.stateButton = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
 			this.restTime = restTime;
@@ -1058,6 +1075,7 @@
 			standardsForPrey
 		) {
 			this.model = undefined;
+			this.stateButton = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
 			this.restTime = restTime;
@@ -1118,6 +1136,7 @@
 			standardsForPrey
 		) {
 			this.model = undefined;
+			this.stateButton = undefined;
 			this.isFemale = isFemale;
 			this.restTime = restTime;
 			this.turning = false;
