@@ -348,6 +348,10 @@
 						mouse.model.rotation.y += 3.14;
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
+						if (mouse.stateButton != undefined) {
+							mouse.stateButton.textBlock.text = 'Running';
+							mouse.stateButton.background = 'red';
+						}
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
@@ -366,11 +370,17 @@
 								mouse.mate = undefined;
 								mouse.lookingForMate = false;
 								mouse.isReproductiveResting = true;
-								mouse.stateButton.textBlock.text = "Resting";
-								mouse.stateButton.background = '#c30cc9';
+								if (mouse.stateButton != undefined) {
+									mouse.stateButton.textBlock.text = 'Resting';
+									mouse.stateButton.background = '#c30cc9';
+								}
 							} else {
 								mouse.model.lookAt(mouse.mate.model.position);
 								mouse.model.locallyTranslate(translation);
+								if (mouse.stateButton != undefined) {
+									mouse.stateButton.textBlock.text = 'Mating';
+									mouse.stateButton.background = '#e09109';
+								}
 							}
 						} else {
 							mouse.hasMate = false;
@@ -388,6 +398,10 @@
 									mouse.mate = miceReproductiveList[i];
 									mouse.hasMate = true;
 									mouse.mate.hasMate = true;
+									if (mouse.stateButton != undefined) {
+										mouse.stateButton.textBlock.text = 'Mating';
+										mouse.stateButton.background = '#e09109';
+									}
 									miceReproductiveList[i].mate = mouse;
 									miceReproductiveList.splice(i, 1);
 									break;
@@ -403,6 +417,12 @@
 					}
 				}
 				if (mouse.canMove) {
+					if (!mouse.isBeingChased && !mouse.isLookingForMate) {
+						if (mouse.stateButton != undefined) {
+							mouse.stateButton.textBlock.text = 'Wandering';
+							mouse.stateButton.background = 'green';
+						}
+					}
 					//movement code
 					if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
@@ -434,11 +454,19 @@
 				}
 				if (mouse.currentHunger < mouse.minHunger && !mouse.isResting) {
 					mouse.isResting = true;
+					if (mouse.stateButton != undefined) {
+						mouse.stateButton.textBlock.text = 'Resting';
+						mouse.stateButton.background = '#00bd68';
+					}
 				} else {
 					mouse.currentHunger -= deltaTime;
 				}
 			} else if (!mouse.isReproductiveResting) {
 				//resting countdown
+				if (mouse.stateButton != undefined) {
+					mouse.stateButton.textBlock.text = 'Resting';
+					mouse.stateButton.background = '#00bd68';
+				}
 				mouse.restingCountdown -= deltaTime;
 				mouse.currentHunger += deltaTime * mouse.hungerGainedFromResting;
 				if (mouse.currentHunger > mouse.maxHunger) {
@@ -449,6 +477,10 @@
 					mouse.isResting = false;
 				}
 			} else {
+				if (mouse.stateButton != undefined) {
+					mouse.stateButton.textBlock.text = 'Resting';
+					mouse.stateButton.background = '#c30cc9';
+				}
 				//reproductive resting
 				mouse.reproductiveRestingCountdown -= deltaTime;
 				if (mouse.reproductiveRestingCountdown <= 0) {
@@ -478,6 +510,10 @@
 						snake.model.rotation.y += 3.14;
 						snake.model.locallyTranslate(translation);
 						checkWallCollision(snake);
+						if (snake.stateButton != undefined) {
+							snake.stateButton.textBlock.text = 'Running';
+							snake.stateButton.background = 'red';
+						}
 					}
 				} else if (snake.lookingForMate) {
 					if (snake.hasMate) {
@@ -496,13 +532,19 @@
 								snake.mate = undefined;
 								snake.lookingForMate = false;
 								snake.isReproductiveResting = true;
-								snake.stateButton.textBlock.text = "Resting";
-								snake.stateButton.background = '#c30cc9';
+								if (snake.stateButton != undefined) {
+									snake.stateButton.textBlock.text = 'Resting';
+									snake.stateButton.background = '#c30cc9';
+								}
 							} else {
 								snake.model.lookAt(snake.mate.model.position);
 								snake.model.rotation.x = 0;
 								snake.model.rotation.z = 0;
 								snake.model.locallyTranslate(translation);
+								if (snake.stateButton != undefined) {
+									snake.stateButton.textBlock.text = 'Mating';
+									snake.stateButton.background = '#e09109';
+								}
 							}
 						} else {
 							snake.hasMate = false;
@@ -520,6 +562,10 @@
 									snake.mate = snakesReproductiveList[i];
 									snake.hasMate = true;
 									snake.mate.hasMate = true;
+									if (snake.stateButton != undefined) {
+										snake.stateButton.textBlock.text = 'Mating';
+										snake.stateButton.background = '#e09109';
+									}
 									snakesReproductiveList[i].mate = snake;
 									snakesReproductiveList.splice(i, 1);
 									break;
@@ -536,6 +582,12 @@
 				}
 				if (snake.canMove) {
 					//movement code
+					if (!mouse.isBeingChased && !mouse.isLookingForMate) {
+						if (snake.stateButton != undefined) {
+							snake.stateButton.textBlock.text = 'Wandering';
+							snake.stateButton.background = 'green';
+						}
+					}
 					if (snake.turning) {
 						desiredDirection = (snake.speed / 5) * deltaTime;
 						snake.turnAmount -= desiredDirection;
@@ -582,6 +634,10 @@
 				}
 			} else if (!snake.isReproductiveResting && !snake.isHuntingPrey) {
 				//resting countdown
+				if (snake.stateButton != undefined) {
+						snake.stateButton.textBlock.text = 'Resting';
+						snake.stateButton.background = '#00bd68';
+					}
 				snake.restingCountdown -= deltaTime;
 				if (snake.restingCountdown <= 0) {
 					snake.restingCountdown = snake.restTime;
@@ -589,6 +645,10 @@
 				}
 			} else if (!snake.isHuntingPrey) {
 				//reproductive resting
+				if (snake.stateButton != undefined) {
+						snake.stateButton.textBlock.text = 'Resting';
+						snake.stateButton.background = '#c30cc9';
+					}
 				snake.reproductiveRestingCountdown -= deltaTime;
 				if (snake.reproductiveRestingCountdown <= 0) {
 					snake.reproductiveRestingCountdown = snake.reproductiveRestTime;
@@ -631,6 +691,10 @@
 					snake.model.rotation.x = 0;
 					snake.model.rotation.z = 0;
 					snake.model.locallyTranslate(translation);
+					if (snake.stateButton != undefined) {
+						snake.stateButton.textBlock.text = 'Hunting';
+						snake.stateButton.background = '#0a0063';
+					}
 				}
 			}
 		}
@@ -871,6 +935,7 @@
 				1
 			);
 			mouse.model = mouseShape;
+			createGUI(mouse,miceIDNum);
 			mice.push(mouse);
 		} else if (childType == 'snake') {
 			let snake = new Snake(
@@ -918,6 +983,7 @@
 				1
 			);
 			snake.model = snakeShape;
+			createGUI(snake,snakeIDNum);
 			snakes.push(snake);
 		} else {
 			//cat
@@ -950,6 +1016,7 @@
 			catShape.position.z = cat.posY;
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
+			createGUI(cat,catIDNum);
 			cats.push(cat);
 		}
 	}
