@@ -265,6 +265,7 @@
 				1
 			);
 			snake.model = snakeShape;
+			createGUI(snake, i);
 			snakes.push(snake);
 		}
 		snakeIDNum = $amSnakes;
@@ -293,6 +294,7 @@
 			catShape.position.z = cat.posY;
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
+			createGUI(cat, i);
 			cats.push(cat);
 		}
 		catIDNum = $amCats;
@@ -305,14 +307,14 @@
 		plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
 		var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane, 1024, 1024, false);
 		//make ui
-		var button1 = Button.CreateSimpleButton('but1', '');
+		var button1 = Button.CreateSimpleButton('but1', 'testingsgsdafslfk');
 		button1.width = 1;
 		button1.height = 0.4;
 		button1.color = 'white';
-		button1.fontSize = 50;
+		button1.fontSize = 100;
 		button1.background = 'green';
-		advancedTexture.addControl(button1);
 		button1.isReadOnly = true;
+		advancedTexture.addControl(button1);
 	}
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
