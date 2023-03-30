@@ -377,17 +377,35 @@
 		<p>This is how close predators have to be for animals to see them and start running away.</p>
 		<h2>Mice</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceSpeed2} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceVision2} max={30} />
 		<h2>Snakes</h2>
 		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeSpeed2} max={30} />
-		<h2>Cats</h2>
-		<!--range slider with two values-->
-		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catSpeed2} max={30} />
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeVision2} max={30} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="hunger">
 		<h1>Hunger</h1>
+		<h2>Food Value</h2>
+		<p>How much hunger the animal gives when eaten.</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceFoodValue2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeFoodValue2} max={30} />
+		<h2>Hunger</h2>
+		<p>The minimum hunger that each animal starts hunting or eating grass (the animal will die at 0 hunger).</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceMinHunger2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeMinHunger2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catMinHunger2} max={30} />
+		<p>The maximum hunger that each animal can have, and also the hunger value it starts at.</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceMaxHunger2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeMaxHunger2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catMaxHunger2} max={30} />
 		<h2>Rest Time</h2>
 		<p>The time that each animal has to rest after eating.</p>
 		<p>Mouse</p>
@@ -396,9 +414,25 @@
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeRestTime2} max={30} />
 		<p>Cat</p>
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catRestTime2} max={30} />
-		<p>The mice gain hunger from sitting still while eating grass, while the snakes and cats gain hunger from eating their respective preys, and their hunger gain is based on the prey's food value.</p>
 		<h2>Mouse: Hunger gained from resting</h2>
+		<p>The mice gain hunger from sitting still while eating grass, while the snakes and cats gain hunger from eating their respective preys, and their hunger gain is based on the prey's food value.</p>
 		<RangeSlider range float pips pipstep={10} all="label" bind:values={$miceHungerGainedFromResting2} max={100} />
+
+		<h2>Aggression</h2>
+		<p>How far the animal will start hunting before it's minimum hunger.</p>
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeAggression2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catAggression2} max={30} />
+
+		<h2>Rest Time</h2>
+		<p>The time that each animal has to rest after eating.</p>
+		<p>Mouse</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$miceRestTime2} max={30} />
+		<p>Snake</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeRestTime2} max={30} />
+		<p>Cat</p>
+		<RangeSlider range float pips pipstep={5} all="label" bind:values={$catRestTime2} max={30} />
 		
 	</div>
 	<div class="spacer whiteToBlack" />
@@ -420,6 +454,22 @@
 		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$snakeReproductiveRestTime2} max={30} />
 		<p>Cat</p>
 		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$catReproductiveRestTime2} max={30} />
+		<h2>Attractiveness</h2>
+		<p>For the male animals, this is how attractive they are to the females.</p>
+		<p>Mouse</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$miceAttractiveness2} max={30} />
+		<p>Snake</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$snakeAttractiveness2} max={30} />
+		<p>Cat</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$catAttractiveness2} max={30} />
+		<h2>Standards</h2>
+		<p>For the female animals, this is the minimum attractiveness their mate has to be.</p>
+		<p>Mouse</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$miceStandards2} max={30} />
+		<p>Snake</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$snakeStandards2} max={30} />
+		<p>Cat</p>
+		<RangeSlider suffix="s" range float pips pipstep={5} all="label" bind:values={$catStandards2} max={30} />
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="geneMutation">
@@ -469,7 +519,6 @@
 			max={60}
 		/>
 	</div>
-	<div class="spacer blackToWhite" />
 </body>
 
 <style>
