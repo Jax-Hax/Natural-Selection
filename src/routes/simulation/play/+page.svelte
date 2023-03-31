@@ -196,7 +196,7 @@
 				randBtwDecimals($minMiceReproductiveRestTime, $maxMiceReproductiveRestTime),
 				randBtwDecimals($minMiceTimeAliveUntilReproduction, $maxMiceTimeAliveUntilReproduction),
 				randBtwDecimals($minMiceGeneMutationChance, $maxMiceGeneMutationChance) / 100,
-				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount),
+				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount) / 100,
 				randBtwDecimals($minMiceStandards, $maxMiceStandards),
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness),
 				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue)
@@ -239,7 +239,7 @@
 				randBtwDecimals($minSnakeReproductiveRestTime, $maxSnakeReproductiveRestTime),
 				randBtwDecimals($minSnakeTimeAliveUntilReproduction, $maxSnakeTimeAliveUntilReproduction),
 				randBtwDecimals($minSnakeGeneMutationChance, $maxSnakeGeneMutationChance) / 100,
-				randBtwDecimals($minSnakeGeneMutationAmount, $maxSnakeGeneMutationAmount),
+				randBtwDecimals($minSnakeGeneMutationAmount, $maxSnakeGeneMutationAmount) / 100,
 				randBtwDecimals($minSnakeStandards, $maxSnakeStandards),
 				randBtwDecimals($minSnakeAttractiveness, $maxSnakeAttractiveness),
 				randBtwDecimals($minSnakeFoodValue, $maxSnakeFoodValue),
@@ -282,7 +282,7 @@
 				randBtwDecimals($minCatReproductiveRestTime, $maxCatReproductiveRestTime),
 				randBtwDecimals($minCatTimeAliveUntilReproduction, $maxCatTimeAliveUntilReproduction),
 				randBtwDecimals($minCatGeneMutationChance, $maxCatGeneMutationChance) / 100,
-				randBtwDecimals($minCatGeneMutationAmount, $maxCatGeneMutationAmount),
+				randBtwDecimals($minCatGeneMutationAmount, $maxCatGeneMutationAmount) / 100,
 				randBtwDecimals($minCatStandards, $maxCatStandards),
 				randBtwDecimals($minCatAttractiveness, $maxCatAttractiveness),
 				randBtwDecimals($minCatAggression, $maxCatAggression),
@@ -335,7 +335,7 @@
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
 			if (!mouse.isResting && !mouse.isReproductiveResting) {
-				if (mouse.isBeingChased) {
+				if (mouse.isBeingChased && mouse.predator != null) {
 					distanceBtwPoints = distBtwPoints(
 						mouse.model.position.x,
 						mouse.model.position.z,
@@ -348,9 +348,10 @@
 						mouse.model.rotation.y += 3.14;
 						mouse.model.locallyTranslate(translation);
 						checkWallCollision(mouse);
-						if (mouse.stateButton != undefined) {
+						if (!mouse.runningState && mouse.stateButton != undefined) {
 							mouse.stateButton.textBlock.text = 'Running';
 							mouse.stateButton.background = 'red';
+							mouse.runningState = true;
 						}
 					}
 				} else if (mouse.lookingForMate) {
@@ -497,7 +498,7 @@
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * snake.speed;
 			if (!snake.isResting && !snake.isReproductiveResting && !snake.isHuntingPrey) {
-				if (snake.isBeingChased) {
+				if (snake.isBeingChased && snake.predator != null) {
 					distanceBtwPoints = distBtwPoints(
 						snake.model.position.x,
 						snake.model.position.z,
@@ -510,9 +511,10 @@
 						snake.model.rotation.y += 3.14;
 						snake.model.locallyTranslate(translation);
 						checkWallCollision(snake);
-						if (snake.stateButton != undefined) {
+						if (!snake.runningState && snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Running';
 							snake.stateButton.background = 'red';
+							snake.runningState = true;
 						}
 					}
 				} else if (snake.lookingForMate) {
@@ -627,6 +629,7 @@
 							snake.isHuntingPrey = true;
 							snake.isLookingForPrey = false;
 							snake.prey.isBeingChased = true;
+							snake.prey.runningState = false;
 							snake.prey.predator = snake;
 							break;
 						}
@@ -818,6 +821,7 @@
 							cat.isHuntingPrey = true;
 							cat.isLookingForPrey = false;
 							cat.prey.isBeingChased = true;
+							cat.prey.runningState = false;
 							cat.prey.predator = cat;
 							break;
 						}
@@ -1045,23 +1049,24 @@
 		}
 	}
 	function childGeneCalculator(gene1, gene2, female, male) {
+		const startGene = randBtwDecimals(gene1, gene2);
 		if (Math.random() > 0.5) {
 			return (
-				randBtwNums(gene1, gene2) +
+				startGene +
 				(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount) * startGene
 					: 0)
 			);
 		} else {
 			const num =
-				randBtwNums(gene1, gene2) -
+				startGene -
 				(Math.random() > randBtwDecimals(female.geneMutationChance, male.geneMutationChance)
-					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount)
+					? randBtwDecimals(female.geneMutationAmount, male.geneMutationAmount) * startGene
 					: 0);
 			if (num > 0) {
 				return num;
 			} else {
-				return randBtwNums(gene1, gene2);
+				return startGene;
 			}
 		}
 	}
@@ -1137,6 +1142,7 @@
 			this.visionDistance = visionDistance;
 			this.posX = posX;
 			this.posY = posY;
+			this.runningState = false;
 			this.speed = speed;
 			this.camouflage = camouflage;
 			this.preyListValue = this.speed - this.camouflage / 20 + this.foodValue;
@@ -1166,6 +1172,7 @@
 			standardsForPrey
 		) {
 			this.model = undefined;
+			this.runningState = false;
 			this.stateButton = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;

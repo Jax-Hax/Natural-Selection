@@ -484,7 +484,7 @@
 		<p>Cat</p>
 		<RangeSlider range float pips suffix="%" pipstep={10} all="label" bind:values={$catReproductiveRestTime2} max={100} />
 		<h2>Gene Mutation Amount</h2>
-		<p>The amount a gene will mutate by, scales with the minimum and maximum values you set for the gene (at 0 it will increase by the minimum part of the slider, if it is 100 it will be the maximum part of the slider).</p>
+		<p>The amount a gene will mutate by, scales with the minimum and maximum values the parents have (at 0 it will increase by 0%, if it is 100% it will double the gene).</p>
 		<p>Mouse</p>
 		<RangeSlider suffix="%" range float pips pipstep={5} all="label" bind:values={$miceReproductiveRestTime2} max={30} />
 		<p>Snake</p>

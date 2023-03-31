@@ -14,8 +14,8 @@ export let minSnakeCamouflage = writable(2);
 export let maxSnakeCamouflage = writable(50);
 export let minSnakeSpeed = writable(10);
 export let maxSnakeSpeed = writable(11);
-export let minCatSpeed = writable(3);
-export let maxCatSpeed = writable(5);
+export let minCatSpeed = writable(8);
+export let maxCatSpeed = writable(8);
 //mice genes
 export let minMiceMinHunger = writable(5);
 export let maxMiceMinHunger = writable(10);
