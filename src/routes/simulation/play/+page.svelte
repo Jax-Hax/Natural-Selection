@@ -199,7 +199,8 @@
 				randBtwDecimals($minMiceGeneMutationAmount, $maxMiceGeneMutationAmount) / 100,
 				randBtwDecimals($minMiceStandards, $maxMiceStandards),
 				randBtwDecimals($minMiceAttractiveness, $maxMiceAttractiveness),
-				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue)
+				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue),
+				1
 			);
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
@@ -244,7 +245,8 @@
 				randBtwDecimals($minSnakeAttractiveness, $maxSnakeAttractiveness),
 				randBtwDecimals($minSnakeFoodValue, $maxSnakeFoodValue),
 				randBtwDecimals($minSnakeAggression, $maxSnakeAggression),
-				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards)
+				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards),
+				1
 			);
 			const snakeShape = snakeMainModel.createInstance('snake' + i);
 			snakeShape.position.x = snake.posX;
@@ -286,7 +288,8 @@
 				randBtwDecimals($minCatStandards, $maxCatStandards),
 				randBtwDecimals($minCatAttractiveness, $maxCatAttractiveness),
 				randBtwDecimals($minCatAggression, $maxCatAggression),
-				randBtwDecimals($minCatPreyStandards, $maxCatPreyStandards)
+				randBtwDecimals($minCatPreyStandards, $maxCatPreyStandards),
+				1
 			);
 			const catShape = catMainModel.createInstance('cat' + i);
 			catShape.position.x = cat.posX;
@@ -941,8 +944,12 @@
 				childGeneCalculator(female.geneMutationAmount, male.geneMutationAmount, female, male),
 				childGeneCalculator(female.standards, male.standards, female, male),
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
-				childGeneCalculator(female.foodValue, male.foodValue, female, male)
+				childGeneCalculator(female.foodValue, male.foodValue, female, male),
+				(female.generation>male.generation)?female.generation+1 : male.generation
 			);
+			if(mouse.generation > $generations){
+				gameEnd();
+			}
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
 			miceIDNum += 1;
 			mouseShape.position.x = mouse.posX;
@@ -989,8 +996,12 @@
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.foodValue, male.foodValue, female, male),
 				childGeneCalculator(female.aggression, male.aggression, female, male),
-				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male)
+				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
+				(female.generation>male.generation)?female.generation+1 : male.generation + 1
 			);
+			if(snake.generation > 1){
+				gameEnd();
+			}
 			const snakeShape = snakeMainModel.createInstance('snake' + snakeIDNum);
 			snakeShape.position.x = snake.posX;
 			snakeShape.position.y = 0.76;
@@ -1035,8 +1046,12 @@
 				childGeneCalculator(female.standards, male.standards, female, male),
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.aggression, male.aggression, female, male),
-				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male)
+				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
+				(female.generation>male.generation)?female.generation+1 : male.generation
 			);
+			if(cat.generation > $generations){
+				gameEnd();
+			}
 			const catShape = catMainModel.createInstance('cat' + catIDNum);
 			catShape.position.x = cat.posX;
 			catIDNum++;
@@ -1047,6 +1062,10 @@
 			createGUI(cat, catIDNum);
 			cats.push(cat);
 		}
+	}
+	function gameEnd(){
+		console.log("game over");
+		window.location.href = '/simulation/end';
 	}
 	function childGeneCalculator(gene1, gene2, female, male) {
 		const startGene = randBtwDecimals(gene1, gene2);
@@ -1108,8 +1127,10 @@
 			geneMutationAmount,
 			standards,
 			attractiveness,
-			foodValue
+			foodValue,
+			generation
 		) {
+			this.generation = generation;
 			this.model = undefined;
 			this.stateButton = undefined;
 			this.foodValue = foodValue;
@@ -1169,8 +1190,10 @@
 			attractiveness,
 			foodValue,
 			aggression,
-			standardsForPrey
+			standardsForPrey,
+			generation
 		) {
+			this.generation = generation;
 			this.model = undefined;
 			this.runningState = false;
 			this.stateButton = undefined;
@@ -1231,8 +1254,10 @@
 			standards,
 			attractiveness,
 			aggression,
-			standardsForPrey
+			standardsForPrey,
+			generation
 		) {
+			this.generation = generation;
 			this.model = undefined;
 			this.stateButton = undefined;
 			this.isFemale = isFemale;

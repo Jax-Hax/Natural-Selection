@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export let generations = writable(10);
 export let amMice = writable(10);
 export let amSnakes = writable(10);
-export let amCats = writable(10);
+export let amCats = writable(0);
 export let sizeX = writable(100);
 export let sizeY = writable(100);
 export let minMiceCamouflage = writable(2);
