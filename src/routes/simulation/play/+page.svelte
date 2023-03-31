@@ -134,7 +134,7 @@
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
 		scene.clearColor = new Color3(0, 50, 75);
-		camera = new UniversalCamera('camera1', new Vector3(0, $sizeX / 4, -$sizeX), scene);
+		camera = new UniversalCamera('camera1', new Vector3(0, $sizeY / 4, -$sizeY), scene);
 		camera.attachControl(canvas, true);
 		camera.checkCollisions = true;
 		camera.speed = 1;
@@ -146,8 +146,8 @@
 		light = new HemisphericLight('light', new Vector3(5, 50, -10), scene);
 		light.intensity = 0.8;
 		ground = MeshBuilder.CreateGround('ground', {
-			height: $sizeX,
-			width: $sizeY,
+			height: $sizeY,
+			width: $sizeX,
 			subdivisions: 1
 		});
 		const groundColor = new StandardMaterial('groundColor', scene);
@@ -999,7 +999,7 @@
 				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
 				(female.generation>male.generation)?female.generation+1 : male.generation + 1
 			);
-			if(snake.generation > 1){
+			if(snake.generation > $generations){
 				gameEnd();
 			}
 			const snakeShape = snakeMainModel.createInstance('snake' + snakeIDNum);
