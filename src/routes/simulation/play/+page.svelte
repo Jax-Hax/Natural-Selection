@@ -355,7 +355,7 @@
 					}
 				} else if (mouse.lookingForMate) {
 					if (mouse.hasMate) {
-						if (mouse.mate != undefined) {
+						if (mouse.mate != null) {
 							mouse.canMove = false;
 							if (
 								mouse.mate.model.position.x <= mouse.model.position.x + 1 &&
@@ -518,7 +518,7 @@
 				} else if (snake.lookingForMate) {
 					if (snake.hasMate) {
 						snake.canMove = false;
-						if (snake.mate != undefined) {
+						if (snake.mate != null) {
 							if (
 								snake.mate.model.position.x <= snake.model.position.x + 1 &&
 								snake.mate.model.position.x >= snake.model.position.x - 1 &&
@@ -582,7 +582,7 @@
 				}
 				if (snake.canMove) {
 					//movement code
-					if (!mouse.isBeingChased && !mouse.isLookingForMate) {
+					if (!snake.isBeingChased && !snake.isLookingForMate) {
 						if (snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Wandering';
 							snake.stateButton.background = 'green';
@@ -635,9 +635,9 @@
 			} else if (!snake.isReproductiveResting && !snake.isHuntingPrey) {
 				//resting countdown
 				if (snake.stateButton != undefined) {
-						snake.stateButton.textBlock.text = 'Resting';
-						snake.stateButton.background = '#00bd68';
-					}
+					snake.stateButton.textBlock.text = 'Resting';
+					snake.stateButton.background = '#00bd68';
+				}
 				snake.restingCountdown -= deltaTime;
 				if (snake.restingCountdown <= 0) {
 					snake.restingCountdown = snake.restTime;
@@ -646,15 +646,16 @@
 			} else if (!snake.isHuntingPrey) {
 				//reproductive resting
 				if (snake.stateButton != undefined) {
-						snake.stateButton.textBlock.text = 'Resting';
-						snake.stateButton.background = '#c30cc9';
-					}
+					snake.stateButton.textBlock.text = 'Resting';
+					snake.stateButton.background = '#c30cc9';
+				}
 				snake.reproductiveRestingCountdown -= deltaTime;
 				if (snake.reproductiveRestingCountdown <= 0) {
 					snake.reproductiveRestingCountdown = snake.reproductiveRestTime;
 					snake.isReproductiveResting = false;
 				}
 			} else {
+				snake.currentHunger -= deltaTime;
 				//hunting prey
 				if (
 					snake.prey.model.position.x <= snake.model.position.x + 1 &&
@@ -667,22 +668,8 @@
 					snake.isHuntingPrey = false;
 					snake.isResting = true;
 					snake.prey.model.dispose();
-					for (let i = 0; i < mice.length; i++) {
-						if ((mice[i] = snake.prey)) {
-							if (mice[i].mate != undefined) {
-								mice[i].mate.mate = undefined;
-								mice[i].mate.hasMate = false;
-							}
-							mice[i] = null;
-							mice.splice(i, 1);
-						}
-					}
-					for (let i = 0; i < miceReproductiveList.length; i++) {
-						if ((miceReproductiveList[i] = snake.prey)) {
-							miceReproductiveList[i] = null;
-							miceReproductiveList.splice(i, 1);
-						}
-					}
+					mice.splice(mice.indexOf(snake.prey), 1);
+					snake.prey = null;
 					if (snake.currentHunger > snake.maxHunger) {
 						snake.currentHunger = snake.maxHunger;
 					}
@@ -697,6 +684,20 @@
 					}
 				}
 			}
+			if (snake.currentHunger <= 0) {
+				snake.model.dispose();
+				snakes.splice(snakes.indexOf(snake), 1); /*
+				if (snake.mate != undefined) {
+					snake.mate.mate = undefined;
+					snake.mate.hasMate = false;
+				}
+				if(snake.predator != undefined){
+					snake.predator.isHuntingPrey = false;
+					snake.predator.prey = undefined;
+				}*/
+				snake = null;
+				console.log('snake has died from hunger');
+			}
 		}
 	}
 	function checkEachCat(translation) {
@@ -709,7 +710,7 @@
 				if (cat.lookingForMate) {
 					if (cat.hasMate) {
 						cat.canMove = false;
-						if (cat.mate != undefined) {
+						if (cat.mate != null) {
 							if (
 								cat.mate.model.position.x <= cat.model.position.x + 1 &&
 								cat.mate.model.position.x >= cat.model.position.x - 1 &&
@@ -761,6 +762,12 @@
 				}
 				if (cat.canMove) {
 					//movement code
+					if (!cat.isBeingChased && !cat.isLookingForMate) {
+						if (cat.stateButton != undefined) {
+							cat.stateButton.textBlock.text = 'Wandering';
+							cat.stateButton.background = 'green';
+						}
+					}
 					if (cat.turning) {
 						desiredDirection = (cat.speed / 5) * deltaTime;
 						cat.turnAmount -= desiredDirection;
@@ -820,6 +827,7 @@
 					cat.isReproductiveResting = false;
 				}
 			} else {
+				cat.currentHunger -= deltaTime;
 				//hunting prey
 				if (
 					cat.prey.model.position.x <= cat.model.position.x + 1 &&
@@ -832,22 +840,8 @@
 					cat.isHuntingPrey = false;
 					cat.isResting = true;
 					cat.prey.model.dispose();
-					for (let i = 0; i < cats.length; i++) {
-						if ((cats[i] = cat.prey)) {
-							if (cats[i].mate != undefined) {
-								cats[i].mate.mate = undefined;
-								cats[i].mate.hasMate = false;
-							}
-							cats[i] = null;
-							cats.splice(i, 1);
-						}
-					}
-					for (let i = 0; i < catsReproductiveList.length; i++) {
-						if ((catsReproductiveList[i] = cat.prey)) {
-							catsReproductiveList[i] = null;
-							catsReproductiveList.splice(i, 1);
-						}
-					}
+					snakes.splice(snakes.indexOf(cat.prey), 1);
+					cat.prey = null;
 					if (cat.currentHunger > cat.maxHunger) {
 						cat.currentHunger = cat.maxHunger;
 					}
@@ -857,6 +851,13 @@
 					cat.model.rotation.z = 0;
 					cat.model.locallyTranslate(translation);
 				}
+				
+			}
+			if (cat.currentHunger <= 0) {
+				cat.model.dispose();
+				cats.splice(cats.indexOf(cat), 1);
+				cat = null;
+				console.log('cat has died from hunger');
 			}
 		}
 	}
@@ -935,7 +936,7 @@
 				1
 			);
 			mouse.model = mouseShape;
-			createGUI(mouse,miceIDNum);
+			createGUI(mouse, miceIDNum);
 			mice.push(mouse);
 		} else if (childType == 'snake') {
 			let snake = new Snake(
@@ -983,7 +984,7 @@
 				1
 			);
 			snake.model = snakeShape;
-			createGUI(snake,snakeIDNum);
+			createGUI(snake, snakeIDNum);
 			snakes.push(snake);
 		} else {
 			//cat
@@ -1016,7 +1017,7 @@
 			catShape.position.z = cat.posY;
 			catShape.rotation.y = randBtwDecimals(-3.14, 3.14);
 			cat.model = catShape;
-			createGUI(cat,catIDNum);
+			createGUI(cat, catIDNum);
 			cats.push(cat);
 		}
 	}
