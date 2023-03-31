@@ -15,7 +15,10 @@
 		<h2>Logic</h2>
 		<p>Every frame, it loops through each animal. Depending on the animal, it can do different things, but most are the same. It can have the following states:</p>
 		<ol>
-			<li>asd</li>
+			<li>Hunting: The cats hunt the snakes, which hunt the mice, that eat grass. They look for the prey with the highest food value, that gives them the most hunger back.</li>
+			<li>Mating: Each animal will look through it's partners and pick the one that has the attractiveness that is above it's standards.</li>
+			<li>Resting: The animals will rest after eating prey and mating, and they sit in place, which is bad if they are being chased by a predator.</li>
+			<li>Movement: The animals are just wandering aimlessly, not moving outside of the width and length bounds of the ground.</li>
 		</ol>
 		<a href="/"><button> Return </button></a>
 	</section>
