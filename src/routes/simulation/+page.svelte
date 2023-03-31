@@ -429,7 +429,7 @@
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakeFoodValue2} max={40} />
 		
 		<h2>Prey Standards</h2>
-		<p>The minimum food value that the animal's prey needs to have for it to choose it as prey.</p>
+		<p>The minimum food value that the animal's prey needs to have for it to choose it as prey. Warning: if there is no prey left with a value above this, the animal will starve, even if it there are still other animals left it could have eaten.</p>
 		<p>Snake</p>
 		<RangeSlider range float pips pipstep={5} all="label" bind:values={$snakePreyStandards2} max={35} />
 		<p>Cat</p>

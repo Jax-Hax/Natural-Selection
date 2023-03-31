@@ -696,7 +696,6 @@
 					snake.predator.prey = undefined;
 				}*/
 				snake = null;
-				console.log('snake has died from hunger');
 			}
 		}
 	}
@@ -724,11 +723,19 @@
 								cat.mate = undefined;
 								cat.lookingForMate = false;
 								cat.isReproductiveResting = true;
+								if (cat.stateButton != undefined) {
+									cat.stateButton.textBlock.text = 'Resting';
+									cat.stateButton.background = '#c30cc9';
+								}
 							} else {
 								cat.model.lookAt(cat.mate.model.position);
 								cat.model.rotation.x = 0;
 								cat.model.rotation.z = 0;
 								cat.model.locallyTranslate(translation);
+								if (cat.stateButton != undefined) {
+									cat.stateButton.textBlock.text = 'Mating';
+									cat.stateButton.background = '#e09109';
+								}
 							}
 						} else {
 							cat.hasMate = false;
@@ -746,6 +753,10 @@
 									cat.mate = catsReproductiveList[i];
 									cat.hasMate = true;
 									cat.mate.hasMate = true;
+									if (cat.stateButton != undefined) {
+										cat.stateButton.textBlock.text = 'Mating';
+										cat.stateButton.background = '#e09109';
+									}
 									catsReproductiveList[i].mate = cat;
 									catsReproductiveList.splice(i, 1);
 									break;
@@ -801,9 +812,9 @@
 				}
 				cat.currentHunger -= deltaTime;
 				if (cat.isLookingForPrey) {
-					for (let i = 0; i < cats.length; i++) {
-						if (cats[i].preyListValue >= cat.standardsForPrey && !cats[i].isBeingChased) {
-							cat.prey = cats[i];
+					for (let i = 0; i < snakes.length; i++) {
+						if (snakes[i].preyListValue >= cat.standardsForPrey && !snakes[i].isBeingChased) {
+							cat.prey = snakes[i];
 							cat.isHuntingPrey = true;
 							cat.isLookingForPrey = false;
 							cat.prey.isBeingChased = true;
@@ -814,6 +825,10 @@
 				}
 			} else if (!cat.isReproductiveResting && !cat.isHuntingPrey) {
 				//resting countdown
+				if (cat.stateButton != undefined) {
+					cat.stateButton.textBlock.text = 'Resting';
+					cat.stateButton.background = '#00bd68';
+				}
 				cat.restingCountdown -= deltaTime;
 				if (cat.restingCountdown <= 0) {
 					cat.restingCountdown = cat.restTime;
@@ -821,6 +836,10 @@
 				}
 			} else if (!cat.isHuntingPrey) {
 				//reproductive resting
+				if (cat.stateButton != undefined) {
+					cat.stateButton.textBlock.text = 'Resting';
+					cat.stateButton.background = '#c30cc9';
+				}
 				cat.reproductiveRestingCountdown -= deltaTime;
 				if (cat.reproductiveRestingCountdown <= 0) {
 					cat.reproductiveRestingCountdown = cat.reproductiveRestTime;
@@ -829,6 +848,7 @@
 			} else {
 				cat.currentHunger -= deltaTime;
 				//hunting prey
+				console.log("hunting prey");
 				if (
 					cat.prey.model.position.x <= cat.model.position.x + 1 &&
 					cat.prey.model.position.x >= cat.model.position.x - 1 &&
@@ -849,6 +869,10 @@
 					cat.model.lookAt(cat.prey.model.position);
 					cat.model.rotation.x = 0;
 					cat.model.rotation.z = 0;
+					if (cat.stateButton != undefined) {
+						cat.stateButton.textBlock.text = 'Hunting';
+						cat.stateButton.background = '#0a0063';
+					}
 					cat.model.locallyTranslate(translation);
 				}
 				
@@ -857,7 +881,6 @@
 				cat.model.dispose();
 				cats.splice(cats.indexOf(cat), 1);
 				cat = null;
-				console.log('cat has died from hunger');
 			}
 		}
 	}
