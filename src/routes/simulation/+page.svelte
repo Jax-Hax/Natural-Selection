@@ -274,14 +274,14 @@
 </script>
 
 <body>
-	<div class="geneCatagory1" id="firstScreen">
+	<div class="geneCatagory1" id="title">
 		<h1>Parameter Page</h1>
 		<p>
 			This is where you change anything you want to in the simulation. I have included all genes
 			present in the simulation, and they are all set to the best levels for a balanced simulation.
 			If you would like to see how different genes affect the animals, try setting one to the max
 			and see what changes. Most genes are set to ranges, and the gene of each animal will be
-			selected randomly from that range at the start.
+			selected randomly from that range at the start. </p><p>WARNING: I kept the ability to set a gene to zero for some of them purely for people who want to see what it does, do not use this if you want a good simulation because it will break things!
 		</p>
 		<a href="/simulation/play" id="startButton"><button id="simButton">Start Simulation</button></a>
 		<div style="padding-top: 1em">
@@ -296,6 +296,7 @@
 			<a href="#geneMutation"><button>Gene Mutation</button></a>
 			<a href="#camouflage"><button>Camouflage</button></a>
 		</div>
+		<a href="#title" id="topButton"><button>To Top</button></a>
 	</div>
 	<div class="spacer blackToWhite" />
 	<div class="geneCatagory2" id="misc">
@@ -787,10 +788,18 @@
 		color: white;
 		margin: -1px 0;
 	}
-	#firstScreen {
+	#title {
 		align-items: center;
 		padding-top: 3em;
 	}
+	#topButton {
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+}
 	h2 {
 		font-size: 2rem;
 	}
