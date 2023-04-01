@@ -374,10 +374,6 @@
 								mouse.mate = undefined;
 								mouse.lookingForMate = false;
 								mouse.isReproductiveResting = true;
-								if (mouse.stateButton != undefined) {
-									mouse.stateButton.textBlock.text = 'Resting';
-									mouse.stateButton.background = '#c30cc9';
-								}
 							} else {
 								mouse.model.lookAt(mouse.mate.model.position);
 								mouse.model.locallyTranslate(translation);
@@ -402,10 +398,6 @@
 									mouse.mate = miceReproductiveList[i];
 									mouse.hasMate = true;
 									mouse.mate.hasMate = true;
-									if (mouse.stateButton != undefined) {
-										mouse.stateButton.textBlock.text = 'Mating';
-										mouse.stateButton.background = '#e09109';
-									}
 									miceReproductiveList[i].mate = mouse;
 									miceReproductiveList.splice(i, 1);
 									break;
@@ -458,10 +450,6 @@
 				}
 				if (mouse.currentHunger < mouse.minHunger && !mouse.isResting) {
 					mouse.isResting = true;
-					if (mouse.stateButton != undefined) {
-						mouse.stateButton.textBlock.text = 'Resting';
-						mouse.stateButton.background = '#00bd68';
-					}
 				} else {
 					mouse.currentHunger -= deltaTime;
 				}

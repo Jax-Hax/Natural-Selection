@@ -281,7 +281,7 @@
 			present in the simulation, and they are all set to the best levels for a balanced simulation.
 			If you would like to see how different genes affect the animals, try setting one to the max
 			and see what changes. Most genes are set to ranges, and the gene of each animal will be
-			selected randomly from that range at the start. </p><p></p>WARNING: I kept the ability to set a gene to zero for some of them purely for people who want to see what it does, do not use this if you want a good simulation because it will break things!
+			selected randomly from that range at the start. </p><p>WARNING: I kept the ability to set a gene to zero for some of them purely for people who want to see what it does, do not use this if you want a good simulation because it will break things!
 		</p>
 		<a href="/simulation/play" id="startButton"><button id="simButton">Start Simulation</button></a>
 		<div style="padding-top: 1em">
@@ -347,7 +347,7 @@
 	<div class="geneCatagory1" id="animalNum">
 		<h1>Amount of Animals to Start</h1>
 		<p>
-			DO NOT PUT THIS TOO HIGH UNLESS YOU HAVE A GOOD COMPUTER! A chromebook can only support about
+			DO NOT PUT THIS TOO HIGH UNLESS YOU HAVE A GOOD COMPUTER! If you are using this for school, a chromebook can only support about
 			60 animals total, so around 30 animals to start if you set the genes for the animals to grow.
 		</p>
 		<h2>Amount of Mice</h2>
