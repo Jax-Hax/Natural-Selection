@@ -130,6 +130,8 @@
 	const miceReproductiveList = [];
 	const snakesReproductiveList = [];
 	const catsReproductiveList = [];
+	//gene graph lists
+	let mouseCamouflageArr = [];
 	function createScene(canvas) {
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
@@ -202,6 +204,7 @@
 				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue),
 				1
 			);
+			addGenesToChart(mouse,"mouse");
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
@@ -248,6 +251,7 @@
 				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards),
 				1
 			);
+			addGenesToChart(snake,"snake");
 			const snakeShape = snakeMainModel.createInstance('snake' + i);
 			snakeShape.position.x = snake.posX;
 			snakeShape.position.y = 0.76;
@@ -291,6 +295,7 @@
 				randBtwDecimals($minCatPreyStandards, $maxCatPreyStandards),
 				1
 			);
+			addGenesToChart(cat,"cat");
 			const catShape = catMainModel.createInstance('cat' + i);
 			catShape.position.x = cat.posX;
 			catShape.position.y = 0.76;
@@ -301,6 +306,25 @@
 			cats.push(cat);
 		}
 		catIDNum = $amCats;
+	}
+	function addGenesToChart(animal, animalType){
+		console.log(animal.generation);
+		if(animalType == "mouse"){
+			if(mouseCamouflageArr[animal.generation-1] != undefined){
+				mouseCamouflageArr[animal.generation-1][0] += 1;
+			mouseCamouflageArr[animal.generation-1][1] += animal.camouflage;
+			}
+			else{
+				mouseCamouflageArr[animal.generation-1] = [1,animal.camouflage];
+			}
+		}
+		else if(animalType == "snake"){
+			
+		}
+		else{
+
+		}
+		console.log(mouseCamouflageArr);
 	}
 	function createGUI(animal, i) {
 		//init gui
@@ -933,8 +957,9 @@
 				childGeneCalculator(female.standards, male.standards, female, male),
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.foodValue, male.foodValue, female, male),
-				(female.generation>male.generation)?female.generation+1 : male.generation
+				(female.generation>male.generation)?female.generation+1 : male.generation+1
 			);
+			addGenesToChart(mouse,"mouse");
 			if(mouse.generation > $generations){
 				gameEnd();
 			}
@@ -987,6 +1012,7 @@
 				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
 				(female.generation>male.generation)?female.generation+1 : male.generation + 1
 			);
+			addGenesToChart(snake,"snake");
 			if(snake.generation > $generations){
 				gameEnd();
 			}
@@ -1035,8 +1061,9 @@
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.aggression, male.aggression, female, male),
 				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
-				(female.generation>male.generation)?female.generation+1 : male.generation
+				(female.generation>male.generation)?female.generation+1 : male.generation+1
 			);
+			addGenesToChart(cat,"cat");
 			if(cat.generation > $generations){
 				gameEnd();
 			}
