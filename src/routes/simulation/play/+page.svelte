@@ -103,6 +103,7 @@
 		minCatAggression,
 		maxCatAggression
 	} from '$lib/stores.js';
+	import { camouflage } from '$lib/chartdata.js';
 	let canvas;
 	onMount(() => {
 		startGame(canvas);
@@ -308,7 +309,6 @@
 		catIDNum = $amCats;
 	}
 	function addGenesToChart(animal, animalType) {
-		console.log(animal.generation);
 		if (animalType == 'mouse') {
 			if (mouseCamouflageArr[animal.generation - 1] != undefined) {
 				mouseCamouflageArr[animal.generation - 1][0] += 1;
@@ -319,7 +319,10 @@
 		} else if (animalType == 'snake') {
 		} else {
 		}
-		console.log(mouseCamouflageArr);
+		$camouflage = mouseCamouflageArr.map(([a, b]) => b / a);
+	}
+	function convertGeneArraysToData() {
+		//camouflage = 
 	}
 	function createGUI(animal, i) {
 		//init gui
@@ -377,6 +380,7 @@
 						}
 					}
 				} else if (mouse.lookingForMate) {
+					console.log("looking for mate");
 					if (mouse.hasMate) {
 						if (mouse.mate != null) {
 							mouse.canMove = false;
@@ -1073,7 +1077,7 @@
 		}
 	}
 	function gameEnd() {
-		console.log('game over');
+		convertGeneArraysToData();
 		window.location.href = '/simulation/end';
 	}
 	function childGeneCalculator(gene1, gene2, female, male) {
