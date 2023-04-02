@@ -1,67 +1,58 @@
 <script>
 	import { Line } from 'svelte-chartjs';
 	import { camouflage } from '$lib/chartdata.js';
-  
 	import {
-	  Chart as ChartJS,
-	  Title,
-	  Tooltip,
-	  Legend,
-	  LineElement,
-	  LinearScale,
-	  PointElement,
-	  CategoryScale,
+		Chart as ChartJS,
+		Title,
+		Tooltip,
+		Legend,
+		LineElement,
+		LinearScale,
+		PointElement,
+		CategoryScale
 	} from 'chart.js';
 	import { onMount } from 'svelte';
 	let chartData = {
-    labels: [],
-    datasets: [
-      {
-        label: 'Data Set 1',
-        data: [],
-        fill: false,
-        borderColor: 'red',
-        tension: 0.1
-      }
-    ]
-  };
-  let chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-  let chartRef;
-  onMount(() => {
-    chartRef.update();
-  });
+		labels: [1, 2, 3],
+		datasets: [
+			{
+				label: 'Data Set 1',
+				data: [10, 20, 30],
+				fill: false,
+				borderColor: 'red',
+				tension: 0.1
+			}
+		]
+	};
+	let chartOptions = {
+		responsive: true
+	};
+	let chartRef;
+	onMount(() => {
+		chartRef.update();
+	});
 	function addData(data) {
-    chartData.datasets.push({
-      label: `Data Set ${chartData.datasets.length + 1}`,
-      data: data,
-      fill: false,
-      borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-        Math.random() * 256
-      )}, ${Math.floor(Math.random() * 256)})`,
-      tension: 0.1
-    });
-    chartData.labels = Array.from(Array(data.length).keys());
-    chartRef.update();
-  }
-	ChartJS.register(
-	  Title,
-	  Tooltip,
-	  Legend,
-	  LineElement,
-	  LinearScale,
-	  PointElement,
-	  CategoryScale
-	);
+		chartData.datasets.push({
+			label: `Data Set ${chartData.datasets.length + 1}`,
+			data: data,
+			fill: false,
+			borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+				Math.random() * 256
+			)}, ${Math.floor(Math.random() * 256)})`,
+			tension: 0.1
+		});
+		chartData.labels = Array.from(Array(data.length).keys());
+		chartRef.update();
+	}
+	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	addData(camouflage);
-  </script>  
+</script>
+
 <body>
 	<section id="attentioncatcher">
 		<h1>Charts</h1>
 		<h2>The simulation is over! Here are the results:</h2>
-		<Line data={camouflage} options={chartOptions} bind:ref={chartRef}  />
+		<Line data={chartData} options={chartOptions} bind:this={chartRef} on:ready={() => chartRef.update()}/>
 		<a href="/"><button>Back To Start</button></a>
 	</section>
 </body>
