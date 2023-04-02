@@ -204,7 +204,7 @@
 				randBtwDecimals($minMiceFoodValue, $maxMiceFoodValue),
 				1
 			);
-			addGenesToChart(mouse,"mouse");
+			addGenesToChart(mouse, 'mouse');
 			const mouseShape = mouseMainModel.createInstance('mouse' + i);
 			mouseShape.position.x = mouse.posX;
 			mouseShape.position.y = 0.38;
@@ -251,7 +251,7 @@
 				randBtwDecimals($minSnakePreyStandards, $maxSnakePreyStandards),
 				1
 			);
-			addGenesToChart(snake,"snake");
+			addGenesToChart(snake, 'snake');
 			const snakeShape = snakeMainModel.createInstance('snake' + i);
 			snakeShape.position.x = snake.posX;
 			snakeShape.position.y = 0.76;
@@ -295,7 +295,7 @@
 				randBtwDecimals($minCatPreyStandards, $maxCatPreyStandards),
 				1
 			);
-			addGenesToChart(cat,"cat");
+			addGenesToChart(cat, 'cat');
 			const catShape = catMainModel.createInstance('cat' + i);
 			catShape.position.x = cat.posX;
 			catShape.position.y = 0.76;
@@ -307,22 +307,17 @@
 		}
 		catIDNum = $amCats;
 	}
-	function addGenesToChart(animal, animalType){
+	function addGenesToChart(animal, animalType) {
 		console.log(animal.generation);
-		if(animalType == "mouse"){
-			if(mouseCamouflageArr[animal.generation-1] != undefined){
-				mouseCamouflageArr[animal.generation-1][0] += 1;
-			mouseCamouflageArr[animal.generation-1][1] += animal.camouflage;
+		if (animalType == 'mouse') {
+			if (mouseCamouflageArr[animal.generation - 1] != undefined) {
+				mouseCamouflageArr[animal.generation - 1][0] += 1;
+				mouseCamouflageArr[animal.generation - 1][1] += animal.camouflage;
+			} else {
+				mouseCamouflageArr[animal.generation - 1] = [1, animal.camouflage];
 			}
-			else{
-				mouseCamouflageArr[animal.generation-1] = [1,animal.camouflage];
-			}
-		}
-		else if(animalType == "snake"){
-			
-		}
-		else{
-
+		} else if (animalType == 'snake') {
+		} else {
 		}
 		console.log(mouseCamouflageArr);
 	}
@@ -867,7 +862,7 @@
 			} else {
 				cat.currentHunger -= deltaTime;
 				//hunting prey
-				console.log("hunting prey");
+				console.log('hunting prey');
 				if (
 					cat.prey.model.position.x <= cat.model.position.x + 1 &&
 					cat.prey.model.position.x >= cat.model.position.x - 1 &&
@@ -894,7 +889,6 @@
 					}
 					cat.model.locallyTranslate(translation);
 				}
-				
 			}
 			if (cat.currentHunger <= 0) {
 				cat.model.dispose();
@@ -957,10 +951,10 @@
 				childGeneCalculator(female.standards, male.standards, female, male),
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.foodValue, male.foodValue, female, male),
-				(female.generation>male.generation)?female.generation+1 : male.generation+1
+				female.generation > male.generation ? female.generation + 1 : male.generation + 1
 			);
-			addGenesToChart(mouse,"mouse");
-			if(mouse.generation > $generations){
+			addGenesToChart(mouse, 'mouse');
+			if (mouse.generation > $generations) {
 				gameEnd();
 			}
 			const mouseShape = mouseMainModel.createInstance('mouse' + miceIDNum);
@@ -1010,10 +1004,10 @@
 				childGeneCalculator(female.foodValue, male.foodValue, female, male),
 				childGeneCalculator(female.aggression, male.aggression, female, male),
 				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
-				(female.generation>male.generation)?female.generation+1 : male.generation + 1
+				female.generation > male.generation ? female.generation + 1 : male.generation + 1
 			);
-			addGenesToChart(snake,"snake");
-			if(snake.generation > $generations){
+			addGenesToChart(snake, 'snake');
+			if (snake.generation > $generations) {
 				gameEnd();
 			}
 			const snakeShape = snakeMainModel.createInstance('snake' + snakeIDNum);
@@ -1061,10 +1055,10 @@
 				childGeneCalculator(female.attractiveness, male.attractiveness, female, male),
 				childGeneCalculator(female.aggression, male.aggression, female, male),
 				childGeneCalculator(female.standardsForPrey, male.standardsForPrey, female, male),
-				(female.generation>male.generation)?female.generation+1 : male.generation+1
+				female.generation > male.generation ? female.generation + 1 : male.generation + 1
 			);
-			addGenesToChart(cat,"cat");
-			if(cat.generation > $generations){
+			addGenesToChart(cat, 'cat');
+			if (cat.generation > $generations) {
 				gameEnd();
 			}
 			const catShape = catMainModel.createInstance('cat' + catIDNum);
@@ -1078,8 +1072,8 @@
 			cats.push(cat);
 		}
 	}
-	function gameEnd(){
-		console.log("game over");
+	function gameEnd() {
+		console.log('game over');
 		window.location.href = '/simulation/end';
 	}
 	function childGeneCalculator(gene1, gene2, female, male) {
