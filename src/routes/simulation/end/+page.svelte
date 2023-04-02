@@ -1,6 +1,5 @@
 <script>
 	import { Line } from 'svelte-chartjs';
-	import { camouflage } from '$lib/chartdata.js';
 	import {
 		Chart as ChartJS,
 		Title,
@@ -11,48 +10,33 @@
 		PointElement,
 		CategoryScale
 	} from 'chart.js';
-	import { onMount } from 'svelte';
-	let chartData = {
-		labels: [1, 2, 3],
+	import { camouflage } from '$lib/chartdata.js';
+	const data = {
+		labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
 		datasets: [
 			{
-				label: 'Data Set 1',
-				data: [10, 20, 30],
-				fill: false,
-				borderColor: 'red',
-				tension: 0.1
+				label: 'My First dataset',
+
+				data: [65, 59, 80, 81, 56, 55, 40]
 			}
 		]
 	};
-	let chartOptions = {
-		responsive: true
-	};
-	let chartRef;
-	onMount(() => {
-		chartRef.update();
-	});
-	function addData(data) {
-		chartData.datasets.push({
-			label: `Data Set ${chartData.datasets.length + 1}`,
-			data: data,
-			fill: false,
-			borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-				Math.random() * 256
-			)}, ${Math.floor(Math.random() * 256)})`,
-			tension: 0.1
+	let chart;
+	function addData(data2) {
+		data.datasets.push({
+			label: `Data Set ${data.datasets.length + 1}`,
+			data: data2
 		});
-		chartData.labels = Array.from(Array(data.length).keys());
-		chartRef.update();
 	}
-	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	addData(camouflage);
+	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 </script>
 
 <body>
 	<section id="attentioncatcher">
 		<h1>Charts</h1>
 		<h2>The simulation is over! Here are the results:</h2>
-		<Line data={chartData} options={chartOptions} bind:this={chartRef} on:ready={() => chartRef.update()}/>
+		<Line bind:chart {data} />
 		<a href="/"><button>Back To Start</button></a>
 	</section>
 </body>
