@@ -28,81 +28,80 @@
 	let mouseChart;
 	let snakeChart;
 	let catChart;
-	function addMouseData(data2, name, color) {
+	function addMouseData(data2, name) {
 		// @ts-ignore
 		mouseData.datasets.push({
 			label: name,
 			data: data2,
-			borderColor: color,
+			borderColor: getRandomColor(),
 			lineTension: 0.3,
 			pointBorderWidth: 10,
 			pointHoverRadius: 5
 		});
 		mouseChart.update();
 	}
-	function addSnakeData(data2, name, color) {
+	function addSnakeData(data2, name) {
 		// @ts-ignore
 		snakeData.datasets.push({
 			label: name,
 			data: data2,
-			borderColor: color,
+			borderColor: getRandomColor(),
 			lineTension: 0.3,
 			pointBorderWidth: 10,
 			pointHoverRadius: 5
 		});
 		snakeChart.update();
 	}
-	function addCatData(data2, name, color) {
+	function addCatData(data2, name) {
 		// @ts-ignore
 		catData.datasets.push({
 			label: name,
 			data: data2,
-			borderColor: color,
+			borderColor: getRandomColor(),
 			lineTension: 0.3,
 			pointBorderWidth: 10,
 			pointHoverRadius: 5
 		});
 		catChart.update();
 	}
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF';
+		var color = '#';
+		for (var i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
 	onMount(() => {
 		//mouse
-		addMouseData(JSON.parse(localStorage.getItem('mouseSpeed')), 'speed', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseCamouflage')), 'camouflage', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseVisionDistance')), 'visionDistance', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseMaxHunger')), 'maxHunger', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseMinHunger')), 'minHunger', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseSpeed')), 'speed');
+		addMouseData(JSON.parse(localStorage.getItem('mouseCamouflage')), 'camouflage');
+		addMouseData(JSON.parse(localStorage.getItem('mouseVisionDistance')), 'visionDistance');
+		addMouseData(JSON.parse(localStorage.getItem('mouseMaxHunger')), 'maxHunger');
+		addMouseData(JSON.parse(localStorage.getItem('mouseMinHunger')), 'minHunger');
 		addMouseData(
 			JSON.parse(localStorage.getItem('mouseHungerGainedFromResting')),
-			'hungerGainedFromResting',
-			'red'
+			'hungerGainedFromResting'
 		);
-		addMouseData(JSON.parse(localStorage.getItem('mouseRestTime')), 'restTime', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseRestTime')), 'restTime');
 		addMouseData(
 			JSON.parse(localStorage.getItem('mouseReproductiveRestTime')),
-			'reproductiveRestTime',
-			'red'
+			'reproductiveRestTime'
 		);
 		addMouseData(
 			JSON.parse(localStorage.getItem('mouseTimeAliveUntilReproduction')),
-			'timeAliveUntilReproduction',
-			'red'
+			'timeAliveUntilReproduction'
 		);
-		addMouseData(
-			JSON.parse(localStorage.getItem('mouseGeneMutationChance')),
-			'geneMutationChance',
-			'red'
-		);
-		addMouseData(
-			JSON.parse(localStorage.getItem('mouseGeneMutationAmount')),
-			'geneMutationAmount',
-			'red'
-		);
-		addMouseData(JSON.parse(localStorage.getItem('mouseStandards')), 'standards', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseAttractiveness')), 'attractiveness', 'red');
-		addMouseData(JSON.parse(localStorage.getItem('mouseFoodValue')), 'foodValue', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseGeneMutationChance')), 'geneMutationChance');
+		addMouseData(JSON.parse(localStorage.getItem('mouseGeneMutationAmount')), 'geneMutationAmount');
+		addMouseData(JSON.parse(localStorage.getItem('mouseStandards')), 'standards');
+		addMouseData(JSON.parse(localStorage.getItem('mouseAttractiveness')), 'attractiveness');
+		addMouseData(JSON.parse(localStorage.getItem('mouseFoodValue')), 'foodValue');
+		//snake
+		//cat
 	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
-	ChartJS.defaults.color = '#ffffff';
+	ChartJS.defaults.color = 'black';
 </script>
 
 <body>
@@ -110,11 +109,11 @@
 		<h1>Charts</h1>
 		<h2>The simulation is over! Here are the results:</h2>
 		<h2>Mouse</h2>
-		<Line bind:chart={mouseChart} data={mouseData} />
+		<Line bind:chart={mouseChart} data={mouseData} style="background-color: #fff;" />
 		<h2>Snake</h2>
-		<Line bind:chart={snakeChart} data={snakeData} />
+		<Line bind:chart={snakeChart} data={snakeData} style="background-color: #fff;" />
 		<h2>Cat</h2>
-		<Line bind:chart={catChart} data={catData} />
+		<Line bind:chart={catChart} data={catData} style="background-color: #fff;" />
 		<a href="/"><button>Back To Start</button></a>
 	</section>
 </body>
