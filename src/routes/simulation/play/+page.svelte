@@ -352,20 +352,84 @@
 		}
 		catIDNum = $amCats;
 	}
-	function setGeneMeanArray(geneArray,animalGene,animalGeneration){
+	function setGeneMeanArray(geneArray, animalGene, animalGeneration) {
 		if (geneArray[animalGeneration - 1] != undefined) {
-				geneArray[animalGeneration - 1][0] += 1;
-				geneArray[animalGeneration - 1][1] += animalGene;
-			} else {
-				geneArray[animalGeneration - 1] = [1, animalGene];
-			}
-			return geneArray;
+			geneArray[animalGeneration - 1][0] += 1;
+			geneArray[animalGeneration - 1][1] += animalGene;
+		} else {
+			geneArray[animalGeneration - 1] = [1, animalGene];
+		}
+		return geneArray;
 	}
 	function addGenesToChart(animal, animalType) {
 		if (animalType == 'mouse') {
-			setGeneMeanArray(mouseCamouflageArr,animal.camouflage,animal.generation);
+			setGeneMeanArray(mouseSpeedArr, animal.speedArr, animal.generation);
+			setGeneMeanArray(mouseCamouflageArr, animal.camouflageArr, animal.generation);
+			setGeneMeanArray(mouseVisionDistanceArr, animal.visionDistanceArr, animal.generation);
+			setGeneMeanArray(mouseMaxHungerArr, animal.maxHungerArr, animal.generation);
+			setGeneMeanArray(mouseMinHungerArr, animal.minHungerArr, animal.generation);
+			setGeneMeanArray(
+				mouseHungerGainedFromRestingArr,
+				animal.hungerGainedFromRestingArr,
+				animal.generation
+			);
+			setGeneMeanArray(mouseRestTimeArr, animal.restTimeArr, animal.generation);
+			setGeneMeanArray(
+				mouseReproductiveRestTimeArr,
+				animal.reproductiveRestTimeArr,
+				animal.generation
+			);
+			setGeneMeanArray(
+				mouseTimeAliveUntilReproductionArr,
+				animal.timeAliveUntilReproductionArr,
+				animal.generation
+			);
+			setGeneMeanArray(mouseGeneMutationChanceArr, animal.geneMutationChanceArr, animal.generation);
+			setGeneMeanArray(mouseGeneMutationAmountArr, animal.geneMutationAmountArr, animal.generation);
+			setGeneMeanArray(mouseStandardsArr, animal.standardsArr, animal.generation);
+			setGeneMeanArray(mouseAttractivenessArr, animal.attractivenessArr, animal.generation);
+			setGeneMeanArray(mouseFoodValueArr, animal.foodValueArr, animal.generation);
 		} else if (animalType == 'snake') {
+			setGeneMeanArray(snakeSpeedArr, animal.speed, animal.generation);
+			setGeneMeanArray(snakeCamouflageArr, animal.camouflage, animal.generation);
+			setGeneMeanArray(snakeVisionDistanceArr, animal.visionDistance, animal.generation);
+			setGeneMeanArray(snakeMaxHungerArr, animal.maxHunger, animal.generation);
+			setGeneMeanArray(snakeMinHungerArr, animal.minHunger, animal.generation);
+			setGeneMeanArray(snakeRestTimeArr, animal.restTime, animal.generation);
+			setGeneMeanArray(
+				snakeReproductiveRestTimeArr,
+				animal.reproductiveRestTime,
+				animal.generation
+			);
+			setGeneMeanArray(
+				snakeTimeAliveUntilReproductionArr,
+				animal.timeAliveUntilReproduction,
+				animal.generation
+			);
+			setGeneMeanArray(snakeGeneMutationChanceArr, animal.geneMutationChance, animal.generation);
+			setGeneMeanArray(snakeGeneMutationAmountArr, animal.geneMutationAmount, animal.generation);
+			setGeneMeanArray(snakeStandardsArr, animal.standards, animal.generation);
+			setGeneMeanArray(snakeAttractivenessArr, animal.attractiveness, animal.generation);
+			setGeneMeanArray(snakeFoodValueArr, animal.foodValue, animal.generation);
+			setGeneMeanArray(snakeAggressionArr, animal.aggression, animal.generation);
+			setGeneMeanArray(snakeStandardsForPreyArr, animal.standardsForPrey, animal.generation);
 		} else {
+			setGeneMeanArray(catSpeedArr, animal.speed, animal.generation);
+			setGeneMeanArray(catMaxHungerArr, animal.maxHunger, animal.generation);
+			setGeneMeanArray(catMinHungerArr, animal.minHunger, animal.generation);
+			setGeneMeanArray(catRestTimeArr, animal.restTime, animal.generation);
+			setGeneMeanArray(catReproductiveRestTimeArr, animal.reproductiveRestTime, animal.generation);
+			setGeneMeanArray(
+				catTimeAliveUntilReproductionArr,
+				animal.timeAliveUntilReproduction,
+				animal.generation
+			);
+			setGeneMeanArray(catGeneMutationChanceArr, animal.geneMutationChance, animal.generation);
+			setGeneMeanArray(catGeneMutationAmountArr, animal.geneMutationAmount, animal.generation);
+			setGeneMeanArray(catStandardsArr, animal.standards, animal.generation);
+			setGeneMeanArray(catAttractivenessArr, animal.attractiveness, animal.generation);
+			setGeneMeanArray(catAggressionArr, animal.aggression, animal.generation);
+			setGeneMeanArray(catStandardsForPreyArr, animal.standardsForPrey, animal.generation);
 		}
 	}
 	function convertGeneArraysToData() {
