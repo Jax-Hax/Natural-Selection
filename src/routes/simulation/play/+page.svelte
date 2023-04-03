@@ -132,7 +132,51 @@
 	const snakesReproductiveList = [];
 	const catsReproductiveList = [];
 	//gene graph lists
-	let mouseCamouflageArr = [];
+	//mouse
+	const mouseSpeedArr = [];
+	const mouseCamouflageArr = [];
+	const mouseVisionDistanceArr = [];
+	const mouseMaxHungerArr = [];
+	const mouseMinHungerArr = [];
+	const mouseHungerGainedFromRestingArr = [];
+	const mouseRestTimeArr = [];
+	const mouseReproductiveRestTimeArr = [];
+	const mouseTimeAliveUntilReproductionArr = [];
+	const mouseGeneMutationChanceArr = [];
+	const mouseGeneMutationAmountArr = [];
+	const mouseStandardsArr = [];
+	const mouseAttractivenessArr = [];
+	const mouseFoodValueArr = [];
+	//snake
+	const snakeSpeedArr = [];
+	const snakeCamouflageArr = [];
+	const snakeVisionDistanceArr = [];
+	const snakeMaxHungerArr = [];
+	const snakeMinHungerArr = [];
+	const snakeRestTimeArr = [];
+	const snakeReproductiveRestTimeArr = [];
+	const snakeTimeAliveUntilReproductionArr = [];
+	const snakeGeneMutationChanceArr = [];
+	const snakeGeneMutationAmountArr = [];
+	const snakeStandardsArr = [];
+	const snakeAttractivenessArr = [];
+	const snakeFoodValueArr = [];
+	const snakeAggressionArr = [];
+	const snakeStandardsForPreyArr = [];
+	//cat
+	const catSpeedArr = [];
+	const catMaxHungerArr = [];
+	const catMinHungerArr = [];
+	const catIsFemaleArr = [];
+	const catRestTimeArr = [];
+	const catReproductiveRestTimeArr = [];
+	const catTimeAliveUntilReproductionArr = [];
+	const catGeneMutationChanceArr = [];
+	const catGeneMutationAmountArr = [];
+	const catStandardsArr = [];
+	const catAttractivenessArr = [];
+	const catAggressionArr = [];
+	const catStandardsForPreyArr = [];
 	function createScene(canvas) {
 		engine = new Engine(canvas);
 		scene = new Scene(engine);
