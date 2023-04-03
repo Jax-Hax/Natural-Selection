@@ -609,6 +609,9 @@
 	function checkEachMouse(translation) {
 		for (let j = 0; j < mice.length; j++) {
 			mouse = mice[j];
+			mouse.model.rotation.x = 0;
+			mouse.model.rotation.z = 0;
+			console.log(mouse.isResting);
 			mouse.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
@@ -625,7 +628,6 @@
 						mouse.model.lookAt(mouse.predator.model.position);
 						mouse.model.rotation.y += 3.14;
 						mouse.model.locallyTranslate(translation);
-						checkWallCollision(mouse);
 						if (!mouse.runningState && mouse.stateButton != undefined) {
 							mouse.stateButton.textBlock.text = 'Running';
 							mouse.stateButton.background = 'red';
@@ -721,7 +723,6 @@
 						}
 					}
 					mouse.model.locallyTranslate(translation);
-					checkWallCollision(mouse);
 					//end movement code
 				}
 				if (mouse.currentHunger < mouse.minHunger && !mouse.isResting) {
@@ -756,6 +757,7 @@
 					mouse.isReproductiveResting = false;
 				}
 			}
+			checkWallCollision(mouse);
 		}
 	}
 	function checkEachSnake(translation) {

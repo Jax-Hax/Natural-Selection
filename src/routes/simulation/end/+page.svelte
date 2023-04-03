@@ -99,21 +99,42 @@
 		addMouseData(JSON.parse(localStorage.getItem('mouseFoodValue')), 'foodValue');
 		//snake
 		addSnakeData(JSON.parse(localStorage.getItem('snakeSpeed')), 'Speed');
-addSnakeData(JSON.parse(localStorage.getItem('snakeCamouflage')), 'Camouflage');
-addSnakeData(JSON.parse(localStorage.getItem('snakeVisionDistance')), 'VisionDistance');
-addSnakeData(JSON.parse(localStorage.getItem('snakeMaxHunger')), 'MaxHunger');
-addSnakeData(JSON.parse(localStorage.getItem('snakeMinHunger')), 'MinHunger');
-addSnakeData(JSON.parse(localStorage.getItem('snakeRestTime')), 'RestTime');
-addSnakeData(JSON.parse(localStorage.getItem('snakeReproductiveRestTime')), 'ReproductiveRestTime');
-addSnakeData(JSON.parse(localStorage.getItem('snakeTimeAliveUntilReproduction')), 'TimeAliveUntilReproduction');
-addSnakeData(JSON.parse(localStorage.getItem('snakeGeneMutationChance')), 'GeneMutationChance');
-addSnakeData(JSON.parse(localStorage.getItem('snakeGeneMutationAmount')), 'GeneMutationAmount');
-addSnakeData(JSON.parse(localStorage.getItem('snakeStandards')), 'Standards');
-addSnakeData(JSON.parse(localStorage.getItem('snakeAttractiveness')), 'Attractiveness');
-addSnakeData(JSON.parse(localStorage.getItem('snakeFoodValue')), 'FoodValue');
-addSnakeData(JSON.parse(localStorage.getItem('snakeAggression')), 'Aggression');
-addSnakeData(JSON.parse(localStorage.getItem('snakeStandardsForPrey')), 'StandardsForPrey');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeCamouflage')), 'Camouflage');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeVisionDistance')), 'VisionDistance');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeMaxHunger')), 'MaxHunger');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeMinHunger')), 'MinHunger');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeRestTime')), 'RestTime');
+		addSnakeData(
+			JSON.parse(localStorage.getItem('snakeReproductiveRestTime')),
+			'ReproductiveRestTime'
+		);
+		addSnakeData(
+			JSON.parse(localStorage.getItem('snakeTimeAliveUntilReproduction')),
+			'TimeAliveUntilReproduction'
+		);
+		addSnakeData(JSON.parse(localStorage.getItem('snakeGeneMutationChance')), 'GeneMutationChance');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeGeneMutationAmount')), 'GeneMutationAmount');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeStandards')), 'Standards');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeAttractiveness')), 'Attractiveness');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeFoodValue')), 'FoodValue');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeAggression')), 'Aggression');
+		addSnakeData(JSON.parse(localStorage.getItem('snakeStandardsForPrey')), 'StandardsForPrey');
 		//cat
+		addCatData(JSON.parse(localStorage.getItem('catSpeed')), 'Speed');
+		addCatData(JSON.parse(localStorage.getItem('catMaxHunger')), 'MaxHunger');
+		addCatData(JSON.parse(localStorage.getItem('catMinHunger')), 'MinHunger');
+		addCatData(JSON.parse(localStorage.getItem('catRestTime')), 'RestTime');
+		addCatData(JSON.parse(localStorage.getItem('catReproductiveRestTime')), 'ReproductiveRestTime');
+		addCatData(
+			JSON.parse(localStorage.getItem('catTimeAliveUntilReproduction')),
+			'TimeAliveUntilReproduction'
+		);
+		addCatData(JSON.parse(localStorage.getItem('catGeneMutationChance')), 'GeneMutationChance');
+		addCatData(JSON.parse(localStorage.getItem('catGeneMutationAmount')), 'GeneMutationAmount');
+		addCatData(JSON.parse(localStorage.getItem('catStandards')), 'Standards');
+		addCatData(JSON.parse(localStorage.getItem('catAttractiveness')), 'Attractiveness');
+		addCatData(JSON.parse(localStorage.getItem('catAggression')), 'Aggression');
+		addCatData(JSON.parse(localStorage.getItem('catStandardsForPrey')), 'StandardsForPrey');
 	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	ChartJS.defaults.color = 'black';
