@@ -10,33 +10,39 @@
 		PointElement,
 		CategoryScale
 	} from 'chart.js';
-	import { camouflage } from '$lib/chartdata.js';
+	import { onMount } from 'svelte';
+	import { generations } from '$lib/stores';
 	const data = {
-		labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-		datasets: [
-			{
-				label: 'My First dataset',
-
-				data: [65, 59, 80, 81, 56, 55, 40]
-			}
-		]
+		labels: Array.from(Array($generations).keys()).map(num => num+1),
+		datasets: []
 	};
 	let chart;
-	function addData(data2) {
+	function addData(data2,name) {
+		// @ts-ignore
 		data.datasets.push({
-			label: `Data Set ${data.datasets.length + 1}`,
-			data: data2
+			label: name,
+			data: data2,
+			borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+				Math.random() * 256
+			)}, ${Math.floor(Math.random() * 256)})`,
+			lineTension: 0.3,
+			pointBorderWidth: 10,
+			pointHoverRadius: 5,
 		});
+		chart.update();
 	}
-	addData(camouflage);
+	onMount(() => {
+		addData(JSON.parse(localStorage.getItem('camouflage')),'camouflage');
+	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
+	ChartJS.defaults.color = '#ffffff';
 </script>
 
 <body>
 	<section id="attentioncatcher">
 		<h1>Charts</h1>
 		<h2>The simulation is over! Here are the results:</h2>
-		<Line bind:chart {data} />
+		<Line bind:chart {data}/>
 		<a href="/"><button>Back To Start</button></a>
 	</section>
 </body>

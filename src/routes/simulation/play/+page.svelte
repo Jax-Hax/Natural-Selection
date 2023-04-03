@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import {
 		Engine,
 		Scene,
@@ -103,7 +104,6 @@
 		minCatAggression,
 		maxCatAggression
 	} from '$lib/stores.js';
-	import { camouflage } from '$lib/chartdata.js';
 	let canvas;
 	onMount(() => {
 		startGame(canvas);
@@ -319,10 +319,9 @@
 		} else if (animalType == 'snake') {
 		} else {
 		}
-		$camouflage = mouseCamouflageArr.map(([a, b]) => b / a);
 	}
 	function convertGeneArraysToData() {
-		//camouflage = 
+		localStorage.setItem('camouflage', JSON.stringify(mouseCamouflageArr.map(([a, b]) => b / a)));
 	}
 	function createGUI(animal, i) {
 		//init gui
@@ -380,7 +379,6 @@
 						}
 					}
 				} else if (mouse.lookingForMate) {
-					console.log("looking for mate");
 					if (mouse.hasMate) {
 						if (mouse.mate != null) {
 							mouse.canMove = false;
@@ -421,6 +419,7 @@
 									mouse.mate = miceReproductiveList[i];
 									mouse.hasMate = true;
 									mouse.mate.hasMate = true;
+									mouse.mate.onReproductiveList = false;
 									miceReproductiveList[i].mate = mouse;
 									miceReproductiveList.splice(i, 1);
 									break;
@@ -578,6 +577,7 @@
 									snake.mate = snakesReproductiveList[i];
 									snake.hasMate = true;
 									snake.mate.hasMate = true;
+									snake.mate.onReproductiveList = false;
 									if (snake.stateButton != undefined) {
 										snake.stateButton.textBlock.text = 'Mating';
 										snake.stateButton.background = '#e09109';
@@ -770,6 +770,7 @@
 									cat.mate = catsReproductiveList[i];
 									cat.hasMate = true;
 									cat.mate.hasMate = true;
+									cat.mate.onReproductiveList = false;
 									if (cat.stateButton != undefined) {
 										cat.stateButton.textBlock.text = 'Mating';
 										cat.stateButton.background = '#e09109';

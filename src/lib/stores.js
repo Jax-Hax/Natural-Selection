@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export let generations = writable(5);
+export let generations = writable(3);
 export let amMice = writable(20);
 export let amSnakes = writable(0);
 export let amCats = writable(0);
