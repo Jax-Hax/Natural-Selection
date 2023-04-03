@@ -65,9 +65,41 @@
 		catChart.update();
 	}
 	onMount(() => {
+		//mouse
+		addMouseData(JSON.parse(localStorage.getItem('mouseSpeed')), 'speed', 'red');
 		addMouseData(JSON.parse(localStorage.getItem('mouseCamouflage')), 'camouflage', 'red');
-		addSnakeData(JSON.parse(localStorage.getItem('mouseCamouflage')),'camouflage','red');
-		addCatData(JSON.parse(localStorage.getItem('mouseCamouflage')),'camouflage','red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseVisionDistance')), 'visionDistance', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseMaxHunger')), 'maxHunger', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseMinHunger')), 'minHunger', 'red');
+		addMouseData(
+			JSON.parse(localStorage.getItem('mouseHungerGainedFromResting')),
+			'hungerGainedFromResting',
+			'red'
+		);
+		addMouseData(JSON.parse(localStorage.getItem('mouseRestTime')), 'restTime', 'red');
+		addMouseData(
+			JSON.parse(localStorage.getItem('mouseReproductiveRestTime')),
+			'reproductiveRestTime',
+			'red'
+		);
+		addMouseData(
+			JSON.parse(localStorage.getItem('mouseTimeAliveUntilReproduction')),
+			'timeAliveUntilReproduction',
+			'red'
+		);
+		addMouseData(
+			JSON.parse(localStorage.getItem('mouseGeneMutationChance')),
+			'geneMutationChance',
+			'red'
+		);
+		addMouseData(
+			JSON.parse(localStorage.getItem('mouseGeneMutationAmount')),
+			'geneMutationAmount',
+			'red'
+		);
+		addMouseData(JSON.parse(localStorage.getItem('mouseStandards')), 'standards', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseAttractiveness')), 'attractiveness', 'red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseFoodValue')), 'foodValue', 'red');
 	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	ChartJS.defaults.color = '#ffffff';
