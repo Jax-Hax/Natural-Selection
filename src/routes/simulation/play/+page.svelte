@@ -352,14 +352,18 @@
 		}
 		catIDNum = $amCats;
 	}
+	function setGeneMeanArray(geneArray,animalGene,animalGeneration){
+		if (geneArray[animalGeneration - 1] != undefined) {
+				geneArray[animalGeneration - 1][0] += 1;
+				geneArray[animalGeneration - 1][1] += animalGene;
+			} else {
+				geneArray[animalGeneration - 1] = [1, animalGene];
+			}
+			return geneArray;
+	}
 	function addGenesToChart(animal, animalType) {
 		if (animalType == 'mouse') {
-			if (mouseCamouflageArr[animal.generation - 1] != undefined) {
-				mouseCamouflageArr[animal.generation - 1][0] += 1;
-				mouseCamouflageArr[animal.generation - 1][1] += animal.camouflage;
-			} else {
-				mouseCamouflageArr[animal.generation - 1] = [1, animal.camouflage];
-			}
+			setGeneMeanArray(mouseCamouflageArr,animal.camouflage,animal.generation);
 		} else if (animalType == 'snake') {
 		} else {
 		}
