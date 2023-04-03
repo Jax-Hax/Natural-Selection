@@ -65,9 +65,9 @@
 		catChart.update();
 	}
 	onMount(() => {
-		addMouseData(JSON.parse(localStorage.getItem('camouflage')), 'camouflage', 'red');
-		addSnakeData(JSON.parse(localStorage.getItem('camouflage')),'camouflage','red');
-		addCatData(JSON.parse(localStorage.getItem('camouflage')),'camouflage','red');
+		addMouseData(JSON.parse(localStorage.getItem('mouseCamouflage')), 'camouflage', 'red');
+		addSnakeData(JSON.parse(localStorage.getItem('mouseCamouflage')),'camouflage','red');
+		addCatData(JSON.parse(localStorage.getItem('mouseCamouflage')),'camouflage','red');
 	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	ChartJS.defaults.color = '#ffffff';

@@ -433,7 +433,149 @@
 		}
 	}
 	function convertGeneArraysToData() {
-		localStorage.setItem('camouflage', JSON.stringify(mouseCamouflageArr.map(([a, b]) => b / a)));
+		//mice
+		localStorage.setItem(
+			'mouseCamouflage',
+			JSON.stringify(mouseCamouflageArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem('mouseSpeed', JSON.stringify(mouseSpeedArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'mouseCamouflage',
+			JSON.stringify(mouseCamouflageArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseVisionDistance',
+			JSON.stringify(mouseVisionDistanceArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseMaxHunger',
+			JSON.stringify(mouseMaxHungerArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseMinHunger',
+			JSON.stringify(mouseMinHungerArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseHungerGainedFromResting',
+			JSON.stringify(mouseHungerGainedFromRestingArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem('mouseRestTime', JSON.stringify(mouseRestTimeArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'mouseReproductiveRestTime',
+			JSON.stringify(mouseReproductiveRestTimeArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseTimeAliveUntilReproduction',
+			JSON.stringify(mouseTimeAliveUntilReproductionArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseGeneMutationChance',
+			JSON.stringify(mouseGeneMutationChanceArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseGeneMutationAmount',
+			JSON.stringify(mouseGeneMutationAmountArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseStandards',
+			JSON.stringify(mouseStandardsArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseAttractiveness',
+			JSON.stringify(mouseAttractivenessArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'mouseFoodValue',
+			JSON.stringify(mouseFoodValueArr.map(([a, b]) => b / a))
+		);
+		//snakes
+		localStorage.setItem('snakeSpeed', JSON.stringify(snakeSpeedArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'snakeCamouflage',
+			JSON.stringify(snakeCamouflageArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeVisionDistance',
+			JSON.stringify(snakeVisionDistanceArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeMaxHunger',
+			JSON.stringify(snakeMaxHungerArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeMinHunger',
+			JSON.stringify(snakeMinHungerArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem('snakeRestTime', JSON.stringify(snakeRestTimeArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'snakeReproductiveRestTime',
+			JSON.stringify(snakeReproductiveRestTimeArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeTimeAliveUntilReproduction',
+			JSON.stringify(snakeTimeAliveUntilReproductionArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeGeneMutationChance',
+			JSON.stringify(snakeGeneMutationChanceArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeGeneMutationAmount',
+			JSON.stringify(snakeGeneMutationAmountArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeStandards',
+			JSON.stringify(snakeStandardsArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeAttractiveness',
+			JSON.stringify(snakeAttractivenessArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeFoodValue',
+			JSON.stringify(snakeFoodValueArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeAggression',
+			JSON.stringify(snakeAggressionArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'snakeStandardsForPrey',
+			JSON.stringify(snakeStandardsForPreyArr.map(([a, b]) => b / a))
+		);
+
+		//cats
+		localStorage.setItem('catSpeed', JSON.stringify(catSpeedArr.map(([a, b]) => b / a)));
+		localStorage.setItem('catMaxHunger', JSON.stringify(catMaxHungerArr.map(([a, b]) => b / a)));
+		localStorage.setItem('catMinHunger', JSON.stringify(catMinHungerArr.map(([a, b]) => b / a)));
+		localStorage.setItem('catIsFemale', JSON.stringify(catIsFemaleArr.map(([a, b]) => b / a)));
+		localStorage.setItem('catRestTime', JSON.stringify(catRestTimeArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'catReproductiveRestTime',
+			JSON.stringify(catReproductiveRestTimeArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'catTimeAliveUntilReproduction',
+			JSON.stringify(catTimeAliveUntilReproductionArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'catGeneMutationChance',
+			JSON.stringify(catGeneMutationChanceArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem(
+			'catGeneMutationAmount',
+			JSON.stringify(catGeneMutationAmountArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem('catStandards', JSON.stringify(catStandardsArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'catAttractiveness',
+			JSON.stringify(catAttractivenessArr.map(([a, b]) => b / a))
+		);
+		localStorage.setItem('catAggression', JSON.stringify(catAggressionArr.map(([a, b]) => b / a)));
+		localStorage.setItem(
+			'catStandardsForPrey',
+			JSON.stringify(catStandardsForPreyArr.map(([a, b]) => b / a))
+		);
 	}
 	function createGUI(animal, i) {
 		//init gui
