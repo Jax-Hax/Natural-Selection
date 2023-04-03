@@ -12,27 +12,62 @@
 	} from 'chart.js';
 	import { onMount } from 'svelte';
 	import { generations } from '$lib/stores';
-	const data = {
-		labels: Array.from(Array($generations).keys()).map(num => num+1),
+	const labels = Array.from(Array($generations).keys()).map((num) => num + 1);
+	const mouseData = {
+		labels: labels,
 		datasets: []
 	};
-	let chart;
-	function addData(data2,name) {
+	const snakeData = {
+		labels: labels,
+		datasets: []
+	};
+	const catData = {
+		labels: labels,
+		datasets: []
+	};
+	let mouseChart;
+	let snakeChart;
+	let catChart;
+	function addMouseData(data2, name, color) {
 		// @ts-ignore
-		data.datasets.push({
+		mouseData.datasets.push({
 			label: name,
 			data: data2,
-			borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-				Math.random() * 256
-			)}, ${Math.floor(Math.random() * 256)})`,
+			borderColor: color,
 			lineTension: 0.3,
 			pointBorderWidth: 10,
-			pointHoverRadius: 5,
+			pointHoverRadius: 5
 		});
-		chart.update();
+		mouseChart.update();
+	}
+	function addSnakeData(data2, name, color) {
+		// @ts-ignore
+		snakeData.datasets.push({
+			label: name,
+			data: data2,
+			borderColor: color,
+			lineTension: 0.3,
+			pointBorderWidth: 10,
+			pointHoverRadius: 5
+		});
+		snakeChart.update();
+	}
+	function addCatData(data2, name, color) {
+		// @ts-ignore
+		catData.datasets.push({
+			label: name,
+			data: data2,
+			borderColor: color,
+			lineTension: 0.3,
+			pointBorderWidth: 10,
+			pointHoverRadius: 5
+		});
+		catChart.update();
 	}
 	onMount(() => {
-		addData(JSON.parse(localStorage.getItem('camouflage')),'camouflage');
+		addMouseData(JSON.parse(localStorage.getItem('camouflage')), 'camouflage', 'red');
+		addSnakeData(JSON.parse(localStorage.getItem('camouflage')),'camouflage','red');
+		addCatData(JSON.parse(localStorage.getItem('camouflage')),'camouflage','red');
 	});
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
 	ChartJS.defaults.color = '#ffffff';
@@ -42,7 +77,12 @@
 	<section id="attentioncatcher">
 		<h1>Charts</h1>
 		<h2>The simulation is over! Here are the results:</h2>
-		<Line bind:chart {data}/>
+		<h2>Mouse</h2>
+		<Line bind:chart={mouseChart} data={mouseData} />
+		<h2>Snake</h2>
+		<Line bind:chart={snakeChart} data={snakeData} />
+		<h2>Cat</h2>
+		<Line bind:chart={catChart} data={catData} />
 		<a href="/"><button>Back To Start</button></a>
 	</section>
 </body>
