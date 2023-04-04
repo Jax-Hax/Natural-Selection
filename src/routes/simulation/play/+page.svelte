@@ -625,10 +625,9 @@
 						mouse.model.lookAt(mouse.predator.model.position);
 						mouse.model.rotation.y += 3.14;
 						mouse.model.locallyTranslate(translation);
-						if (!mouse.runningState && mouse.stateButton != undefined) {
+						if (mouse.stateButton != undefined) {
 							mouse.stateButton.textBlock.text = 'Running';
 							mouse.stateButton.background = 'red';
-							mouse.runningState = true;
 						}
 					}
 				} else if (mouse.lookingForMate) {
@@ -774,10 +773,9 @@
 						snake.model.lookAt(snake.predator.model.position);
 						snake.model.rotation.y += 3.14;
 						snake.model.locallyTranslate(translation);
-						if (!snake.runningState && snake.stateButton != undefined) {
+						if (snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Running';
 							snake.stateButton.background = 'red';
-							snake.runningState = true;
 						}
 					}
 				} else if (snake.lookingForMate) {
@@ -882,7 +880,6 @@
 							snake.isHuntingPrey = true;
 							snake.isLookingForPrey = false;
 							snake.prey.isBeingChased = true;
-							snake.prey.runningState = false;
 							snake.prey.predator = snake;
 							break;
 						}
@@ -944,8 +941,7 @@
 				snake.model.dispose();
 				if(snake.prey != null){
 					snake.prey.isBeingChased = false;
-					snake.prey.predator = undefined;
-					snake.prey.runningState = false;
+					snake.prey.predator = null;
 				}
 				snakes.splice(snakes.indexOf(snake), 1);
 				snake = null;
@@ -1071,7 +1067,6 @@
 							cat.isHuntingPrey = true;
 							cat.isLookingForPrey = false;
 							cat.prey.isBeingChased = true;
-							cat.prey.runningState = false;
 							cat.prey.predator = cat;
 							break;
 						}
@@ -1136,8 +1131,7 @@
 				cat.model.dispose();
 				if(cat.prey != null){
 					cat.prey.isBeingChased = false;
-					cat.prey.predator = undefined;
-					cat.prey.runningState = false;
+					cat.prey.predator = null;
 				}
 				cats.splice(cats.indexOf(cat), 1);
 				cat = null;
@@ -1420,7 +1414,6 @@
 			this.visionDistance = visionDistance;
 			this.posX = posX;
 			this.posY = posY;
-			this.runningState = false;
 			this.speed = speed;
 			this.camouflage = camouflage;
 			this.preyListValue = this.speed - this.camouflage / 20 + this.foodValue;
@@ -1452,7 +1445,6 @@
 		) {
 			this.generation = generation;
 			this.model = undefined;
-			this.runningState = false;
 			this.stateButton = undefined;
 			this.foodValue = foodValue;
 			this.isFemale = isFemale;
