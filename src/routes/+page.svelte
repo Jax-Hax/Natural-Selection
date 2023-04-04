@@ -2,7 +2,7 @@
 	<section id="attentioncatcher">
 		<h1>Evolution</h1>
 		<p>
-			How does it work? Well, it works by a lot of theories and vocabulary, like natural selection, but I am not going to teach you that. The goal of this is to get a hands on experience of how evolution works. To do that, you are going to be able to watch animals evolve in real time, and be like their god. Don't like how easy the cats have it? Change their speed to 3, or set the maximum hunger to 10. Click play to select genes, or just use the already selected ones for the best starting environment. If you want to know the behind the scenes of how it all works, go to the "How was this made?" section! Enjoy!
+			How does it work? Well, it works via a lot of theories and vocabulary, like natural selection, but I am not going to teach you that. The goal of this is to get a hands on experience of how evolution works. To do that, you are going to be able to watch animals evolve in real time, and be like their god. Don't like how easy the cats have it? Change their speed to 3, or set the maximum hunger to 10. Click play to select genes, or just use the already selected ones for the best starting environment. If you want to know the behind the scenes of how it all works, go to the "How was this made?" section! Enjoy!
 		</p>
 		<a href="/simulation"><button> Play </button></a>
 		<a href="/howitworks"><button> How was this made? </button></a>
@@ -19,7 +19,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 5vw 2vw 10vw 2vw;
+		padding: 5vw 2vw 15vw 2vw;
 		justify-content: center;
 		color: white;
 		gap: 1rem;
