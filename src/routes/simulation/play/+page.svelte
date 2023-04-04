@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 	import {
 		Engine,
 		Scene,
@@ -167,7 +166,6 @@
 	const catSpeedArr = [];
 	const catMaxHungerArr = [];
 	const catMinHungerArr = [];
-	const catIsFemaleArr = [];
 	const catRestTimeArr = [];
 	const catReproductiveRestTimeArr = [];
 	const catTimeAliveUntilReproductionArr = [];
@@ -611,7 +609,6 @@
 			mouse = mice[j];
 			mouse.model.rotation.x = 0;
 			mouse.model.rotation.z = 0;
-			console.log(mouse.isResting);
 			mouse.canMove = true;
 			translation.set(0, 0, 0);
 			translation.z = deltaTime * mouse.speed;
@@ -648,7 +645,7 @@
 									haveChild('mouse', mouse, mouse.mate);
 								}
 								mouse.hasMate = false;
-								mouse.mate = undefined;
+								mouse.mate = null;
 								mouse.lookingForMate = false;
 								mouse.isReproductiveResting = true;
 							} else {
@@ -691,12 +688,10 @@
 					}
 				}
 				if (mouse.canMove) {
-					if (!mouse.isBeingChased && !mouse.isLookingForMate) {
 						if (mouse.stateButton != undefined) {
 							mouse.stateButton.textBlock.text = 'Wandering';
 							mouse.stateButton.background = 'green';
 						}
-					}
 					//movement code
 					if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
@@ -779,7 +774,6 @@
 						snake.model.lookAt(snake.predator.model.position);
 						snake.model.rotation.y += 3.14;
 						snake.model.locallyTranslate(translation);
-						checkWallCollision(snake);
 						if (!snake.runningState && snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Running';
 							snake.stateButton.background = 'red';
@@ -800,7 +794,7 @@
 									haveChild('snake', snake, snake.mate);
 								}
 								snake.hasMate = false;
-								snake.mate = undefined;
+								snake.mate = null;
 								snake.lookingForMate = false;
 								snake.isReproductiveResting = true;
 							} else {
@@ -846,12 +840,10 @@
 				}
 				if (snake.canMove) {
 					//movement code
-					if (!snake.isBeingChased && !snake.isLookingForMate) {
 						if (snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Wandering';
 							snake.stateButton.background = 'green';
 						}
-					}
 					if (snake.turning) {
 						desiredDirection = (snake.speed / 5) * deltaTime;
 						snake.turnAmount -= desiredDirection;
@@ -877,7 +869,6 @@
 						}
 					}
 					snake.model.locallyTranslate(translation);
-					checkWallCollision(snake);
 					//end movement code
 				}
 				if (snake.currentHunger - snake.aggression < snake.minHunger && !snake.isHuntingPrey) {
@@ -953,10 +944,14 @@
 				snake.model.dispose();
 				if(snake.prey != null){
 					snake.prey.isBeingChased = false;
+					snake.prey.predator = undefined;
+					snake.prey.runningState = false;
 				}
 				snakes.splice(snakes.indexOf(snake), 1);
 				snake = null;
+				continue;
 			}
+			checkWallCollision(snake);
 		}
 	}
 	function checkEachCat(translation) {
@@ -980,7 +975,7 @@
 									haveChild('cat', cat, cat.mate);
 								}
 								cat.hasMate = false;
-								cat.mate = undefined;
+								cat.mate = null;
 								cat.lookingForMate = false;
 								cat.isReproductiveResting = true;
 								if (cat.stateButton != undefined) {
@@ -1034,12 +1029,10 @@
 				}
 				if (cat.canMove) {
 					//movement code
-					if (!cat.isBeingChased && !cat.isLookingForMate) {
 						if (cat.stateButton != undefined) {
 							cat.stateButton.textBlock.text = 'Wandering';
 							cat.stateButton.background = 'green';
 						}
-					}
 					if (cat.turning) {
 						desiredDirection = (cat.speed / 5) * deltaTime;
 						cat.turnAmount -= desiredDirection;
@@ -1065,7 +1058,6 @@
 						}
 					}
 					cat.model.locallyTranslate(translation);
-					checkWallCollision(cat);
 					//end movement code
 				}
 				if (cat.currentHunger - cat.aggression < cat.minHunger && !cat.isHuntingPrey) {
@@ -1142,9 +1134,16 @@
 			}
 			if (cat.currentHunger <= 0) {
 				cat.model.dispose();
+				if(cat.prey != null){
+					cat.prey.isBeingChased = false;
+					cat.prey.predator = undefined;
+					cat.prey.runningState = false;
+				}
 				cats.splice(cats.indexOf(cat), 1);
 				cat = null;
+				continue;
 			}
+			checkWallCollision(cat);
 		}
 	}
 	function checkWallCollision(animal) {
