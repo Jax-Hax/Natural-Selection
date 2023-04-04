@@ -610,6 +610,7 @@
 				mouse.model.rotation.x = 0;
 				mouse.model.rotation.z = 0;
 				mouse.canMove = true;
+				mouse.runningFromPredator = false;
 				translation.set(0, 0, 0);
 				translation.z = deltaTime * mouse.speed;
 				if (!mouse.isResting && !mouse.isReproductiveResting) {
@@ -621,6 +622,7 @@
 							mouse.predator.model.position.z
 						);
 						if (mouse.visionDistance >= distanceBtwPoints) {
+							mouse.runningFromPredator = true;
 							mouse.canMove = false;
 							mouse.model.lookAt(mouse.predator.model.position);
 							mouse.model.rotation.y += 3.14;
@@ -762,6 +764,7 @@
 			snake = snakes[j];
 			if (!snake.isDead) {
 				snake.canMove = true;
+				snake.runningFromPredator = false;
 				translation.set(0, 0, 0);
 				translation.z = deltaTime * snake.speed;
 				if (!snake.isResting && !snake.isReproductiveResting && !snake.isHuntingPrey) {
@@ -774,6 +777,7 @@
 						);
 						if (snake.visionDistance >= distanceBtwPoints) {
 							snake.canMove = false;
+							snake.runningFromPredator = true;
 							snake.model.lookAt(snake.predator.model.position);
 							snake.model.rotation.y += 3.14;
 							snake.model.locallyTranslate(translation);
@@ -936,6 +940,11 @@
 						snake.model.rotation.x = 0;
 						snake.model.rotation.z = 0;
 						snake.model.locallyTranslate(translation);
+						if (snake.prey.isDead) {
+							snake.prey = null;
+							snake.isHuntingPrey = false;
+							snake.isLookingForPrey = true;
+						}
 						if (snake.stateButton != undefined) {
 							snake.stateButton.textBlock.text = 'Hunting';
 							snake.stateButton.background = '#0a0063';
@@ -1128,6 +1137,11 @@
 						cat.model.lookAt(cat.prey.model.position);
 						cat.model.rotation.x = 0;
 						cat.model.rotation.z = 0;
+						if (cat.prey.isDead) {
+							cat.prey = null;
+							cat.isHuntingPrey = false;
+							cat.isLookingForPrey = true;
+						}
 						if (cat.stateButton != undefined) {
 							cat.stateButton.textBlock.text = 'Hunting';
 							cat.stateButton.background = '#0a0063';
@@ -1155,18 +1169,18 @@
 	function checkWallCollision(animal) {
 		if (animal.model.position.x > $sizeX / 2) {
 			animal.model.position.x = $sizeX / 2;
-			if (!animal.isBeingChased) {
+			if (!animal.runningFromPredator) {
 				animal.model.rotation.y = 4.71 + randBtwDecimals(-0.5, 0.5);
 			}
 		} else if (animal.model.position.x < -$sizeX / 2) {
 			animal.model.position.x = -$sizeX / 2;
-			if (!animal.isBeingChased) {
+			if (!animal.runningFromPredator) {
 				animal.model.rotation.y = 1.57 + randBtwDecimals(-0.5, 0.5);
 			}
 		}
 		if (animal.model.position.z > $sizeY / 2) {
 			animal.model.position.z = $sizeY / 2;
-			if (!animal.isBeingChased) {
+			if (!animal.runningFromPredator) {
 				animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
 			}
 		} else if (animal.model.position.z < -$sizeY / 2) {
@@ -1361,6 +1375,7 @@
 			checkEachMouse(translation);
 			checkEachSnake(translation);
 			checkEachCat(translation);
+			checkIfAllAnimalsDead();
 			scene.render();
 		};
 		engine.runRenderLoop(renderLoop);
@@ -1368,6 +1383,11 @@
 			engine.resize();
 		});
 		return scene;
+	}
+	function checkIfAllAnimalsDead() {
+		if (mice.length <= 1 && snakes.length <= 1 && cats.length <= 1) {
+			window.location.href = '/simulation';
+		}
 	}
 	const startGame = (canvas) => {
 		gameLoop(canvas);
@@ -1457,6 +1477,7 @@
 			generation
 		) {
 			this.isDead = false;
+			this.runningFromPredator = false;
 			this.generation = generation;
 			this.model = undefined;
 			this.stateButton = undefined;
@@ -1521,6 +1542,7 @@
 			generation
 		) {
 			this.isDead = false;
+			this.runningFromPredator = false;
 			this.generation = generation;
 			this.model = undefined;
 			this.stateButton = undefined;
