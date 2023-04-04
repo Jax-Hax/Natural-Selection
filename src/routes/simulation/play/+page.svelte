@@ -687,10 +687,10 @@
 					}
 				}
 				if (mouse.canMove) {
-						if (mouse.stateButton != undefined) {
-							mouse.stateButton.textBlock.text = 'Wandering';
-							mouse.stateButton.background = 'green';
-						}
+					if (mouse.stateButton != undefined) {
+						mouse.stateButton.textBlock.text = 'Wandering';
+						mouse.stateButton.background = 'green';
+					}
 					//movement code
 					if (mouse.turning) {
 						desiredDirection = mouse.speed * deltaTime;
@@ -739,7 +739,7 @@
 					mouse.restingCountdown = mouse.restTime;
 					mouse.isResting = false;
 				}
-			} else{
+			} else {
 				if (mouse.stateButton != undefined) {
 					mouse.stateButton.textBlock.text = 'Resting';
 					mouse.stateButton.background = '#c30cc9';
@@ -838,10 +838,10 @@
 				}
 				if (snake.canMove) {
 					//movement code
-						if (snake.stateButton != undefined) {
-							snake.stateButton.textBlock.text = 'Wandering';
-							snake.stateButton.background = 'green';
-						}
+					if (snake.stateButton != undefined) {
+						snake.stateButton.textBlock.text = 'Wandering';
+						snake.stateButton.background = 'green';
+					}
 					if (snake.turning) {
 						desiredDirection = (snake.speed / 5) * deltaTime;
 						snake.turnAmount -= desiredDirection;
@@ -939,7 +939,7 @@
 			}
 			if (snake.currentHunger <= 0) {
 				snake.model.dispose();
-				if(snake.prey != null){
+				if (snake.prey != null) {
 					snake.prey.isBeingChased = false;
 					snake.prey.predator = null;
 				}
@@ -1025,10 +1025,10 @@
 				}
 				if (cat.canMove) {
 					//movement code
-						if (cat.stateButton != undefined) {
-							cat.stateButton.textBlock.text = 'Wandering';
-							cat.stateButton.background = 'green';
-						}
+					if (cat.stateButton != undefined) {
+						cat.stateButton.textBlock.text = 'Wandering';
+						cat.stateButton.background = 'green';
+					}
 					if (cat.turning) {
 						desiredDirection = (cat.speed / 5) * deltaTime;
 						cat.turnAmount -= desiredDirection;
@@ -1072,7 +1072,7 @@
 						}
 					}
 				}
-			} else if (!cat.isReproductiveResting && !cat.isHuntingPrey) {
+			} else if (cat.isResting) {
 				//resting countdown
 				if (cat.stateButton != undefined) {
 					cat.stateButton.textBlock.text = 'Resting';
@@ -1083,7 +1083,7 @@
 					cat.restingCountdown = cat.restTime;
 					cat.isResting = false;
 				}
-			} else if (!cat.isHuntingPrey) {
+			} else if (cat.isReproductiveResting) {
 				//reproductive resting
 				if (cat.stateButton != undefined) {
 					cat.stateButton.textBlock.text = 'Resting';
@@ -1108,9 +1108,6 @@
 					cat.isHuntingPrey = false;
 					cat.isResting = true;
 					cat.prey.model.dispose();
-					if(cat.prey != null){
-					cat.prey.isBeingChased = false;
-				}
 					snakes.splice(snakes.indexOf(cat.prey), 1);
 					cat.prey = null;
 					if (cat.currentHunger > cat.maxHunger) {
@@ -1129,7 +1126,7 @@
 			}
 			if (cat.currentHunger <= 0) {
 				cat.model.dispose();
-				if(cat.prey != null){
+				if (cat.prey != null) {
 					cat.prey.isBeingChased = false;
 					cat.prey.predator = null;
 				}
@@ -1144,22 +1141,26 @@
 		if (animal.model.position.x > $sizeX / 2) {
 			animal.model.position.x = $sizeX / 2;
 			if (!animal.isBeingChased) {
+				console.log("worked");
 				animal.model.rotation.y = 4.71 + randBtwDecimals(-0.5, 0.5);
 			}
 		} else if (animal.model.position.x < -$sizeX / 2) {
 			animal.model.position.x = -$sizeX / 2;
 			if (!animal.isBeingChased) {
+				console.log("worked");
 				animal.model.rotation.y = 1.57 + randBtwDecimals(-0.5, 0.5);
 			}
 		}
 		if (animal.model.position.z > $sizeY / 2) {
 			animal.model.position.z = $sizeY / 2;
 			if (!animal.isBeingChased) {
+				console.log("worked");
 				animal.model.rotation.y = 3.14 + randBtwDecimals(-0.5, 0.5);
 			}
 		} else if (animal.model.position.z < -$sizeY / 2) {
 			animal.model.position.z = -$sizeY / 2;
 			if (!animal.isBeingChased) {
+				console.log("worked");
 				animal.model.rotation.y = randBtwDecimals(-0.5, 0.5);
 			}
 		}
