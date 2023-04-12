@@ -567,7 +567,7 @@
 			pips
 			pipstep={5}
 			all="label"
-			bind:values={$miceReproductiveRestTime2}
+			bind:values={$miceTimeAliveUntilReproduction2}
 			max={20}
 		/>
 		<p>Snake</p>
@@ -578,7 +578,7 @@
 			pips
 			pipstep={5}
 			all="label"
-			bind:values={$snakeReproductiveRestTime2}
+			bind:values={$snakeTimeAliveUntilReproduction2}
 			max={20}
 		/>
 		<p>Cat</p>
@@ -589,7 +589,7 @@
 			pips
 			pipstep={5}
 			all="label"
-			bind:values={$catReproductiveRestTime2}
+			bind:values={$catTimeAliveUntilReproduction2}
 			max={20}
 		/>
 		<h2>Attractiveness</h2>
@@ -646,7 +646,7 @@
 			pips
 			pipstep={10}
 			all="label"
-			bind:values={$miceReproductiveRestTime2}
+			bind:values={$miceGeneMutationChance2}
 			max={100}
 		/>
 		<p>Snake</p>
@@ -657,7 +657,7 @@
 			suffix="%"
 			pipstep={10}
 			all="label"
-			bind:values={$snakeReproductiveRestTime2}
+			bind:values={$snakeGeneMutationChance2}
 			max={100}
 		/>
 		<p>Cat</p>
@@ -668,7 +668,7 @@
 			suffix="%"
 			pipstep={10}
 			all="label"
-			bind:values={$catReproductiveRestTime2}
+			bind:values={$catGeneMutationChance2}
 			max={100}
 		/>
 		<h2>Gene Mutation Amount</h2>
@@ -684,7 +684,7 @@
 			pips
 			pipstep={5}
 			all="label"
-			bind:values={$miceReproductiveRestTime2}
+			bind:values={$miceGeneMutationAmount2}
 			max={30}
 		/>
 		<p>Snake</p>
@@ -695,7 +695,7 @@
 			pips
 			pipstep={5}
 			all="label"
-			bind:values={$snakeReproductiveRestTime2}
+			bind:values={$snakeGeneMutationAmount2}
 			max={30}
 		/>
 		<p>Cat</p>
@@ -706,7 +706,7 @@
 			suffix="%"
 			pipstep={5}
 			all="label"
-			bind:values={$catReproductiveRestTime2}
+			bind:values={$catGeneMutationAmount2}
 			max={30}
 		/>
 	</div>
