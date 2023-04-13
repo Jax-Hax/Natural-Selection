@@ -644,7 +644,7 @@
 			suffix="%"
 			float
 			pips
-			pipstep={10}
+			pipstep={20}
 			all="label"
 			bind:values={$miceGeneMutationChance2}
 			max={100}
@@ -655,7 +655,7 @@
 			float
 			pips
 			suffix="%"
-			pipstep={10}
+			pipstep={20}
 			all="label"
 			bind:values={$snakeGeneMutationChance2}
 			max={100}
@@ -666,7 +666,7 @@
 			float
 			pips
 			suffix="%"
-			pipstep={10}
+			pipstep={20}
 			all="label"
 			bind:values={$catGeneMutationChance2}
 			max={100}
@@ -682,10 +682,10 @@
 			range
 			float
 			pips
-			pipstep={5}
+			pipstep={20}
 			all="label"
 			bind:values={$miceGeneMutationAmount2}
-			max={30}
+			max={100}
 		/>
 		<p>Snake</p>
 		<RangeSlider
@@ -693,10 +693,10 @@
 			suffix="%"
 			float
 			pips
-			pipstep={5}
+			pipstep={20}
 			all="label"
 			bind:values={$snakeGeneMutationAmount2}
-			max={30}
+			max={100}
 		/>
 		<p>Cat</p>
 		<RangeSlider
@@ -704,10 +704,10 @@
 			float
 			pips
 			suffix="%"
-			pipstep={5}
+			pipstep={20}
 			all="label"
 			bind:values={$catGeneMutationAmount2}
-			max={30}
+			max={100}
 		/>
 	</div>
 	<div class="spacer whiteToBlack" />
