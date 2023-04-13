@@ -786,7 +786,7 @@
 								snake.stateButton.background = 'red';
 							}
 						}
-					} else if (snake.lookingForMate) {
+					} if (snake.lookingForMate && snake.canMove) {
 						if (snake.hasMate) {
 							snake.canMove = false;
 							if (snake.mate != null) {
@@ -837,13 +837,11 @@
 								}
 							}
 						}
-					} else {
-						snake.timeUntilReproduction -= deltaTime;
+					}	snake.timeUntilReproduction -= deltaTime;
 						if (snake.timeUntilReproduction <= 0) {
 							snake.timeUntilReproduction = snake.timeAliveUntilReproduction;
 							snake.lookingForMate = true;
 						}
-					}
 					if (snake.canMove) {
 						//movement code
 						if (snake.stateButton != undefined) {
