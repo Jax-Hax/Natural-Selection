@@ -2,7 +2,7 @@
 	<section id="attentioncatcher">
 		<h1>Development</h1>
 		<p>
-			This was made as the submission to the AP Computer Science Principles Create Project. I started on Febuary 24th, 2023, and finished on April 14th, 2023.
+			This was made in only one and a half months, and was also my first time using Javascript, HTML, CSS, BabylonJS, or really anything in this project, so it was a good learning experience. I started on Febuary 24th, 2023, and finished on April 16th, 2023.
 		</p>
 		<h1>How does it work?</h1>
 		<p>While I obviously cannot explain everything, as this was a multi-thousand lines of code project (you should check out the source code <a href="https://github.com/Jax-Hax/Natural-Selection">here</a> if you want to learn more), but I will explain most of it as best I can.</p>
@@ -12,8 +12,8 @@
 		<h2>Logic</h2>
 		<p>Every frame, it loops through each animal. Depending on the animal, it can do different things, but most are the same. It can have the following states:</p>
 		<ol>
-			<li>Hunting: The cats hunt the snakes, which hunt the mice, that eat grass. They look for the prey with the highest food value, that gives them the most hunger back.</li>
-			<li>Mating: Each animal will look through it's partners and pick the one that has the attractiveness that is above it's standards.</li>
+			<li>Hunting: The cats hunt the snakes, which hunt the mice, that eat grass. They look for the prey with the highest food value, that gives them the most food back.</li>
+			<li>Mating: Each animal will look through it's partners and pick the one that has the attractiveness that is above its standards.</li>
 			<li>Resting: The animals will rest after eating prey and mating, and they sit in place, which is bad if they are being chased by a predator.</li>
 			<li>Movement: The animals are just wandering aimlessly, not moving outside of the width and length bounds of the ground.</li>
 		</ol>
