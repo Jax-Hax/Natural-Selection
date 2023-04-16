@@ -1,6 +1,6 @@
 # Natural Selection
 
-This was made in 1 and a half months for the Svelte Hackathon. I used SvelteKit, along with BabylonJS and ChartJS. I also used Svelte Sliders from https://github.com/simeydotme/svelte-range-slider-pips.
+This was made in 1 and a half months for the Svelte Hackathon. I used SvelteKit, along with BabylonJS and ChartJS. I also used Svelte Sliders from [simeydotme's svelte range sliders](https://github.com/simeydotme/svelte-range-slider-pips).
 
 ## The Demo Video is here: [Natural Selection](https://drive.google.com/file/d/1fkvNVGUmZPxEDvorXOkXhrt_CrJXHqSw/view?usp=sharing)
 
